@@ -1,0 +1,4 @@
+2026-09-11T00:54:15+00:00 WARNING Email "new_order" for order #368 failed to send: Could not instantiate mail function. CONTEXT: {"email_type":"new_order","status":"failed","recipient":"admin","order":368}
+2026-09-11T00:54:17+00:00 WARNING Email "customer_on_hold_order" for order #368 failed to send: Could not instantiate mail function. CONTEXT: {"email_type":"customer_on_hold_order","status":"failed","recipient":"guest","order":368}
+2026-09-11T07:04:26+00:00 WARNING Email "new_order" for order #369 failed to send: Could not instantiate mail function. CONTEXT: {"email_type":"new_order","status":"failed","recipient":"admin","order":369}
+2026-09-11T07:04:28+00:00 WARNING Email "customer_on_hold_order" for order #369 failed to send: Could not instantiate mail function. CONTEXT: {"email_type":"customer_on_hold_order","status":"failed","recipient":"guest","order":369}

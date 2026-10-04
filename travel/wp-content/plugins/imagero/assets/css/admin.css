@@ -1,0 +1,76 @@
+/* Wrapper & Reset */
+.imagero-settings-wrapper {
+    margin: 20px 20px 0 0;
+}
+
+/* WP Color Picker Override */
+.wp-picker-container {
+    display: block;
+}
+
+.wp-picker-container .wp-color-result.button {
+    height: 42px;
+    border-radius: 0.5rem;
+    border: 1px solid #cbd5e1;
+    padding: 0 10px 0 42px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.wp-picker-container .wp-color-result-text {
+    line-height: 40px;
+    color: #334155;
+    font-size: 0.875rem;
+}
+
+/* Fix for WP Admin styles leaking into Tailwind */
+.imagero-settings-wrapper a {
+    text-decoration: none;
+}
+
+.imagero-settings-wrapper a:hover,
+.imagero-settings-wrapper a:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.imagero-settings-wrapper input[type=text]:focus,
+.imagero-settings-wrapper input[type=number]:focus,
+.imagero-settings-wrapper input[type=password]:focus,
+.imagero-settings-wrapper select:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+/* Custom Scrollbar for Tabs if needed */
+.imagero-tab-content {
+    min-height: 400px;
+}
+
+/* Position dots for watermark selector */
+.imagero-dot.top-left {
+    top: 4px;
+    left: 4px;
+}
+
+.imagero-dot.top-right {
+    top: 4px;
+    right: 4px;
+}
+
+.imagero-dot.bottom-left {
+    bottom: 4px;
+    left: 4px;
+}
+
+.imagero-dot.bottom-right {
+    bottom: 4px;
+    right: 4px;
+}
+
+/* Preview background - local CSS gradient instead of remote image */
+.imagero-preview-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}

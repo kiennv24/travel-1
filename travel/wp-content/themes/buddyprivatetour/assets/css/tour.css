@@ -1,0 +1,127 @@
+/* ==========================================================================
+   Tour Archive / Category Stylesheet (tour.css)
+   Buddy Private Tour - Grid Layout
+   ========================================================================== */
+
+.tour-page-wrapper {
+  background: #ffffff;
+  min-height: 80vh;
+  padding-bottom: 4rem;
+}
+
+.tour-page-heading {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.tour-card {
+  position: relative;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.tour-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+}
+
+.tour-card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(12, 74, 133, 0.85);
+  color: #ffffff;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  z-index: 10;
+}
+
+.tour-card-image {
+  height: 200px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.tour-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.tour-card:hover .tour-card-image img {
+  transform: scale(1.05);
+}
+
+.tour-card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.tour-card-title {
+  margin-bottom: 0.5rem;
+  height: auto;
+  min-height: 48px;
+}
+
+.tour-card-title a {
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.tour-card-title a:hover {
+  color: #0c4a85;
+}
+
+.tour-card-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.tour-card-btn {
+  width: 100%;
+  padding: 0.65rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  background: #004b99;
+  color: #ffffff;
+  transition: background 0.2s ease;
+}
+
+.tour-card-btn:hover {
+  background: #003366;
+}

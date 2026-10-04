@@ -1,0 +1,172 @@
+/* ==========================================================================
+   General Pages Stylesheet (pages.css)
+   Buddy Private Tour - Contact, About, Videos, 404
+   ========================================================================== */
+
+/* Contact Page */
+.contact-page-wrapper {
+  background: #ffffff;
+  min-height: 80vh;
+  padding-top: 3.5rem;
+  padding-bottom: 5rem;
+}
+
+.contact-container {
+  max-width: 1100px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4.5rem;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.contact-heading {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #1e293b;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  letter-spacing: 0.3px;
+}
+
+.contact-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.contact-form-label {
+  display: block;
+  font-size: 0.88rem;
+  color: #64748b;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.contact-input,
+.contact-textarea {
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 0.55rem 0.75rem;
+  width: 100%;
+  border-radius: 2px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+  outline: none;
+  border-color: #004b99;
+}
+
+.contact-textarea {
+  height: 130px;
+  resize: vertical;
+}
+
+.contact-submit-btn {
+  background: #004b99;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.65rem 1.75rem;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background 0.2s ease;
+}
+
+.contact-submit-btn:hover {
+  background: #003366;
+}
+
+.contact-info-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 3.5rem;
+}
+
+.contact-info-heading {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e293b;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.65rem;
+  letter-spacing: 0.3px;
+}
+
+.contact-info-subheading {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1e293b;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.3px;
+}
+
+.contact-info-details {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #475569;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* About Us & Generic Pages */
+.page-article-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3.5rem 0;
+  min-height: 70vh;
+}
+
+.page-article-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 1.5rem;
+}
+
+.page-article-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #334155;
+}
+
+/* 404 Page */
+.error-404-box {
+  text-align: center;
+  padding: 6rem 2rem;
+  min-height: 70vh;
+}
+
+.error-404-title {
+  font-size: 5rem;
+  font-weight: 800;
+  color: #0c4a85;
+  margin-bottom: 1rem;
+}
+
+.error-404-subtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+}

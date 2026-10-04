@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Buddy Private Tour</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/tour-detail.css">
+    <link rel="stylesheet" href="assets/css/tour.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+    <link rel="stylesheet" href="assets/css/checkout.css">
+    <link rel="stylesheet" href="assets/css/other-services.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <script src="assets/js/app-localstorage.js"></script>
+    <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-main-wrap">
+        <!-- Desktop Header Row -->
+        <div class="header-top-row desktop-header-row">
+            <a href="index.html" class="brand-logo">
+                <img src="assets/images/logo.png" alt="BUDDY PRIVATE TOUR" class="site-logo-img">
+            </a>
+            <div class="header-nav-column">
+                <nav class="main-navigation">
+                    <ul class="nav-menu">
+                        <li class="menu-item-home"><a href="index.html">HOME</a></li>
+                        <li><a href="about-us.html">ABOUT US</a></li>
+                        <li class="menu-item-has-children">
+                            <a href="tour.html">TOUR</a>
+                            <ul class="sub-menu">
+                                <li><a href="tour.html?category=northern-vietnam-tours">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a></li>
+                                <li><a href="tour.html?category=central-vietnam-tours">DANANG AND NEARBY TOURS (CENTRAL VIETNAM TOURS)</a></li>
+                                <li><a href="tour.html?category=southern-vietnam-tours">HO CHI MINH CITY AND NEARBY TOURS (SOUTHERN VIETNAM TOURS)</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="other-services.html">OTHER SERVICES</a></li>
+                        <li><a href="tour.html#diary">TOUR DIARY</a></li>
+                        <li><a href="videos.html">VIDEOS</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                        <li>
+                            <a href="cart.html" class="nav-cart-btn" title="Cart">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="cart-badge">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="nav-marquee-wrapper">
+                    <div class="nav-marquee-content">
+                        <span>Chào mừng quý khách đến với BUDDY PRIVATE TOUR – Hotline: +84567599998</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Header Layout (Matching exact user screenshot) -->
+        <div class="mobile-header-wrapper">
+            <!-- Centered Logo -->
+            <div class="mobile-logo-wrap">
+                <a href="index.html" class="mobile-brand-logo">
+                    <img src="assets/images/logo.png" alt="BUDDY PRIVATE TOUR" class="mobile-site-logo">
+                </a>
+            </div>
+
+            <!-- Mobile MENU Bar -->
+            <div class="mobile-menu-box">
+                <div class="mobile-menu-bar" id="mobileMenuBar">
+                    <span class="mobile-menu-text">MENU</span>
+                    <div class="mobile-menu-right-actions">
+                        <a href="cart.html" class="mobile-menu-cart-icon-btn" title="Cart" onclick="event.stopPropagation();">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge">0</span>
+                        </a>
+                        <span class="mobile-menu-icon"><i class="fa-solid fa-bars"></i></span>
+                    </div>
+                </div>
+
+                <!-- Dropdown Menu List -->
+                <div class="mobile-menu-dropdown" id="mobileMenuDropdown">
+                    <ul class="mobile-menu-list">
+                        <li class="mobile-menu-item-home"><a href="index.html">HOME</a></li>
+                        <li><a href="about-us.html">ABOUT US</a></li>
+                        <li class="mobile-menu-has-sub">
+                            <div class="mobile-menu-sub-head">
+                                <a href="tour.html">TOUR</a>
+                                <span class="mobile-sub-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+                            </div>
+                            <ul class="mobile-menu-sub-list">
+                                <li><a href="tour.html?category=northern-vietnam-tours">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a></li>
+                                <li><a href="tour.html?category=central-vietnam-tours">DANANG AND NEARBY TOURS (CENTRAL VIETNAM TOURS)</a></li>
+                                <li><a href="tour.html?category=southern-vietnam-tours">HO CHI MINH CITY AND NEARBY TOURS (SOUTHERN VIETNAM TOURS)</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="other-services.html">OTHER SERVICES</a></li>
+                        <li><a href="tour.html#diary">TOUR DIARY</a></li>
+                        <li><a href="videos.html">VIDEOS</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                        <li>
+                            <a href="cart.html" class="mobile-menu-cart-link">
+                                CART
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Hero Slider Section matching 3 banner designs -->
+<section class="hero-slider" id="hero-slider">
+    <div class="slider-wrapper">
+        <!-- Slide 1: Buddy Private Tour Overview (in Hanoi, Da nang, Nha trang, Da lat, Ho chi minh, Phu quoc) -->
+        <div class="slide-item active">
+            <a href="#catalog" class="slide-link">
+                <img src="https://buddyprivatetour.com/wp-content/uploads/2019/12/bn3.jpg" alt="Buddy Private Tour - in Hanoi, Da nang, Nha trang, Da lat, Ho chi minh, Phu quoc" class="slide-img" />
+            </a>
+        </div>
+        <!-- Slide 2: Stimulate tourism with Buddy Private Tour - Discount up to 50% -->
+        <div class="slide-item">
+            <a href="#catalog" class="slide-link">
+                <img src="https://buddyprivatetour.com/wp-content/uploads/2019/12/bn2.jpg" alt="Stimulate tourism with Buddy Private Tour - Discount up to 50%" class="slide-img" />
+            </a>
+        </div>
+        <!-- Slide 3: Roaming Everywhere Together - BUDDY PRIVATE TOUR - Travel Phu Quoc Island -->
+        <div class="slide-item">
+            <a href="#catalog" class="slide-link">
+                <img src="https://buddyprivatetour.com/wp-content/uploads/2019/12/bn1.jpg" alt="Roaming Everywhere Together - BUDDY PRIVATE TOUR - Travel Phu Quoc Island" class="slide-img" />
+            </a>
+        </div>
+    </div>
+
+    <!-- Bullets -->
+    <div class="slider-bullets">
+        <span class="bullet active" onclick="setSlide(0)" aria-label="Slide 1"></span>
+        <span class="bullet" onclick="setSlide(1)" aria-label="Slide 2"></span>
+        <span class="bullet" onclick="setSlide(2)" aria-label="Slide 3"></span>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="slider-nav prev" onclick="changeSlide(-1)" aria-label="Previous Slide">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="slider-nav next" onclick="changeSlide(1)" aria-label="Next Slide">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+</section>
+
+<!-- Editable Content Area for Homepage (Elementor / Gutenberg) -->
+<div class="homepage-editable-content container" style="margin-top: 3rem; margin-bottom: 2rem;">
+    
+</div>
+
+<div id="catalog" class="section-padding">
+    <div class="container">
+        <div id="static-catalog-container">
+                        <div id="northern-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
+            <div id="northern-tours" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
+                <div class="cat-header-wrap">
+                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                    <h2 class="category-section-title">Hà Nội &amp; Miền Bắc (Northern Tours)</h2>
+                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                </div>
+                <div class="tours-grid">
+                                    <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-1.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/image_processing20190823-4-i0mb5h.webp" alt="Hanoi Ninh Binh Tour" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-1.html">Hanoi Ninh Binh Tour</a></h4>
+                        <a href="products/product-1.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-2.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/van-16473202453091404052526.webp" alt="HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-2.html">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a></h4>
+                        <a href="products/product-2.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-16.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/ha-long-2.webp" alt="TOURISM HANOI – NINH BINH – HA LONG" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-16.html">TOURISM HANOI – NINH BINH – HA LONG</a></h4>
+                        <a href="products/product-16.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>                <div class="middle-banner-section">
+                    <img src="https://buddyprivatetour.com/wp-content/uploads/2022/10/WCQB.jpg" alt="Quang Binh Banner">
+                </div>            <div id="central-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
+            <div id="central-tours" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
+                <div class="cat-header-wrap">
+                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                    <h2 class="category-section-title">Đà Nẵng &amp; Miền Trung (Central Tours)</h2>
+                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                </div>
+                <div class="tours-grid">
+                                    <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-4.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hoianecotour.jpg" alt="HOI AN ECO-TOUR" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-4.html">HOI AN ECO-TOUR</a></h4>
+                        <a href="products/product-4.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-5.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/culao5.webp" alt="Cu Lao Cham Island" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-5.html">Cu Lao Cham Island</a></h4>
+                        <a href="products/product-5.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-6.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/mysonsantour.jpg" alt="MY SON SANCTUARY" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-6.html">MY SON SANCTUARY</a></h4>
+                        <a href="products/product-6.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-7.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hueprivate.jpg" alt="Hue private tour" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-7.html">Hue private tour</a></h4>
+                        <a href="products/product-7.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-8.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/bana.webp" alt="Ba Na Hill tour" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-8.html">Ba Na Hill tour</a></h4>
+                        <a href="products/product-8.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-11.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/danang.jpg" alt="Da Nang city tour" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-11.html">Da Nang city tour</a></h4>
+                        <a href="products/product-11.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-12.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hoian.jpg" alt="HOI AN PRIVATE TOUR" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-12.html">HOI AN PRIVATE TOUR</a></h4>
+                        <a href="products/product-12.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-15.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/phongnha.webp" alt="Phong Nha Ke Bang national park and paradise cave" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-15.html">Phong Nha Ke Bang national park and paradise cave</a></h4>
+                        <a href="products/product-15.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-14.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/quangtri.webp" alt="The DMZ veteran tour in Quang Tri province" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-14.html">The DMZ veteran tour in Quang Tri province</a></h4>
+                        <a href="products/product-14.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>            <div id="southern-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
+            <div id="southern-tours" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
+                <div class="cat-header-wrap">
+                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                    <h2 class="category-section-title">TP.HCM &amp; Miền Nam (Southern Tours)</h2>
+                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                </div>
+                <div class="tours-grid">
+                                    <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-3.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/mekongdeltas.jpeg" alt="MEKONG DELTA TOURS" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-3.html">MEKONG DELTA TOURS</a></h4>
+                        <a href="products/product-3.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-9.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hochiminh.webp" alt="HO CHI MINH CITY TOUR" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-9.html">HO CHI MINH CITY TOUR</a></h4>
+                        <a href="products/product-9.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-10.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/anh-bia-cu-chi.webp" alt="CU CHI TUNNELS" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-10.html">CU CHI TUNNELS</a></h4>
+                        <a href="products/product-10.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-13.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/phuquoc.webp" alt="Phu Quoc Island" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-13.html">Phu Quoc Island</a></h4>
+                        <a href="products/product-13.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Featured Videos Section -->
+        <div class="home-videos-section">
+            <div class="home-videos-grid">
+                <!-- Video 1 -->
+                <div class="home-video-card">
+                    <div class="home-video-wrapper">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AAeb7JPwJfw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="home-video-card">
+                    <div class="home-video-wrapper">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/STt213h-_hM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Full-width Middle Banner (bn3.jpg) stretched 100% across the screen -->
+<div class="middle-banner-fullwidth" style="width: 100%; margin-top: 2rem; margin-bottom: 3.5rem; overflow: hidden; line-height: 0;">
+    <img src="assets/images/bn3.jpg" alt="Buddy Private Tour Banner" style="width: 100%; height: auto; display: block; object-fit: cover;">
+</div>
+
+<div class="section-padding" style="padding-top: 0; background: #fff;">
+    <div class="container">
+        <!-- Other Services Section below tours and videos -->
+        <div id="other-services" class="other-services-home-section" style="margin-bottom: 4rem;">
+            <div class="cat-header-wrap">
+                <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                <h2 class="category-section-title">OTHER SERVICES</h2>
+                <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+            </div>
+
+            <div class="tours-grid">
+                                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="other-services-detail-car-rental.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/dkt-transport-cung-cap-dich-vu-cho-thue-xe-7-cho-tai-ha-noi.webp" alt="CAR RENTAL FROM 4-45">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="other-services-detail-car-rental.html">CAR RENTAL FROM 4-45</a></h4>
+                        <a href="other-services-detail-car-rental.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="other-services-detail-hotel.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hotel.webp" alt="HOTEL">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="other-services-detail-hotel.html">HOTEL</a></h4>
+                        <a href="other-services-detail-hotel.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="other-services-detail-airline-tickets.html">
+                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/ve-7546-1571044895.webp" alt="CHEAP AIRLINE TICKETS">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="other-services-detail-airline-tickets.html">CHEAP AIRLINE TICKETS</a></h4>
+                        <a href="other-services-detail-airline-tickets.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Consultation form section (Glassmorphism layout) -->
+<section id="consultation" class="consultation-section" style="background-image: url('https://buddyprivatetour.com/wp-content/uploads/2022/10/post_vinh-ha-long-054559201019.jpg');">
+    <div class="container">
+        <div class="glass-form-box">
+            <h3 class="glass-form-title">TOUR CONSULTATION & QUICK BOOKING</h3>
+            <form action="#" method="POST" onsubmit="alert('Thank you! Your inquiry has been sent successfully.'); return false;">
+                <div class="glass-form-group">
+                    <label for="cust_name">Your Name:</label>
+                    <input type="text" id="cust_name" class="glass-form-control" required placeholder="Full Name">
+                </div>
+                <div class="glass-form-group">
+                    <label for="cust_phone">Your Phone:</label>
+                    <input type="tel" id="cust_phone" class="glass-form-control" required placeholder="Phone Number / WhatsApp">
+                </div>
+                <div class="glass-form-group">
+                    <label for="cust_msg">Your Message:</label>
+                    <textarea id="cust_msg" class="glass-form-control" rows="4" placeholder="Your travel dates, number of persons, or special requests..."></textarea>
+                </div>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button type="submit" class="glass-btn-submit">SEND INQUIRY</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+const seedProducts = [];
+const seedCategories = [];
+const seedCart = [];
+const seedOrders = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    BPT_Storage.init(seedProducts, seedCategories, seedCart, seedOrders);
+    renderCatalog();
+});
+
+function renderCatalog() {
+    const categories = BPT_Storage.getCategories();
+    const products = BPT_Storage.getProducts();
+    const container = document.getElementById('static-catalog-container');
+    let html = '';
+
+    const getOrder = (cat) => {
+        const s = ((cat.slug || '') + ' ' + (cat.name || '')).toLowerCase();
+        if (s.includes('north') || s.includes('bac') || s.includes('hà nội') || s.includes('ha noi')) return 1;
+        if (s.includes('central') || s.includes('trung') || s.includes('đà nẵng') || s.includes('da nang')) return 2;
+        if (s.includes('south') || s.includes('nam') || s.includes('hồ chí minh') || s.includes('hcm')) return 3;
+        if (s.includes('other') || s.includes('xe') || s.includes('service')) return 4;
+        return 99;
+    };
+
+    const sortedCategories = [...categories].sort((a, b) => getOrder(a) - getOrder(b));
+
+    sortedCategories.forEach(cat => {
+        if (cat.slug === 'other-services' || cat.id == 4 || cat.id == 21) return;
+
+        const s = ((cat.slug || '') + ' ' + (cat.name || '')).toLowerCase();
+        const isCentral = s.includes('central') || s.includes('trung') || cat.id == 2 || cat.id == 19;
+
+        if (isCentral) {
+            html += `
+            <div class="middle-banner-section">
+                <img src="https://buddyprivatetour.com/wp-content/uploads/2022/10/WCQB.jpg" alt="Quang Binh Banner">
+            </div>`;
+        }
+
+        const catProducts = products.filter(p => p.category_id == cat.id);
+        if (catProducts.length === 0) return;
+
+        let anchorAlias = '';
+        if (s.includes('north') || s.includes('bac')) anchorAlias = 'northern-vietnam-tours';
+        else if (s.includes('central') || s.includes('trung')) anchorAlias = 'central-vietnam-tours';
+        else if (s.includes('south') || s.includes('nam')) anchorAlias = 'southern-vietnam-tours';
+
+        html += `
+        ${anchorAlias ? \`<div id="${anchorAlias}" style="position:relative; top:-90px; visibility:hidden;"></div>\` : ''}
+        <div id="${cat.slug}" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
+            <div class="cat-header-wrap">
+                <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                <h2 class="category-section-title">${cat.name}</h2>
+                <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+            </div>
+            <div class="tours-grid">`;
+
+        catProducts.forEach(p => {
+            const imgSrc = BPT_Storage.fixImagePath(p.image);
+            html += `
+                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="products/product-${p.id}.html">
+                            <img src="${imgSrc}" alt="${p.title}">
+                        </a>
+                    </div>
+                    <div class="tour-card-body">
+                        <h4 class="tour-card-title"><a href="products/product-${p.id}.html">${p.title}</a></h4>
+                        <a href="products/product-${p.id}.html" class="card-readmore-btn">
+                            <i class="fa-regular fa-circle-right"></i> Read more
+                        </a>
+                    </div>
+                </div>`;
+        });
+
+        html += `</div></div>`;
+    });
+
+    container.innerHTML = html;
+}
+
+// Hero Slider Script
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide-item');
+const bullets = document.querySelectorAll('.bullet');
+let slideInterval = setInterval(nextSlide, 4500);
+
+function showSlide(index) {
+    if (slides.length === 0) return;
+    slides.forEach(s => s.classList.remove('active'));
+    bullets.forEach(b => b.classList.remove('active'));
+
+    currentSlide = (index + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    bullets[currentSlide].classList.add('active');
+}
+
+function setSlide(index) {
+    showSlide(index);
+    resetTimer();
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlide + direction);
+    resetTimer();
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function resetTimer() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 4500);
+}
+</script>
+<!-- Contact Information section -->
+<footer id="contact" class="contact-info-section">
+    <div class="container">
+        <h3 class="contact-info-title">CONTACT INFOMATION</h3>
+        <h4 class="contact-info-brand">BUDDY PRIVATE TOUR</h4>
+        
+        <div class="contact-info-details">
+            <p><strong>Address:</strong> 24/9 Nguyen Luong Bang street, Hoa Khanh Bac, Lien Chieu, Da Nang.</p>
+            <p><strong>Zalo / WhatsApp:</strong> +84567599998 – <strong>Hotline:</strong> +84567599998</p>
+            <p><strong>Email:</strong> buddyprivatetour@gmail.com</p>
+        </div>
+
+        <img src="assets/images/dathongbao.png" class="mit-badge" alt="Đã Thông Báo Bộ Công Thương">
+    </div>
+
+    <!-- Bottom Bar and Social Media Links -->
+    <div class="bottom-bar">
+        <div class="container">
+            <div class="bottom-bar-socials">
+                <a href="mailto:buddyprivatetour@gmail.com" class="social-icon-link" title="Email"><img src="assets/images/icon-email.png" alt="Email"></a>
+                <a href="#" class="social-icon-link" title="TikTok"><img src="assets/images/icon-tiktok.png" alt="TikTok"></a>
+                <a href="#" class="social-icon-link" title="YouTube"><img src="assets/images/icon-youtube.png" alt="YouTube"></a>
+                <a href="#" class="social-icon-link" title="Facebook"><img src="assets/images/icon-facebook.png" alt="Facebook"></a>
+                <a href="#" class="social-icon-link" title="Viber"><img src="assets/images/icon-viber.png" alt="Viber"></a>
+                <a href="#" class="social-icon-link" title="WeChat"><img src="assets/images/icon-wechat.png" alt="WeChat"></a>
+                <a href="https://zalo.me/84567599998" target="_blank" class="social-icon-link" title="Zalo"><img src="assets/images/icon-zalo.png" alt="Zalo"></a>
+                <a href="#" class="social-icon-link" title="TripAdvisor"><img src="assets/images/icon-tripadvisor.png" alt="TripAdvisor"></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating actions in bottom-left corner exactly like screenshots -->
+<div class="floating-left-actions">
+    <a href="tel:+84567599998" class="bpt-hotline-pill" title="Call Hotline: +84567599998">
+        <div class="bpt-hotline-circle">
+            <div class="bpt-hotline-red">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+        </div>
+        <span class="bpt-hotline-number">+84567599998</span>
+    </a>
+    <a href="https://zalo.me/84567599998" target="_blank" rel="noopener noreferrer" class="bpt-zalo-bubble" title="Chat Zalo / WhatsApp: +84567599998">
+        <div class="bpt-zalo-inner">
+            <span class="bpt-zalo-text">Zalo</span>
+        </div>
+    </a>
+</div>
+
+<!-- Floating Back to Top Button on bottom right -->
+<a href="#" class="floating-back-to-top" title="Back to Top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+    <i class="fa-solid fa-arrow-up"></i>
+</a>
+
+</body>
+</html>

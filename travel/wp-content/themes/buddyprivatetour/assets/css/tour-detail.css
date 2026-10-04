@@ -1,0 +1,547 @@
+/* ==========================================================================
+   Tour Detail Stylesheet (tour-detail.css)
+   Buddy Private Tour - Premium 3-Column Detail Layout
+   ========================================================================== */
+
+/* Breadcrumb Bar */
+.site-breadcrumb-wrap {
+  padding: 1.25rem 0 0.5rem;
+}
+
+.site-breadcrumb-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  flex-wrap: wrap;
+}
+
+.crumb-link {
+  color: #0c4a85;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.2s ease;
+}
+
+.crumb-link:hover {
+  color: #004b99;
+  text-decoration: underline;
+}
+
+.crumb-separator {
+  color: #cbd5e1;
+}
+
+.crumb-current {
+  color: #334155;
+  font-weight: 700;
+}
+
+.crumb-category {
+  color: #0c4a85;
+}
+
+/* Detail Section */
+.tour-detail-section {
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
+  background: #ffffff;
+}
+
+/* 3-Column Top Grid */
+.bpt-tour-top-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr 230px;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 4rem;
+}
+
+/* Column 1: Gallery */
+.bpt-gallery-col {
+  width: 100%;
+}
+
+.bpt-main-image-wrap {
+  width: 380px;
+  height: 440px;
+  border: 1px solid #f0f0f0;
+  background: #ffffff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+.bpt-main-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.bpt-thumbnails-grid {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.bpt-thumb-item {
+  width: 70px;
+  height: 55px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: border-color 0.2s ease;
+}
+
+.bpt-thumb-item.active,
+.bpt-thumb-item:hover {
+  border-color: #0c4a85;
+}
+
+.bpt-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Column 2: Info & Action */
+.bpt-info-col {
+  padding-right: 1rem;
+}
+
+.bpt-tour-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1e293b;
+  line-height: 1.35;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.bpt-tour-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ef4444;
+  margin-bottom: 1.25rem;
+}
+
+.bpt-tour-meta-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bpt-tour-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.bpt-tour-meta-item i {
+  color: #0c4a85;
+  width: 20px;
+}
+
+.bpt-tour-summary-box {
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.25rem;
+}
+
+/* Qty Stepper */
+.bpt-qty-stepper-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.bpt-qty-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #334155;
+}
+
+.bpt-qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 1px;
+  height: 32px;
+  background: #ffffff;
+}
+
+.bpt-qty-btn {
+  width: 32px;
+  height: 30px;
+  border: none;
+  background: #ffffff;
+  color: #94a3b8;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  transition: color 0.2s;
+}
+
+.bpt-qty-btn:hover {
+  color: #1e293b;
+}
+
+.bpt-qty-input {
+  width: 44px;
+  height: 30px;
+  border-left: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  border-top: none;
+  border-bottom: none;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1e293b;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.bpt-qty-input::-webkit-outer-spin-button,
+.bpt-qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Orange Add to Cart Button */
+.bpt-add-cart-orange-btn {
+  background: #f7941d;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding: 0.75rem 1.6rem;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  line-height: 1.35;
+  text-align: center;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.bpt-add-cart-orange-btn:hover {
+  background: #e07f0f;
+  transform: translateY(-1px);
+}
+
+/* Column 3: Sidebar Related Tour */
+.bpt-side-related-card {
+  border: 1px solid #eeeeee;
+  border-radius: 1px;
+  background: #ffffff;
+  width: 230px;
+  overflow: hidden;
+}
+
+.bpt-side-related-header {
+  background: #fbfbfb;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 6px 8px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.bpt-rel-nav-btn {
+  border: 1px solid #dddddd;
+  background: #ffffff;
+  color: #777777;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: all 0.2s;
+}
+
+.bpt-rel-nav-btn:hover {
+  border-color: #0c4a85;
+  color: #0c4a85;
+}
+
+.bpt-side-rel-body {
+  padding: 10px;
+  text-align: center;
+}
+
+.bpt-side-rel-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  margin-bottom: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.bpt-side-rel-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bpt-side-rel-price {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ef4444;
+}
+
+/* Tabs Section */
+.bpt-tab-nav-bar {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #004b99;
+  margin-bottom: 2.5rem;
+}
+
+.bpt-tab-btn-active {
+  background: #004b99;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 0.65rem 1.6rem;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.bpt-tab-btn-inactive {
+  background: transparent;
+  border: none;
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.65rem 1.25rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.bpt-tab-btn-inactive:hover {
+  color: #004b99;
+}
+
+.bpt-tab-content-wrap {
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: #334155;
+}
+
+.bpt-tab-content-wrap h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 1.5rem 0 1rem;
+}
+
+.bpt-tab-content-wrap ul {
+  padding-left: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.bpt-tab-content-wrap li {
+  margin-bottom: 0.5rem;
+}
+
+/* Inclusions / Exclusions Box */
+.bpt-tour-inclusions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.bpt-inclusion-box h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bpt-inclusion-box.included h4 {
+  color: #16a34a;
+}
+
+.bpt-inclusion-box.excluded h4 {
+  color: #dc2626;
+}
+
+.bpt-inclusion-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bpt-inclusion-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.92rem;
+  color: #475569;
+}
+
+.bpt-inclusion-list li i {
+  margin-top: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .bpt-tour-top-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+  .bpt-main-image-wrap {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 4/3;
+  }
+  .bpt-info-col {
+    padding-right: 0;
+  }
+  .bpt-side-related-card {
+    width: 100%;
+    max-width: 100%;
+  }
+  .bpt-tour-inclusions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .bpt-main-image-wrap {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  .bpt-tour-title {
+    font-size: 1.35rem;
+  }
+  .bpt-tour-price {
+    font-size: 1.35rem;
+    margin-bottom: 1rem;
+  }
+  .bpt-action-btns {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .bpt-btn-add-cart,
+  .bpt-btn-book-now {
+    width: 100%;
+    justify-content: center;
+    height: 48px;
+    font-size: 0.95rem;
+  }
+  .bpt-tabs-nav {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .bpt-tab-btn-active,
+  .bpt-tab-btn-inactive {
+    font-size: 0.82rem;
+    padding: 0.55rem 0.9rem;
+    flex-shrink: 0;
+  }
+  .bpt-tour-inclusions-grid {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+  .bpt-tour-rich-description {
+    font-size: 0.98rem;
+    line-height: 1.75;
+  }
+}
+
+/* Rich Description content (Headings, Paragraphs, Images) */
+.bpt-tour-rich-description {
+  font-size: 1.05rem;
+  color: #1e293b;
+  line-height: 1.85;
+}
+
+.bpt-tour-rich-description h2,
+.bpt-tour-rich-description h3,
+.bpt-tour-rich-description h4 {
+  font-weight: 800;
+  color: #0f172a;
+  margin: 1.75rem 0 0.75rem 0;
+  line-height: 1.4;
+}
+
+.bpt-tour-rich-description p {
+  margin-bottom: 1.25rem;
+}
+
+.bpt-tour-rich-description img,
+#tab-content-description img,
+.bpt-tab-content img,
+.bpt-tour-rich-description .wp-block-image img,
+.bpt-tour-rich-description figure img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 10px !important;
+  margin: 1.75rem auto !important;
+  display: block !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07) !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.bpt-tour-rich-description p:has(img),
+.bpt-tour-rich-description figure,
+.bpt-tour-rich-description .wp-block-image,
+.bpt-tour-rich-description .aligncenter {
+  text-align: center !important;
+  margin: 1.75rem auto !important;
+  display: block !important;
+}
