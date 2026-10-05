@@ -1,111 +1,128 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> lang="en">
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php wp_title( '|', true, 'right' ); ?><?php bloginfo( 'name' ); ?></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <?php wp_head(); ?>
     <script>const BPT_IS_WORDPRESS = true;</script>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<!-- Main Header Navigation matching user screenshot -->
+<!-- Top Announcement Ticker Bar -->
+<div class="header-top-ticker">
+    <div class="container">
+        <span><span data-i18n="ticker_welcome">✨ Welcome to BUDDY PRIVATE TOUR – 24/7 Hotline / WhatsApp Support:</span> <a href="tel:+84567599998">+84 567 599 998</a></span>
+    </div>
+</div>
+
+<!-- Main Sticky Glassmorphism Header -->
 <header class="site-header">
     <div class="header-main-wrap">
         <!-- Desktop Header Row -->
         <div class="header-top-row desktop-header-row">
             <!-- Brand Logo -->
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-logo">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-logo" title="BUDDY PRIVATE TOUR">
                 <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>" alt="BUDDY PRIVATE TOUR" class="site-logo-img">
             </a>
 
-            <!-- Nav and Marquee Column (Desktop) -->
+            <!-- Nav Links Column -->
             <div class="header-nav-column">
                 <nav class="main-navigation">
                     <ul class="nav-menu">
-                        <li class="menu-item-home"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">HOME</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=about-us' ) ); ?>">ABOUT US</a></li>
+                        <li class="menu-item-home"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa-solid fa-house" style="font-size: 0.8rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                        <li><a href="<?php echo esc_url( site_url( '?pagename=about-us' ) ); ?>" data-i18n="nav_about">ABOUT US</a></li>
                         <li class="menu-item-has-children">
-                            <a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>">TOUR</a>
+                            <a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>"><span data-i18n="nav_tour">TOURS</span></a>
                             <ul class="sub-menu">
-                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=northern-vietnam-tours' ) ); ?>">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a></li>
-                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=central-vietnam-tours' ) ); ?>">DANANG AND NEARBY TOURS (CENTRAL VIETNAM TOURS)</a></li>
-                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=southern-vietnam-tours' ) ); ?>">HO CHI MINH CITY AND NEARBY TOURS (SOUTHERN VIETNAM TOURS)</a></li>
+                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=northern-vietnam-tours' ) ); ?>"><i class="fa-solid fa-mountain-sun" style="color: #0284c7;"></i> <span data-i18n="nav_north">HANOI & NORTH VIETNAM</span></a></li>
+                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=central-vietnam-tours' ) ); ?>"><i class="fa-solid fa-umbrella-beach" style="color: #0ea5e9;"></i> <span data-i18n="nav_central">DA NANG & CENTRAL VIETNAM</span></a></li>
+                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=southern-vietnam-tours' ) ); ?>"><i class="fa-solid fa-city" style="color: #f97316;"></i> <span data-i18n="nav_south">HO CHI MINH CITY & SOUTH</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>">OTHER SERVICES</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>#diary">TOUR DIARY</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=videos' ) ); ?>">VIDEOS</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=contact' ) ); ?>">CONTACT</a></li>
-                        <li>
-                            <a href="<?php echo esc_url( function_exists('wc_get_cart_url') ? wc_get_cart_url() : site_url( '?pagename=cart' ) ); ?>" class="nav-cart-btn" title="Cart">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                <span class="cart-badge"><?php echo bpt_db_cart_count(); ?></span>
-                            </a>
-                        </li>
+                        <li><a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>" data-i18n="nav_other_services">CAR RENTAL & HOTELS</a></li>
+                        <li><a href="<?php echo esc_url( site_url( '?pagename=videos' ) ); ?>" data-i18n="nav_videos">VIDEOS</a></li>
+                        <li><a href="<?php echo esc_url( site_url( '?pagename=contact' ) ); ?>" data-i18n="nav_contact">CONTACT</a></li>
                     </ul>
                 </nav>
 
-                <!-- Running ticker text bounded in nav column -->
-                <div class="nav-marquee-wrapper">
-                    <div class="nav-marquee-content">
-                        <span>Chào mừng quý khách đến với BUDDY PRIVATE TOUR – Hotline: +84567599998</span>
+                <!-- Right Actions: Language Switcher & Cart -->
+                <div class="header-right-actions">
+                    <!-- Bilingual Language Switcher Pill (Default EN) -->
+                    <div class="bpt-lang-switcher" title="Switch Language / Chuyển đổi ngôn ngữ">
+                        <button type="button" class="bpt-lang-btn active" data-lang="en">
+                            <span class="lang-flag">🇬🇧</span> <span class="lang-code">EN</span>
+                        </button>
+                        <span class="bpt-lang-divider">|</span>
+                        <button type="button" class="bpt-lang-btn" data-lang="vi">
+                            <span class="lang-flag">🇻🇳</span> <span class="lang-code">VI</span>
+                        </button>
                     </div>
+
+                    <a href="<?php echo esc_url( function_exists('wc_get_cart_url') ? wc_get_cart_url() : site_url( '?pagename=cart' ) ); ?>" class="nav-cart-btn" title="Your Cart" data-i18n-title="nav_cart">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-badge"><?php echo bpt_db_cart_count(); ?></span>
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Header Layout (Matching exact user screenshot) -->
+        <!-- Mobile Header Layout -->
         <div class="mobile-header-wrapper">
-            <!-- Centered Logo -->
-            <div class="mobile-logo-wrap">
+            <div class="mobile-header-bar">
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-brand-logo">
                     <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>" alt="BUDDY PRIVATE TOUR" class="mobile-site-logo">
                 </a>
+
+                <div class="mobile-header-right">
+                    <!-- Mobile Language Switcher -->
+                    <div class="bpt-lang-switcher mobile-lang-switcher">
+                        <button type="button" class="bpt-lang-btn active" data-lang="en">
+                            <span class="lang-flag">🇬🇧</span> <span class="lang-code">EN</span>
+                        </button>
+                        <span class="bpt-lang-divider">|</span>
+                        <button type="button" class="bpt-lang-btn" data-lang="vi">
+                            <span class="lang-flag">🇻🇳</span> <span class="lang-code">VI</span>
+                        </button>
+                    </div>
+
+                    <a href="<?php echo esc_url( function_exists('wc_get_cart_url') ? wc_get_cart_url() : site_url( '?pagename=cart' ) ); ?>" class="nav-cart-btn" title="Cart" style="width: 38px; height: 38px; font-size: 1rem;">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-badge"><?php echo bpt_db_cart_count(); ?></span>
+                    </a>
+                    
+                    <button type="button" class="mobile-menu-toggle-btn" id="mobileMenuToggleBtn" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Mobile MENU Bar -->
-            <div class="mobile-menu-box">
-                <div class="mobile-menu-bar" id="mobileMenuBar">
-                    <span class="mobile-menu-text">MENU</span>
-                    <div class="mobile-menu-right-actions">
-                        <a href="<?php echo esc_url( function_exists('wc_get_cart_url') ? wc_get_cart_url() : site_url( '?pagename=cart' ) ); ?>" class="mobile-menu-cart-icon-btn" title="Cart" onclick="event.stopPropagation();">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <span class="cart-badge"><?php echo bpt_db_cart_count(); ?></span>
-                        </a>
-                        <span class="mobile-menu-icon"><i class="fa-solid fa-bars"></i></span>
-                    </div>
-                </div>
-
-                <!-- Dropdown Menu List -->
-                <div class="mobile-menu-dropdown" id="mobileMenuDropdown">
-                    <ul class="mobile-menu-list">
-                        <li class="mobile-menu-item-home"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">HOME</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=about-us' ) ); ?>">ABOUT US</a></li>
-                        <li class="mobile-menu-has-sub">
-                            <div class="mobile-menu-sub-head">
-                                <a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>">TOUR</a>
-                                <span class="mobile-sub-chevron"><i class="fa-solid fa-chevron-down"></i></span>
-                            </div>
-                            <ul class="mobile-menu-sub-list">
-                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=northern-vietnam-tours' ) ); ?>">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a></li>
-                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=central-vietnam-tours' ) ); ?>">DANANG AND NEARBY TOURS (CENTRAL VIETNAM TOURS)</a></li>
-                                <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=southern-vietnam-tours' ) ); ?>">HO CHI MINH CITY AND NEARBY TOURS (SOUTHERN VIETNAM TOURS)</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>">OTHER SERVICES</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>#diary">TOUR DIARY</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=videos' ) ); ?>">VIDEOS</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=contact' ) ); ?>">CONTACT</a></li>
-                        <li>
-                            <a href="<?php echo esc_url( function_exists('wc_get_cart_url') ? wc_get_cart_url() : site_url( '?pagename=cart' ) ); ?>" class="mobile-menu-cart-link">
-                                CART (<?php echo bpt_db_cart_count(); ?>)
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <!-- Mobile Dropdown Drawer -->
+            <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+                <ul class="mobile-menu-list">
+                    <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa-solid fa-house" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                    <li><a href="<?php echo esc_url( site_url( '?pagename=about-us' ) ); ?>"><i class="fa-solid fa-circle-info" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_about">ABOUT US</span></a></li>
+                    <li class="mobile-menu-has-sub">
+                        <div class="mobile-sub-head">
+                            <a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>"><i class="fa-solid fa-compass" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_tour">TOURS</span></a>
+                            <span class="mobile-sub-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="mobile-sub-list">
+                            <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=northern-vietnam-tours' ) ); ?>" data-i18n="nav_north">Hanoi & North Vietnam</a></li>
+                            <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=central-vietnam-tours' ) ); ?>" data-i18n="nav_central">Da Nang & Central Vietnam</a></li>
+                            <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=southern-vietnam-tours' ) ); ?>" data-i18n="nav_south">Ho Chi Minh City & South</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>"><i class="fa-solid fa-car" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
+                    <li><a href="<?php echo esc_url( site_url( '?pagename=videos' ) ); ?>"><i class="fa-solid fa-video" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_videos">VIDEOS</span></a></li>
+                    <li><a href="<?php echo esc_url( site_url( '?pagename=contact' ) ); ?>"><i class="fa-solid fa-headset" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_contact">CONTACT</span></a></li>
+                </ul>
             </div>
         </div>
     </div>
 </header>
-

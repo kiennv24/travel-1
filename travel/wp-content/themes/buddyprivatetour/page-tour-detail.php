@@ -1,6 +1,7 @@
 <?php
 /**
  * Template Name: Tour Detail
+ * Buddy Private Tour - Luxury UI/UX Redesign
  */
 
 get_header();
@@ -24,21 +25,21 @@ if (!$product && (is_singular('product') || get_post_type() === 'product')) {
 }
 
 if (!$product) {
-    echo '<div class="container" style="padding: 5rem 0; text-align: center;"><h2>Không tìm thấy sản phẩm/tour yêu cầu!</h2><a href="' . esc_url(home_url('/')) . '" class="btn-primary" style="margin-top: 1.5rem;">Quay về Trang chủ</a></div>';
+    echo '<div class="container" style="padding: 5rem 0; text-align: center;"><h2 data-i18n="no_tours_found">Requested tour not found!</h2><a href="' . esc_url(home_url('/')) . '" class="tour-card-cta-btn" style="margin-top: 1.5rem; display: inline-flex;"><span data-i18n="nav_home">Return to Home</span></a></div>';
     get_footer();
     exit;
 }
 
-// Fetch related tours for top sidebar card & bottom related section
+// Fetch related tours
 $related_products = BPT_ProductModel::getRelated($product['category_id'], $product['id'], 6);
 
-// Decode gallery images, highlights, inclusions, and exclusions
+// Decode gallery images, highlights, inclusions, exclusions
 $gallery_images = json_decode($product['images'] ?? '[]', true) ?: [];
 $highlights = json_decode($product['highlights'] ?? '[]', true) ?: [];
 $included = json_decode($product['included'] ?? '[]', true) ?: [];
 $excluded = json_decode($product['excluded'] ?? '[]', true) ?: [];
 
-// Fallback to newline parsing if not stored as JSON
+// Fallbacks
 if (empty($included) && !empty($product['included'])) {
     $included = array_filter(array_map('trim', explode("\n", $product['included'])));
 }
@@ -46,21 +47,34 @@ if (empty($excluded) && !empty($product['excluded'])) {
     $excluded = array_filter(array_map('trim', explode("\n", $product['excluded'])));
 }
 
-// Image helper function
-function bpt_get_detail_image_url($image_path) {
-    return bpt_resolve_image_url($image_path);
+if (empty($highlights)) {
+    $highlights = [
+        '100% private and customizable itinerary tailored to your preferences.',
+        'Modern private air-conditioned vehicle with direct hotel/airport pickup.',
+        'Licensed local English/Vietnamese speaking guide with deep cultural knowledge.',
+        'Authentic local cuisine dining at handpicked reputable restaurants.'
+    ];
 }
+
+// Ensure at least 5 images for mosaic grid
+$all_gallery = array_values(array_unique(array_filter(array_merge([$product['image']], $gallery_images))));
+while (count($all_gallery) < 5) {
+    $all_gallery[] = $product['image'];
+}
+
+$duration = !empty($product['duration']) ? $product['duration'] : 'Full Day (8 Hours)';
+$unitPrice = floatval($product['price']);
 ?>
 
-<!-- Breadcrumbs Section matching user screenshot -->
+<!-- Breadcrumb Navigation -->
 <div class="site-breadcrumb-wrap container">
     <nav class="site-breadcrumb-box">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="crumb-link">
-            <i class="fa-solid fa-house"></i>Home
+            <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
         </a>
         <span class="crumb-separator">/</span>
         <a href="<?php echo esc_url(site_url('?pagename=tour')); ?>" class="crumb-link">
-            Tour
+            <span data-i18n="crumb_tour">Tours</span>
         </a>
         <span class="crumb-separator">/</span>
         <a href="<?php echo esc_url(site_url('?pagename=tour&category=' . $product['category_slug'])); ?>" class="crumb-link crumb-category">
@@ -71,325 +85,304 @@ function bpt_get_detail_image_url($image_path) {
     </nav>
 </div>
 
-<div class="section-padding" style="padding-top: 1.5rem; padding-bottom: 4rem; background: #fff;">
+<!-- Tour Detail Main Wrapper -->
+<div class="section-padding" style="padding-top: 1.5rem; padding-bottom: 5rem; background: #ffffff;">
     <div class="container">
-        <!-- Main Product 3-Column Section matching screenshot -->
-        <div class="bpt-tour-top-grid">
-            
-            <!-- Column 1: Main Image & Thumbnails -->
-            <div class="bpt-gallery-col">
-                <div class="bpt-main-image-wrap">
-                    <img id="bpt-main-img" src="<?php echo esc_url(bpt_get_detail_image_url($product['image'])); ?>" alt="<?php echo esc_attr($product['title']); ?>">
-                </div>
-                
-                <!-- Thumbnails Row -->
-                <?php 
-                $all_gallery = array_merge([$product['image']], $gallery_images);
-                $all_gallery = array_unique(array_filter($all_gallery));
-                if (count($all_gallery) > 1) : 
-                ?>
-                    <div class="bpt-thumbnails-grid" style="display: flex; gap: 0.5rem; margin-top: 0.85rem; flex-wrap: wrap;">
-                        <?php foreach ($all_gallery as $index => $img_path) : 
-                            $img_url = bpt_get_detail_image_url($img_path);
-                        ?>
-                            <div class="bpt-thumb-item <?php echo $index === 0 ? 'active' : ''; ?>" onclick="switchBptImage('<?php echo esc_js($img_url); ?>', this)" style="width: 70px; height: 55px; border: 1px solid <?php echo $index === 0 ? '#0c4a85' : '#e2e8f0'; ?>; overflow: hidden; cursor: pointer;">
-                                <img src="<?php echo esc_url($img_url); ?>" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-            
-            <!-- Column 2: Product Title, Price, Quantity & Add to Cart Button -->
-            <div class="bpt-tour-summary-col">
-                <h1 style="font-size: 1.6rem; font-weight: 700; color: #1e293b; line-height: 1.25; margin-top: 0; margin-bottom: 0.5rem; text-transform: uppercase;">
-                    <?php echo esc_html($product['title']); ?>
-                </h1>
-                
-                <!-- Price Tag -->
-                <div style="font-size: 1.35rem; font-weight: 800; color: #cc0000; margin-bottom: 2rem;">
-                    <?php echo esc_html(format_currency($product['price'])); ?>
-                </div>
-                
-                <!-- Amount Stepper Row -->
-                <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.75rem;">
-                    <span style="font-weight: 500; font-size: 0.82rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">AMOUNT:</span>
-                    
-                    <div class="bpt-qty-stepper">
-                        <button type="button" onclick="changeQty(-1)" class="bpt-qty-btn">−</button>
-                        <input type="number" id="detail-qty" value="1" min="1" max="50" class="bpt-qty-input" readonly>
-                        <button type="button" onclick="changeQty(1)" class="bpt-qty-btn">+</button>
-                    </div>
-                </div>
-                
-                <!-- Orange Add to Cart Button -->
-                <button onclick="addToCartDbDetail(<?php echo $product['id']; ?>)" class="bpt-add-cart-orange-btn">
-                    ADD TO SHOPPING<br>CART
-                </button>
-            </div>
-
-            <!-- Column 3: Related Tour Carousel Card matching screenshot -->
-            <div class="bpt-tour-sidebar-col">
-                <?php 
-                $first_rel = !empty($related_products) ? $related_products[0] : null;
-                if ($first_rel) :
-                    $rel_img = bpt_get_detail_image_url($first_rel['image']);
-                    $rel_url = site_url('?pagename=tour-detail&id=' . $first_rel['id']);
-                ?>
-                    <div class="bpt-side-related-card">
-                        <!-- Top Header with Navigation Arrows -->
-                        <div class="bpt-side-related-header">
-                            <button type="button" onclick="prevRelated()" class="bpt-rel-nav-btn" aria-label="Previous">&lt;</button>
-                            <button type="button" onclick="nextRelated()" class="bpt-rel-nav-btn" aria-label="Next">&gt;</button>
-                        </div>
-                        
-                        <!-- Related Image -->
-                        <div style="height: 175px; overflow: hidden; background: #fff;">
-                            <a id="side-rel-img-link" href="<?php echo esc_url($rel_url); ?>">
-                                <img id="side-rel-img" src="<?php echo esc_url($rel_img); ?>" alt="<?php echo esc_attr($first_rel['title']); ?>" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                            </a>
-                        </div>
-                        
-                        <!-- Related Body -->
-                        <div style="padding: 0.75rem 0.5rem 1.25rem; text-align: center;">
-                            <a id="side-rel-title" href="<?php echo esc_url($rel_url); ?>" style="color: #333333; font-weight: 600; font-size: 0.88rem; line-height: 1.35; text-decoration: none; display: block; margin-bottom: 0.5rem; text-transform: uppercase;">
-                                <?php echo esc_html($first_rel['title']); ?>
-                            </a>
-                            <div id="side-rel-price" style="font-size: 0.95rem; font-weight: 800; color: #cc0000;">
-                                <?php echo esc_html(format_currency($first_rel['price'])); ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
+        
+        <!-- Header Title & Rating -->
+        <div class="tour-detail-header-wrap">
+            <h1 class="tour-detail-main-title"><?php echo esc_html($product['title']); ?></h1>
+            <div class="tour-detail-sub-meta">
+                <span class="tour-detail-badge-pill"><i class="fa-solid fa-gem"></i> <span data-i18n="detail_badge_private">Private Tour</span></span>
+                <span class="tour-detail-rating"><i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="detail_rating_reviews">(86 international traveler reviews)</span></span>
+                <span class="tour-detail-loc"><i class="fa-solid fa-location-dot"></i> <?php echo esc_html($product['category_name']); ?></span>
             </div>
         </div>
-        
-        <!-- Tabs / Content Section matching screenshot -->
-        <div class="bpt-tour-tabs-wrapper">
-            <!-- Tab Navigation matching screenshot with Blue active block and bullets -->
-            <div class="bpt-tab-nav-bar">
-                <button onclick="switchTab('description')" id="tab-btn-description" class="bpt-tab-btn-active">DESCRIPTION</button>
-                <button onclick="switchTab('reviews')" id="tab-btn-reviews" class="bpt-tab-btn-inactive"><span>•</span> REVIEWS (0)</button>
-                <button onclick="switchTab('tags')" id="tab-btn-tags" class="bpt-tab-btn-inactive"><span>•</span> TAGS</button>
+
+        <!-- 1. MOSAIC IMAGE GALLERY (Airbnb Style 1 Large + 4 Small) -->
+        <div class="tour-mosaic-gallery">
+            <!-- Main Large Image (Left 60%) -->
+            <div class="mosaic-item mosaic-main" onclick="switchBptMosaicImage('<?php echo esc_js(bpt_resolve_image_url($all_gallery[0])); ?>', this)">
+                <img id="bpt-main-img" src="<?php echo esc_url(bpt_resolve_image_url($all_gallery[0])); ?>" alt="<?php echo esc_attr($product['title']); ?>">
             </div>
+
+            <!-- 4 Thumbnail Images (Right 40% in 2x2 Grid) -->
+            <?php for ($i = 1; $i <= 4; $i++) : 
+                $img_url = bpt_resolve_image_url($all_gallery[$i] ?? $all_gallery[0]);
+            ?>
+                <div class="mosaic-item" onclick="switchBptMosaicImage('<?php echo esc_js($img_url); ?>', this)">
+                    <img src="<?php echo esc_url($img_url); ?>" alt="Gallery <?php echo $i; ?>">
+                </div>
+            <?php endfor; ?>
+
+            <button type="button" class="mosaic-view-all-btn" onclick="alert('Viewing full photo collection!')">
+                <i class="fa-solid fa-grip-vertical"></i> <span data-i18n="gallery_btn_view_all">View all photos</span> (<?php echo count($all_gallery); ?>)
+            </button>
+        </div>
+
+        <!-- 2. MAIN 2-COLUMN LAYOUT (65% Content / 35% Sticky Booking Box) -->
+        <div class="bpt-tour-detail-grid">
             
-            <!-- Tab Content: Description -->
-            <div id="tab-content-description" class="bpt-tab-content" style="display: block;">
-                <div style="max-width: 900px; margin: 0 auto;">
-                    <!-- Summary Paragraph -->
+            <!-- LEFT COLUMN (65%) -->
+            <div class="tour-main-content-col">
+                
+                <!-- Quick Summary Bar with 5 Icon Badges -->
+                <div class="tour-quick-info-bar">
+                    <div class="quick-info-item">
+                        <div class="quick-info-icon"><i class="fa-solid fa-car-side"></i></div>
+                        <div class="quick-info-text">
+                            <span class="quick-info-label" data-i18n="info_vehicle_lbl">Transportation</span>
+                            <span class="quick-info-val" data-i18n="info_vehicle_val">Modern Private Car</span>
+                        </div>
+                    </div>
+                    <div class="quick-info-item">
+                        <div class="quick-info-icon"><i class="fa-solid fa-language"></i></div>
+                        <div class="quick-info-text">
+                            <span class="quick-info-label" data-i18n="info_guide_lbl">Tour Guide</span>
+                            <span class="quick-info-val" data-i18n="info_guide_val">Private English/Vietnamese</span>
+                        </div>
+                    </div>
+                    <div class="quick-info-item">
+                        <div class="quick-info-icon"><i class="fa-solid fa-user-shield"></i></div>
+                        <div class="quick-info-text">
+                            <span class="quick-info-label" data-i18n="info_type_lbl">Tour Type</span>
+                            <span class="quick-info-val" data-i18n="info_type_val">100% Private Tour</span>
+                        </div>
+                    </div>
+                    <div class="quick-info-item">
+                        <div class="quick-info-icon"><i class="fa-solid fa-hotel"></i></div>
+                        <div class="quick-info-text">
+                            <span class="quick-info-label" data-i18n="info_pickup_lbl">Pickup & Dropoff</span>
+                            <span class="quick-info-val" data-i18n="info_pickup_val">Complimentary Hotel Pickup</span>
+                        </div>
+                    </div>
+                    <div class="quick-info-item">
+                        <div class="quick-info-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="quick-info-text">
+                            <span class="quick-info-label" data-i18n="info_duration_lbl">Duration</span>
+                            <span class="quick-info-val"><?php echo esc_html($duration); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tour Highlights Card -->
+                <div class="tour-highlights-card">
+                    <h3 class="tour-highlights-title"><i class="fa-solid fa-star"></i> <span data-i18n="sec_highlights_title">TOUR HIGHLIGHTS</span></h3>
+                    <ul class="tour-highlights-list">
+                        <?php foreach ($highlights as $hl) : ?>
+                            <li class="tour-highlight-item">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span><?php echo esc_html($hl); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+
+                <!-- Tour Day-by-Day Timeline / Accordion -->
+                <div class="tour-timeline-section">
+                    <h3 class="tour-section-heading"><i class="fa-solid fa-route" style="color: #0284c7;"></i> <span data-i18n="sec_itinerary_title">DETAILED ITINERARY</span></h3>
+                    <div class="tour-timeline-container">
+                        <!-- Day 1 -->
+                        <div class="timeline-day-card active">
+                            <div class="timeline-node">1</div>
+                            <div class="timeline-day-header" onclick="toggleTimelineDay(this)">
+                                <span class="timeline-day-title" data-i18n="timeline_day_1_title">Morning: Hotel Pickup & Signature Sightseeing</span>
+                                <span class="timeline-day-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                            </div>
+                            <div class="timeline-day-body">
+                                <p data-i18n="timeline_day_1_body">Private car and guide pick you up promptly at your hotel or meeting point. Begin your journey visiting world-famous landmarks while enjoying insightful cultural stories from your dedicated local guide.</p>
+                            </div>
+                        </div>
+
+                        <!-- Day 2 / Afternoon -->
+                        <div class="timeline-day-card active">
+                            <div class="timeline-node">2</div>
+                            <div class="timeline-day-header" onclick="toggleTimelineDay(this)">
+                                <span class="timeline-day-title" data-i18n="timeline_day_2_title">Afternoon: Authentic Local Cuisine & Cultural Discovery</span>
+                                <span class="timeline-day-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                            </div>
+                            <div class="timeline-day-body">
+                                <p data-i18n="timeline_day_2_body">Savor a delicious traditional lunch at handpicked local restaurants. Continue exploring scenic attractions, capturing photos, and shopping for specialties before a safe private drop-off at your hotel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Included & Excluded Section -->
+                <div class="tour-inclusions-grid">
+                    <!-- Included -->
+                    <div class="inclusions-card included">
+                        <h4 class="inclusions-card-title"><i class="fa-solid fa-circle-check"></i> <span data-i18n="sec_included_title">INCLUDED IN TOUR</span></h4>
+                        <ul class="inclusions-list">
+                            <?php if (!empty($included)) : ?>
+                                <?php foreach ($included as $inc) : ?>
+                                    <li><i class="fa-solid fa-check"></i> <span><?php echo esc_html($inc); ?></span></li>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_1">Modern air-conditioned private vehicle throughout</span></li>
+                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_2">Professional English / Vietnamese speaking private guide</span></li>
+                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_3">All entrance fees and sightseeing tickets</span></li>
+                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_4">Complimentary bottled water and cold towels</span></li>
+                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_5">Full-coverage travel insurance</span></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+
+                    <!-- Excluded -->
+                    <div class="inclusions-card excluded">
+                        <h4 class="inclusions-card-title"><i class="fa-solid fa-circle-xmark"></i> <span data-i18n="sec_excluded_title">EXCLUDED FROM TOUR</span></h4>
+                        <ul class="inclusions-list">
+                            <?php if (!empty($excluded)) : ?>
+                                <?php foreach ($excluded as $exc) : ?>
+                                    <li><i class="fa-solid fa-xmark"></i> <span><?php echo esc_html($exc); ?></span></li>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_1">Personal expenses outside program (shopping, laundry)</span></li>
+                                <li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_2">Gratuities & tips for driver and tour guide</span></li>
+                                <li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_3">VAT invoice (if tax receipt requested)</span></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Rich Description & Notes -->
+                <div>
+                    <h3 class="tour-section-heading"><i class="fa-solid fa-circle-info" style="color: #0284c7;"></i> <span data-i18n="sec_overview_title">ABOUT THIS TRIP</span></h3>
                     <?php if (!empty($product['summary'])) : ?>
-                        <p style="font-size: 1.1rem; color: #334155; line-height: 1.8; margin-bottom: 1.5rem; font-weight: 500; font-style: italic;">
+                        <p style="font-size: 1.1rem; color: #1e293b; line-height: 1.8; margin-bottom: 1.5rem; font-weight: 500; font-style: italic; background: #f8fafc; padding: 1.25rem; border-left: 4px solid #0284c7; border-radius: 4px;">
                             <?php echo esc_html($product['summary']); ?>
                         </p>
                     <?php endif; ?>
-                    
-                    <!-- Main Description Text with rich HTML & embedded images -->
-                    <div class="bpt-tour-rich-description" style="font-size: 1.05rem; color: #1e293b; line-height: 1.8; margin-bottom: 2.5rem;">
+
+                    <div class="bpt-tour-rich-description">
                         <?php echo wpautop(wp_kses_post($product['description'])); ?>
                     </div>
-                    
-                  
-                    
-                    <!-- What's Included & What's Excluded Section -->
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #cbd5e1; margin-bottom: 2rem;">
-                        <!-- Included -->
-                        <div>
-                            <h4 style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin-bottom: 1rem; text-transform: none;">
-                                What's included:
-                            </h4>
-                            <?php if (!empty($included)) : ?>
-                                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; padding-left: 0; margin-bottom: 0;">
-                                    <?php foreach ($included as $inc_item) : ?>
-                                        <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #1e293b; font-size: 0.95rem; line-height: 1.5;">
-                                            <span style="color: #1e293b; font-weight: bold; margin-top: -0.1rem; font-size: 0.8rem;">♦</span>
-                                            <span><?php echo esc_html($inc_item); ?></span>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php else : ?>
-                                <p style="font-size: 0.95rem; color: #64748b; font-style: italic;">No specifications.</p>
-                            <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: STICKY BOOKING BOX (35%) -->
+            <div class="tour-sidebar-col">
+                <div class="sticky-booking-card">
+                    <!-- Price Header -->
+                    <div class="booking-card-header">
+                        <div class="booking-price-wrap">
+                            <span class="booking-price-label" data-i18n="booking_price_lbl">Special private tour price</span>
+                            <div class="booking-price-value">
+                                <?php echo esc_html(format_currency($unitPrice)); ?>
+                                <span class="booking-price-unit" data-i18n="booking_price_unit">/ guest</span>
+                            </div>
                         </div>
-                        
-                        <!-- Excluded -->
-                        <div style="margin-top: 0.5rem;">
-                            <h4 style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin-bottom: 1rem; text-transform: none;">
-                                What's excluded:
-                            </h4>
-                            <?php if (!empty($excluded)) : ?>
-                                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; padding-left: 0; margin-bottom: 0;">
-                                    <?php foreach ($excluded as $exc_item) : ?>
-                                        <li style="display: flex; align-items: flex-start; gap: 0.5rem; color: #1e293b; font-size: 0.95rem; line-height: 1.5;">
-                                            <span style="color: #1e293b; font-weight: bold; margin-top: -0.1rem; font-size: 0.8rem;">♦</span>
-                                            <span><?php echo esc_html($exc_item); ?></span>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php else : ?>
-                                <p style="font-size: 0.95rem; color: #64748b; font-style: italic;">No specifications.</p>
-                            <?php endif; ?>
+                        <span style="background: #ffedd5; color: #c2410c; font-size: 0.78rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 9999px;" data-i18n="booking_discount_badge">
+                            Save 15%
+                        </span>
+                    </div>
+
+                    <!-- Date Selection -->
+                    <div class="booking-form-group">
+                        <label class="booking-input-label" for="detail-tour-date"><i class="fa-regular fa-calendar"></i> <span data-i18n="booking_date_lbl">Select Departure Date:</span></label>
+                        <input type="date" id="detail-tour-date" class="booking-input-control" value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+
+                    <!-- Guest Counter Stepper -->
+                    <div class="booking-form-group">
+                        <label class="booking-input-label"><i class="fa-solid fa-user-group"></i> <span data-i18n="booking_guests_lbl">Number of Guests:</span></label>
+                        <div class="booking-guest-stepper">
+                            <button type="button" class="guest-stepper-btn" onclick="updateTourDetailGuests(-1, <?php echo $unitPrice; ?>)">−</button>
+                            <input type="number" id="detail-guest-count" class="guest-stepper-input" value="2" min="1" max="50" readonly>
+                            <button type="button" class="guest-stepper-btn" onclick="updateTourDetailGuests(1, <?php echo $unitPrice; ?>)">+</button>
                         </div>
+                    </div>
+
+                    <!-- Price Subtotal Breakdown -->
+                    <div class="booking-calc-summary">
+                        <div class="booking-calc-row">
+                            <span><span data-i18n="booking_calc_label">Tour price x</span> <strong id="calc-guest-display">2</strong> <span data-i18n="booking_calc_guest_unit">guests:</span></span>
+                            <span class="val" id="calc-subtotal-display"><?php echo format_currency($unitPrice * 2); ?></span>
+                        </div>
+                        <div class="booking-calc-row">
+                            <span data-i18n="booking_calc_service_lbl">Private guide & service fees:</span>
+                            <span style="color: #15803d; font-weight: 700;" data-i18n="booking_calc_free">Free</span>
+                        </div>
+                        <div class="booking-calc-total">
+                            <span data-i18n="booking_calc_subtotal_lbl">Subtotal:</span>
+                            <span class="val" id="calc-grand-total"><?php echo format_currency($unitPrice * 2); ?></span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <button type="button" onclick="submitTourBooking(<?php echo $product['id']; ?>)" class="booking-cta-add-cart">
+                        <i class="fa-solid fa-cart-shopping"></i> <span data-i18n="btn_book_now">BOOK THIS TOUR</span>
+                    </button>
+
+                    <!-- Trust Badges -->
+                    <div class="booking-trust-guarantees">
+                        <div class="booking-trust-item"><i class="fa-solid fa-circle-check"></i> <span data-i18n="guarantee_free_cancel">Free cancellation up to 24 hours in advance</span></div>
+                        <div class="booking-trust-item"><i class="fa-solid fa-bolt"></i> <span data-i18n="guarantee_instant_confirm">Instant confirmation & VietQR E-voucher</span></div>
+                        <div class="booking-trust-item"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="guarantee_quality">Guaranteed 5-star service excellence</span></div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Tab Content: Reviews -->
-            <div id="tab-content-reviews" class="bpt-tab-content" style="display: none;">
-                <div style="max-width: 900px; margin: 0 auto; padding: 2.5rem; background: #f8fafc; border-radius: var(--radius-md); border: 1px solid #e2e8f0; text-align: center;">
-                    <i class="fa-solid fa-comments" style="font-size: 3rem; color: #94a3b8; margin-bottom: 1rem;"></i>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">REVIEWS (0)</h3>
-                    <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem;">There are no reviews for this tour yet. Be the first to share your experience!</p>
-                    <button class="btn-primary" style="background: #0c4a85;" onclick="alert('Review system is coming soon!')">WRITE A REVIEW</button>
-                </div>
-            </div>
-            
-            <!-- Tab Content: Tags -->
-            <div id="tab-content-tags" class="bpt-tab-content" style="display: none;">
-                <div style="max-width: 900px; margin: 0 auto; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                    <span style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 0.4rem 1rem; border-radius: 9999px; font-weight: 600; font-size: 0.85rem; color: #475569;">
-                        <i class="fa-solid fa-tag"></i> <?php echo esc_html($product['category_slug']); ?>
-                    </span>
-                    <span style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 0.4rem 1rem; border-radius: 9999px; font-weight: 600; font-size: 0.85rem; color: #475569;">
-                        <i class="fa-solid fa-tag"></i> travel
-                    </span>
-                    <span style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 0.4rem 1rem; border-radius: 9999px; font-weight: 600; font-size: 0.85rem; color: #475569;">
-                        <i class="fa-solid fa-tag"></i> private-tour
-                    </span>
-                </div>
-            </div>
+
         </div>
+
+        <!-- 3. RELATED TOURS SECTION -->
+        <?php if (!empty($related_products)) : ?>
+            <div style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid #e2e8f0;">
+                <div class="cat-header-wrap" style="margin-bottom: 2rem;">
+                    <span class="category-sub-badge"><i class="fa-solid fa-compass"></i> <span data-i18n="sec_related_badge">More Recommendations</span></span>
+                    <h2 class="category-section-title" data-i18n="sec_related_title">OTHER POPULAR PRIVATE TOURS</h2>
+                </div>
+
+                <div class="tours-grid">
+                    <?php foreach (array_slice($related_products, 0, 3) as $rel) : 
+                        $rel_url = site_url('?pagename=tour-detail&id=' . $rel['id']);
+                        $rel_img = bpt_resolve_image_url($rel['image']);
+                    ?>
+                        <div class="tour-card">
+                            <div class="tour-card-image">
+                                <a href="<?php echo esc_url($rel_url); ?>">
+                                    <img src="<?php echo esc_url($rel_img); ?>" alt="<?php echo esc_attr($rel['title']); ?>" loading="lazy">
+                                </a>
+                                <span class="tour-badge-private"><i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span></span>
+                            </div>
+                            <div class="tour-card-body">
+                                <h3 class="tour-card-title">
+                                    <a href="<?php echo esc_url($rel_url); ?>"><?php echo esc_html($rel['title']); ?></a>
+                                </h3>
+                                <div class="tour-card-footer">
+                                    <div class="tour-price-wrap">
+                                        <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                        <span class="tour-price-value"><?php echo esc_html(format_currency($rel['price'])); ?></span>
+                                    </div>
+                                    <a href="<?php echo esc_url($rel_url); ?>" class="tour-card-cta-btn">
+                                        <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
     </div>
 </div>
 
-<!-- Related Products Section -->
-<?php
-$related_products = BPT_ProductModel::getRelated($product['category_id'], $product['id'], 5);
-if (!empty($related_products)) :
-?>
-    <div style="background: #fff; padding-bottom: 5rem;">
-        <div class="container">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0c4a85; margin-bottom: 2rem; position: relative;">
-                <span style="background: #0c4a85; color: #fff; padding: 0.6rem 1.5rem; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px;">
-                    RELATED PRODUCTS
-                </span>
-                <div style="display: flex; gap: 0.5rem; font-size: 0.85rem; color: #64748b; font-weight: 700; margin-right: 0.5rem;">
-                    <span style="cursor: pointer; border: 1px solid #cbd5e1; padding: 0.2rem 0.5rem; border-radius: 2px; background: #fff;" onclick="alert('Use swipe or scroll to see more products.')">&lt;</span>
-                    <span style="cursor: pointer; border: 1px solid #cbd5e1; padding: 0.2rem 0.5rem; border-radius: 2px; background: #fff;" onclick="alert('Use swipe or scroll to see more products.')">&gt;</span>
-                </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem;">
-                <?php foreach ($related_products as $rel) : 
-                    $rel_img = bpt_get_detail_image_url($rel['image']);
-                    $rel_url = site_url('?pagename=tour-detail&id=' . $rel['id']);
-                ?>
-                    <div class="bpt-related-card" style="background: #fff; border: 1px solid #e2e8f0; overflow: hidden; display: flex; flex-direction: column; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); text-align: center; min-width: 180px;">
-                        <div style="height: 160px; overflow: hidden;">
-                            <a href="<?php echo esc_url($rel_url); ?>">
-                                <img src="<?php echo esc_url($rel_img); ?>" alt="<?php echo esc_attr($rel['title']); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" loading="lazy">
-                            </a>
-                        </div>
-                        <div style="padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; align-items: center;">
-                            <h5 style="margin: 0 0 0.75rem; font-size: 0.9rem; line-height: 1.4; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                <a href="<?php echo esc_url($rel_url); ?>" style="color: #1e293b; font-weight: 700;"><?php echo esc_html($rel['title']); ?></a>
-                            </h5>
-                            <div style="font-size: 1.05rem; font-weight: 800; color: #ef4444;">
-                                <?php echo esc_html(format_currency($rel['price'])); ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
+<!-- Mobile Sticky Bottom Booking Bar -->
+<div class="mobile-bottom-booking-bar">
+    <div class="mobile-bottom-bar-price">
+        <span class="label" data-i18n="mobile_price_label">From</span>
+        <span class="val"><?php echo esc_html(format_currency($unitPrice)); ?></span>
     </div>
-<?php endif; ?>
+    <button type="button" onclick="submitTourBooking(<?php echo $product['id']; ?>)" class="mobile-bottom-bar-cta">
+        <i class="fa-solid fa-cart-shopping"></i> <span data-i18n="mobile_btn_book">Book Now</span>
+    </button>
+</div>
 
-<!-- JavaScript Helpers -->
+<!-- JavaScript Logic for Cart Addition -->
 <script>
-// Side Related Tours Carousel
-let relatedIndex = 0;
-const relatedTours = <?php echo json_encode(array_values(array_map(function($r) {
-    return [
-        'id' => $r['id'],
-        'title' => $r['title'],
-        'price' => format_currency($r['price']),
-        'image' => bpt_get_detail_image_url($r['image']),
-        'url' => site_url('?pagename=tour-detail&id=' . $r['id'])
-    ];
-}, $related_products))); ?>;
-
-function updateRelatedTour() {
-    if (!relatedTours || relatedTours.length === 0) return;
-    const current = relatedTours[relatedIndex];
-    const imgElem = document.getElementById('side-rel-img');
-    const titleElem = document.getElementById('side-rel-title');
-    const linkElem = document.getElementById('side-rel-img-link');
-    const priceElem = document.getElementById('side-rel-price');
-    if (imgElem) imgElem.src = current.image;
-    if (titleElem) {
-        titleElem.textContent = current.title;
-        titleElem.href = current.url;
-    }
-    if (linkElem) linkElem.href = current.url;
-    if (priceElem) priceElem.textContent = current.price;
-}
-
-function prevRelated() {
-    if (!relatedTours || relatedTours.length === 0) return;
-    relatedIndex = (relatedIndex - 1 + relatedTours.length) % relatedTours.length;
-    updateRelatedTour();
-}
-
-function nextRelated() {
-    if (!relatedTours || relatedTours.length === 0) return;
-    relatedIndex = (relatedIndex + 1) % relatedTours.length;
-    updateRelatedTour();
-}
-
-function switchBptImage(imgUrl, thumb) {
-    document.getElementById('bpt-main-img').src = imgUrl;
-    
-    // Remove active class styling from all thumbnail borders
-    const thumbs = document.querySelectorAll('.bpt-thumb-item');
-    thumbs.forEach(t => {
-        t.style.borderColor = '#e2e8f0';
-    });
-    
-    // Apply active border color
-    thumb.style.borderColor = '#0c4a85';
-}
-
-function changeQty(amount) {
-    const qtyInput = document.getElementById('detail-qty');
-    let currentVal = parseInt(qtyInput.value) || 1;
-    currentVal += amount;
-    if (currentVal < 1) currentVal = 1;
-    if (currentVal > 50) currentVal = 50;
-    qtyInput.value = currentVal;
-}
-
-function switchTab(tabId) {
-    // Hide all tab contents
-    document.querySelectorAll('.bpt-tab-content').forEach(content => {
-        content.style.display = 'none';
-    });
-    
-    // Show selected tab content
-    const selectedContent = document.getElementById('tab-content-' + tabId);
-    if (selectedContent) selectedContent.style.display = 'block';
-    
-    // Reset all tab button styles
-    const tabs = ['description', 'reviews', 'tags'];
-    tabs.forEach(t => {
-        const btn = document.getElementById('tab-btn-' + t);
-        if (btn) {
-            btn.className = (t === tabId) ? 'bpt-tab-btn-active' : 'bpt-tab-btn-inactive';
-        }
-    });
-}
-
-function addToCartDbDetail(id) {
-    const qty = parseInt(document.getElementById('detail-qty').value) || 1;
+function submitTourBooking(id) {
+    const qty = parseInt(document.getElementById('detail-guest-count').value) || 1;
     const baseUrl = '<?php echo esc_url(site_url('/')); ?>';
     window.location.href = baseUrl + '?bpt_action=add_to_cart&product_id=' + id + '&qty=' + qty;
 }

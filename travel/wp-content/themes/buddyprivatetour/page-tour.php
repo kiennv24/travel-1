@@ -1,6 +1,7 @@
 <?php
 /**
  * Template Name: Tour Page
+ * Buddy Private Tour - Modern Tour Listing Page
  */
 get_header();
 
@@ -12,18 +13,18 @@ $selected_category = isset($_GET['category']) ? sanitize_text_field($_GET['categ
 $cat_id = isset($_GET['cat_id']) ? intval($_GET['cat_id']) : 0;
 
 $filter_key = '';
-$current_cat_name = 'TOUR';
+$current_cat_name = 'ALL PRIVATE TOURS';
 
 if (!empty($selected_category)) {
     if (strpos($selected_category, 'north') !== false || strpos($selected_category, 'ha-noi') !== false || $selected_category == '1') {
         $filter_key = 'north';
-        $current_cat_name = 'HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)';
+        $current_cat_name = 'HANOI & NORTHERN VIETNAM TOURS';
     } elseif (strpos($selected_category, 'central') !== false || strpos($selected_category, 'da-nang') !== false || strpos($selected_category, 'danang') !== false || $selected_category == '2') {
         $filter_key = 'central';
-        $current_cat_name = 'DANANG AND NEARBY TOURS (CENTRAL VIETNAM TOURS)';
+        $current_cat_name = 'DA NANG & CENTRAL VIETNAM TOURS';
     } elseif (strpos($selected_category, 'south') !== false || strpos($selected_category, 'ho-chi-minh') !== false || $selected_category == '3') {
         $filter_key = 'south';
-        $current_cat_name = 'HO CHI MINH CITY AND NEARBY TOURS (SOUTHERN VIETNAM TOURS)';
+        $current_cat_name = 'HO CHI MINH CITY & SOUTHERN VIETNAM TOURS';
     } else {
         $filter_key = $selected_category;
         foreach ($categories as $c) {
@@ -36,13 +37,13 @@ if (!empty($selected_category)) {
 } elseif ($cat_id > 0) {
     if ($cat_id == 1) {
         $filter_key = 'north';
-        $current_cat_name = 'HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)';
+        $current_cat_name = 'HANOI & NORTHERN VIETNAM TOURS';
     } elseif ($cat_id == 2) {
         $filter_key = 'central';
-        $current_cat_name = 'DANANG AND NEARBY TOURS (CENTRAL VIETNAM TOURS)';
+        $current_cat_name = 'DA NANG & CENTRAL VIETNAM TOURS';
     } elseif ($cat_id == 3) {
         $filter_key = 'south';
-        $current_cat_name = 'HO CHI MINH CITY AND NEARBY TOURS (SOUTHERN VIETNAM TOURS)';
+        $current_cat_name = 'HO CHI MINH CITY & SOUTHERN VIETNAM TOURS';
     }
 }
 
@@ -74,76 +75,117 @@ function bpt_tour_image_url($image_path) {
 
 <div class="tour-page-wrapper">
     <div class="container">
-        <!-- Breadcrumb bar matching user screenshot -->
+        <!-- Breadcrumb navigation -->
         <div class="site-breadcrumb-wrap">
             <nav class="site-breadcrumb-box">
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="crumb-link">
-                    <i class="fa-solid fa-house"></i>Home
+                    <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
                 </a>
                 <span class="crumb-separator">/</span>
-                <?php if ($cat_id > 0) : ?>
+                <?php if ($cat_id > 0 || !empty($selected_category)) : ?>
                     <a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>" class="crumb-link">
-                        Tour
+                        <span data-i18n="crumb_tour">Tours</span>
                     </a>
                     <span class="crumb-separator">/</span>
                     <span class="crumb-current crumb-category"><?php echo esc_html($current_cat_name); ?></span>
                 <?php else : ?>
-                    <span class="crumb-current">Tour</span>
+                    <span class="crumb-current" data-i18n="crumb_tour">Tours</span>
                 <?php endif; ?>
             </nav>
         </div>
 
-        <h1 class="tour-page-heading">
-            <?php echo esc_html($current_cat_name); ?>
-        </h1>
+        <div class="tour-page-header-wrap">
+            <h1 class="tour-page-heading">
+                <?php echo esc_html($current_cat_name); ?>
+            </h1>
+            <p class="tour-page-desc" data-i18n="tour_page_desc">All premium private tour packages include private guide, hotel pickup/drop-off, and 5-star standard care.</p>
+        </div>
 
-        <!-- Tour list grid with add to cart buttons -->
+        <!-- Regional Filter Category Pills -->
+        <div class="tour-category-pills-bar">
+            <a href="<?php echo esc_url(site_url('?pagename=tour')); ?>" class="cat-pill-btn <?php echo empty($filter_key) ? 'active' : ''; ?>">
+                <i class="fa-solid fa-globe"></i> <span data-i18n="filter_all_tours">All Tours</span>
+            </a>
+            <a href="<?php echo esc_url(site_url('?pagename=tour&category=northern-vietnam-tours')); ?>" class="cat-pill-btn <?php echo ($filter_key === 'north') ? 'active' : ''; ?>">
+                <i class="fa-solid fa-mountain-sun"></i> <span data-i18n="filter_north">Hanoi & North Vietnam</span>
+            </a>
+            <a href="<?php echo esc_url(site_url('?pagename=tour&category=central-vietnam-tours')); ?>" class="cat-pill-btn <?php echo ($filter_key === 'central') ? 'active' : ''; ?>">
+                <i class="fa-solid fa-umbrella-beach"></i> <span data-i18n="filter_central">Da Nang & Central Vietnam</span>
+            </a>
+            <a href="<?php echo esc_url(site_url('?pagename=tour&category=southern-vietnam-tours')); ?>" class="cat-pill-btn <?php echo ($filter_key === 'south') ? 'active' : ''; ?>">
+                <i class="fa-solid fa-city"></i> <span data-i18n="filter_south">Ho Chi Minh City & South</span>
+            </a>
+        </div>
+
+        <!-- Tour List Grid -->
         <div class="tours-grid">
             <?php if (!empty($products)) : ?>
-                <?php foreach ($products as $product) : ?>
+                <?php foreach ($products as $product) : 
+                    $tour_url = site_url('?pagename=tour-detail&id=' . $product['id']);
+                    $duration = !empty($product['duration']) ? $product['duration'] : 'Full Day';
+                ?>
                     <div class="tour-card">
-                        <!-- Floating category badge -->
-                        <span class="tour-card-badge">
-                            <?php echo esc_html($product['category_name']); ?>
-                        </span>
-
                         <div class="tour-card-image">
-                            <a href="<?php echo esc_url(site_url('?pagename=tour-detail&id=' . $product['id'])); ?>">
+                            <a href="<?php echo esc_url($tour_url); ?>">
                                 <img src="<?php echo esc_url(bpt_tour_image_url($product['image'])); ?>" alt="<?php echo esc_attr($product['title']); ?>" loading="lazy">
                             </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> <?php echo esc_html($duration); ?>
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
                         </div>
                         
                         <div class="tour-card-body">
-                            <h4 class="tour-card-title">
-                                <a href="<?php echo esc_url(site_url('?pagename=tour-detail&id=' . $product['id'])); ?>"><?php echo esc_html($product['title']); ?></a>
-                            </h4>
-                            
-                            <div class="tour-card-price">
-                                <?php echo esc_html(format_currency($product['price'])); ?>
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> <?php echo esc_html($product['category_name']); ?>
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
                             </div>
 
-                            <!-- Add to cart button utilizing Database Cart -->
-                            <button onclick="addToCartDb(<?php echo $product['id']; ?>)" class="tour-card-btn" style="background: #22c55e; border: none; cursor: pointer;">
-                                <i class="fa-solid fa-cart-plus"></i> Add to shopping cart
-                            </button>
+                            <h3 class="tour-card-title">
+                                <a href="<?php echo esc_url($tour_url); ?>"><?php echo esc_html($product['title']); ?></a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_pickup">Hotel pickup</span></span>
+                            </div>
+
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value"><?php echo esc_html(format_currency($product['price'])); ?></span>
+                                </div>
+
+                                <a href="<?php echo esc_url($tour_url); ?>" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>
-                <div style="grid-column: 1 / -1; background: #fff; padding: 3rem; text-align: center; border-radius: 8px; border: 1px solid #e2e8f0;">
-                    <p style="color: #64748b; font-size: 1.1rem; margin: 0;">No tours found in this category.</p>
+                <div style="grid-column: 1 / -1; background: #fff; padding: 4rem; text-align: center; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm);">
+                    <i class="fa-solid fa-compass" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 1rem;"></i>
+                    <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;" data-i18n="no_tours_found">No tours found</h3>
+                    <p style="color: #64748b; font-size: 1rem; margin-bottom: 1.5rem;" data-i18n="no_tours_desc">Please select another category or contact our hotline for a customized itinerary.</p>
+                    <a href="<?php echo esc_url(site_url('?pagename=tour')); ?>" class="cat-pill-btn active" data-i18n="btn_view_all_tours">View All Tours</a>
                 </div>
             <?php endif; ?>
         </div>
     </div>
 </div>
-
-<!-- Database Cart Integration Helper -->
-<script>
-function addToCartDb(id) {
-    const baseUrl = '<?php echo esc_url(site_url('/')); ?>';
-    window.location.href = baseUrl + '?bpt_action=add_to_cart&product_id=' + id + '&qty=1';
-}
-</script>
 
 <?php get_footer(); ?>

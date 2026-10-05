@@ -1,34 +1,41 @@
 /* ==========================================================================
-   Other Services & Detail Stylesheet (other-services.css)
-   Buddy Private Tour - Premium Blog / Article Layout
+   Other Services & Blog Stylesheet (other-services.css)
+   Buddy Private Tour - Modern Clean UI
    ========================================================================== */
 
 .services-detail-wrapper {
-  background: #f8fafc;
+  background: var(--bg-body, #f8fafc);
   min-height: 80vh;
-  padding-top: 1.5rem;
-  padding-bottom: 4rem;
+  padding-top: 2rem;
+  padding-bottom: 5rem;
 }
 
 .services-detail-container {
-  max-width: 900px;
+  max-width: 920px;
   margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 .services-article-card {
   background: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  box-shadow: var(--shadow-sm, 0 4px 16px rgba(15, 23, 42, 0.04));
+  padding: 3rem;
   margin-bottom: 2.5rem;
 }
 
+@media (max-width: 768px) {
+  .services-article-card {
+    padding: 1.75rem;
+  }
+}
+
 .services-article-title {
-  font-size: 1.85rem;
+  font-size: 2.2rem;
   font-weight: 800;
-  color: #0f172a;
-  line-height: 1.35;
+  color: var(--dark-900, #0f172a);
+  line-height: 1.3;
   margin-bottom: 1rem;
 }
 
@@ -37,8 +44,8 @@
   align-items: center;
   gap: 1.5rem;
   font-size: 0.88rem;
-  color: #64748b;
-  border-bottom: 1px solid #f1f5f9;
+  color: var(--text-muted, #64748b);
+  border-bottom: 1px solid var(--border-light, #f1f5f9);
   padding-bottom: 1.25rem;
   margin-bottom: 2rem;
   flex-wrap: wrap;
@@ -51,7 +58,7 @@
 }
 
 .services-meta-item i {
-  color: #0c4a85;
+  color: var(--primary-color, #0284c7);
 }
 
 .services-content-body {
@@ -67,25 +74,25 @@
 .services-content-body img {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 16px;
   margin: 1.5rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 /* Comments Section */
 .services-comments-card {
   background: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  box-shadow: var(--shadow-sm, 0 4px 16px rgba(15, 23, 42, 0.04));
   padding: 2.5rem;
   margin-bottom: 2.5rem;
 }
 
 .services-comments-heading {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--dark-900, #0f172a);
   margin-bottom: 1.5rem;
   border-bottom: 2px solid #f1f5f9;
   padding-bottom: 0.75rem;
@@ -95,87 +102,5 @@
 }
 
 .services-comments-heading i {
-  color: #0c4a85;
-}
-
-.services-comment-item {
-  border-bottom: 1px solid #f1f5f9;
-  padding: 1.5rem 0;
-}
-
-.services-comment-item:last-child {
-  border-bottom: none;
-}
-
-.services-comment-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.services-comment-author {
-  font-weight: 700;
-  color: #0f172a;
-  font-size: 1rem;
-}
-
-.services-comment-date {
-  font-size: 0.85rem;
-  color: #94a3b8;
-}
-
-.services-comment-text {
-  color: #475569;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* Comment Form */
-.services-comment-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.services-form-group-full {
-  grid-column: 1 / -1;
-}
-
-.services-form-input,
-.services-form-textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  color: #0f172a;
-  font-family: inherit;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.services-form-input:focus,
-.services-form-textarea:focus {
-  outline: none;
-  border-color: #0c4a85;
-  box-shadow: 0 0 0 3px rgba(12, 74, 133, 0.15);
-}
-
-.services-submit-btn {
-  background: #004b99;
-  color: #ffffff;
-  font-weight: 700;
-  padding: 0.85rem 2rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background 0.2s ease;
-}
-
-.services-submit-btn:hover {
-  background: #003366;
+  color: var(--primary-color, #0284c7);
 }

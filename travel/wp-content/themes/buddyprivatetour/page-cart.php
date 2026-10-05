@@ -1,14 +1,14 @@
 <?php
 /**
  * Template Name: Cart Page
- * Buddy Private Tour - Premium Shopping Cart
+ * Buddy Private Tour - Luxury Shopping Cart
  */
 
 get_header();
 
 global $wpdb;
 
-// Actions check (fallback direct query actions)
+// Handle remove action
 if (isset($_GET['action'])) {
     $action = sanitize_key($_GET['action']);
     $product_id = intval($_GET['product_id'] ?? 0);
@@ -41,32 +41,32 @@ foreach ($cart_items as $it) {
     <div class="site-breadcrumb-wrap container">
         <nav class="site-breadcrumb-box">
             <a href="<?php echo esc_url(home_url('/')); ?>" class="crumb-link">
-                <i class="fa-solid fa-house"></i>Home
+                <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
             </a>
             <span class="crumb-separator">/</span>
-            <span class="crumb-current">Shopping Cart</span>
+            <span class="crumb-current" data-i18n="nav_cart">Shopping Cart</span>
         </nav>
     </div>
 
     <div class="container">
         <!-- Title Section -->
         <div class="cart-title-section">
-            <h1 class="cart-page-heading">YOUR SHOPPING CART</h1>
-            <p class="cart-page-desc">Review and manage your selected tours and experiences before proceeding to checkout.</p>
+            <h1 class="cart-page-heading" data-i18n="cart_page_heading">YOUR SHOPPING CART</h1>
+            <p class="cart-page-desc" data-i18n="cart_page_desc">Review your selected private tour packages before proceeding to checkout and generating your VietQR electronic voucher.</p>
         </div>
 
         <?php if (empty($cart_items)) : ?>
             <!-- Empty Cart Screen -->
             <div class="cart-empty-wrapper">
                 <div class="cart-empty-icon">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fa-solid fa-bag-shopping"></i>
                 </div>
-                <h2 class="cart-empty-title">Your cart is currently empty!</h2>
-                <p class="cart-empty-desc">
-                    Explore our private tours across Northern, Central & Southern Vietnam and add them to your cart.
+                <h2 class="cart-empty-title" data-i18n="cart_empty_title">Your cart is currently empty!</h2>
+                <p class="cart-empty-desc" data-i18n="cart_empty_desc">
+                    Explore our exclusive private tours across North, Central, and South Vietnam.
                 </p>
                 <a href="<?php echo esc_url(site_url('?pagename=tour')); ?>" class="btn-cart-empty-cta">
-                    <i class="fa-solid fa-compass"></i> Explore Tours Now
+                    <i class="fa-solid fa-compass"></i> <span data-i18n="cart_btn_explore">Explore Tours Now</span>
                 </a>
             </div>
 
@@ -78,18 +78,18 @@ foreach ($cart_items as $it) {
                 <div class="cart-items-card">
                     <div class="cart-card-header">
                         <h2>
-                            <i class="fa-solid fa-clipboard-list" style="color: #004b99;"></i> Selected Tour Packages
+                            <i class="fa-solid fa-clipboard-list"></i> <span data-i18n="cart_list_heading">Selected Tour Packages</span>
                         </h2>
-                        <span class="cart-count-badge"><?php echo $total_qty; ?> ticket(s)</span>
+                        <span class="cart-count-badge"><?php echo $total_qty; ?> <span data-i18n="cart_badge_tickets">tickets selected</span></span>
                     </div>
 
                     <table class="cart-modern-table">
                         <thead>
                             <tr>
-                                <th style="width: 50%;">Tour Details</th>
-                                <th style="width: 25%; text-align: center;">Tour Price</th>
-                                <th style="width: 25%; text-align: center;">Quantity</th>
-                                <th style="width: 40px;"></th>
+                                <th style="width: 48%;" data-i18n="cart_th_info">Tour Details</th>
+                                <th style="width: 22%; text-align: center;" data-i18n="cart_th_price">Unit Price</th>
+                                <th style="width: 20%; text-align: center;" data-i18n="cart_th_qty">Guests</th>
+                                <th style="width: 10%; text-align: center;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -113,18 +113,18 @@ foreach ($cart_items as $it) {
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="cart-col-price">
+                                    <td style="text-align: center;">
                                         <span class="cart-unit-price"><?php echo esc_html(format_currency($item['price'])); ?></span>
                                     </td>
-                                    <td class="cart-col-qty">
+                                    <td style="text-align: center;">
                                         <div class="cart-stepper">
                                             <button type="button" class="cart-stepper-btn" onclick="adjustCartQty(<?php echo $item['id']; ?>, -1)">−</button>
                                             <input type="number" id="qty-input-<?php echo $item['id']; ?>" value="<?php echo esc_attr($item['quantity']); ?>" min="1" max="50" class="cart-stepper-input" onchange="updateDbCartQty(<?php echo $item['id']; ?>, this.value)">
                                             <button type="button" class="cart-stepper-btn" onclick="adjustCartQty(<?php echo $item['id']; ?>, 1)">+</button>
                                         </div>
                                     </td>
-                                    <td class="cart-col-action">
-                                        <a href="<?php echo esc_url(site_url('?pagename=cart&action=remove&product_id=' . $item['id'])); ?>" onclick="return confirm('Are you sure you want to remove this tour from your cart?')" class="cart-delete-action" title="Remove tour">
+                                    <td style="text-align: center;">
+                                        <a href="<?php echo esc_url(site_url('?pagename=cart&action=remove&product_id=' . $item['id'])); ?>" onclick="return confirm('Are you sure you want to remove this tour?')" class="cart-delete-action" title="Remove tour">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                     </td>
@@ -135,10 +135,10 @@ foreach ($cart_items as $it) {
 
                     <div class="cart-card-footer">
                         <a href="<?php echo esc_url(site_url('?pagename=tour')); ?>" class="cart-continue-link">
-                            <i class="fa-solid fa-arrow-left"></i> Continue Browsing Tours
+                            <i class="fa-solid fa-arrow-left"></i> <span data-i18n="cart_btn_continue">Choose More Tours</span>
                         </a>
                         <span style="font-size: 0.85rem; color: #64748b;">
-                            <i class="fa-solid fa-circle-info" style="color: #0284c7;"></i> All rates include taxes and private guide services.
+                            <i class="fa-solid fa-circle-check" style="color: #10b981;"></i> <span data-i18n="inc_item_1">Modern air-conditioned private vehicle throughout</span>
                         </span>
                     </div>
                 </div>
@@ -147,42 +147,50 @@ foreach ($cart_items as $it) {
                 <div class="cart-summary-sidebar">
                     <div class="cart-summary-box">
                         <h3 class="cart-summary-title">
-                            <i class="fa-solid fa-receipt" style="color: #f7941d;"></i> Order Summary
+                            <i class="fa-solid fa-receipt"></i> <span data-i18n="cart_summary_heading">Order Summary</span>
                         </h3>
 
                         <div class="cart-summary-row">
-                            <span>Total Tickets:</span>
-                            <span class="val"><?php echo $total_qty; ?> ticket(s)</span>
-                        </div>
-
-                        <div class="cart-summary-row">
-                            <span>Subtotal:</span>
+                            <span data-i18n="cart_summary_subtotal">Tours Subtotal:</span>
                             <span class="val"><?php echo esc_html(format_currency($cart_total)); ?></span>
                         </div>
 
                         <div class="cart-summary-row">
-                            <span>Payment Processing:</span>
-                            <span class="free-tag">Free</span>
+                            <span data-i18n="cart_summary_guide">Private Driver & Guide:</span>
+                            <span class="free-tag" data-i18n="cart_summary_free">Included</span>
                         </div>
 
                         <div class="cart-summary-divider"></div>
 
                         <div class="cart-grand-total-row">
-                            <span class="label">Total Amount:</span>
+                            <span class="label" data-i18n="cart_summary_total">Total Payment:</span>
                             <span class="amount"><?php echo esc_html(format_currency($cart_total)); ?></span>
                         </div>
 
                         <a href="<?php echo esc_url(site_url('/?pagename=checkout')); ?>" class="btn-cart-checkout">
-                            PROCEED TO CHECKOUT <i class="fa-solid fa-arrow-right"></i>
+                            <span data-i18n="cart_btn_checkout">PROCEED TO SECURE CHECKOUT</span> <i class="fa-solid fa-arrow-right"></i>
                         </a>
+                    </div>
+
+                    <div class="cart-trust-box">
+                        <div class="cart-trust-item">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span data-i18n="cart_trust_1">Instant reservation confirmation & VietQR E-Ticket</span>
+                        </div>
+                        <div class="cart-trust-item">
+                            <i class="fa-solid fa-car-side"></i>
+                            <span data-i18n="cart_trust_2">Dedicated private English-speaking tour guide</span>
+                        </div>
+                        <div class="cart-trust-item">
+                            <i class="fa-solid fa-headset"></i>
+                            <span data-i18n="cart_trust_3">Full-coverage licensed travel insurance included</span>
+                        </div>
                     </div>
                 </div>
 
             </div>
         <?php endif; ?>
 
-        
-        
     </div>
 </div>
 

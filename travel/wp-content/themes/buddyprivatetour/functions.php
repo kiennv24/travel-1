@@ -24,8 +24,9 @@ function bpt_enqueue_scripts() {
     wp_enqueue_style('bpt-other-services', get_template_directory_uri() . '/assets/css/other-services.css', array('bpt-style'), '1.0.0');
     wp_enqueue_style('bpt-pages', get_template_directory_uri() . '/assets/css/pages.css', array('bpt-style'), '1.0.0');
 
-    // Theme JS
-    wp_enqueue_script('bpt-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
+    // Theme JS (Translations first, then Main Theme JS)
+    wp_enqueue_script('bpt-translations', get_template_directory_uri() . '/assets/js/translations.js', array(), '1.0.0', false);
+    wp_enqueue_script('bpt-main', get_template_directory_uri() . '/assets/js/main.js', array('bpt-translations'), '1.0.0', true);
 }
 add_action('wp_enqueue_scripts', 'bpt_enqueue_scripts');
 

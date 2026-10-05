@@ -1,6 +1,7 @@
 <?php
 /**
- * Main template file fallback / Homepage fallback
+ * Main template file / Modern Homepage
+ * Buddy Private Tour - Luxury UI/UX Redesign
  */
 
 get_header();
@@ -17,26 +18,37 @@ if (!function_exists('bpt_get_main_image_url')) {
 }
 ?>
 
-<!-- Hero Slider Section matching 3 banner designs -->
+<!-- Hero Slider Section -->
 <section class="hero-slider" id="hero-slider">
     <div class="slider-wrapper">
-        <!-- Slide 1: Buddy Private Tour Overview (in Hanoi, Da nang, Nha trang, Da lat, Ho chi minh, Phu quoc) -->
+        <!-- Slide 1 -->
         <div class="slide-item active">
-            <a href="#products-catalog" class="slide-link">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn3.jpg'); ?>" alt="Buddy Private Tour - in Hanoi, Da nang, Nha trang, Da lat, Ho chi minh, Phu quoc" class="slide-img" />
-            </a>
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn3.jpg'); ?>" alt="Buddy Private Tour - Exclusive Journeys" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-crown"></i> <span data-i18n="hero_tagline_1">Exclusive Private Tour Services</span></span>
+                <h1 class="hero-title" data-i18n="hero_title_1">Explore Vietnam In Your Own Unique Way</h1>
+                <p class="hero-subtitle" data-i18n="hero_sub_1">Tailor-made private journeys for families & friends featuring modern private cars and licensed local tour guides.</p>
+            </div>
         </div>
-        <!-- Slide 2: Stimulate tourism with Buddy Private Tour - Discount up to 50% -->
+
+        <!-- Slide 2 -->
         <div class="slide-item">
-            <a href="#products-catalog" class="slide-link">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn2.jpg'); ?>" alt="Stimulate tourism with Buddy Private Tour - Discount up to 50%" class="slide-img" />
-            </a>
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn2.jpg'); ?>" alt="Stimulate tourism with Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-percent"></i> <span data-i18n="hero_tagline_2">Seasonal Tour Offers</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_2">Cherish Every Unforgettable Moment</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_2">Indulge in 5-star standard private services with complete itinerary flexibility.</p>
+            </div>
         </div>
-        <!-- Slide 3: Roaming Everywhere Together - BUDDY PRIVATE TOUR - Travel Phu Quoc Island -->
+
+        <!-- Slide 3 -->
         <div class="slide-item">
-            <a href="#products-catalog" class="slide-link">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn1.jpg'); ?>" alt="Roaming Everywhere Together - BUDDY PRIVATE TOUR - Travel Phu Quoc Island" class="slide-img" />
-            </a>
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn1.jpg'); ?>" alt="Roaming Everywhere Together - Travel Vietnam" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-gem"></i> <span data-i18n="hero_tagline_3">Distinctive Travel Experiences</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_3">Hanoi • Da Nang • Phu Quoc • Saigon</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_3">Easy online booking, instant payment via VietQR, and immediate electronic voucher delivery.</p>
+            </div>
         </div>
     </div>
 
@@ -56,9 +68,50 @@ if (!function_exists('bpt_get_main_image_url')) {
     </button>
 </section>
 
+<!-- Floating Interactive Search Pill (Airbnb & Klook Style) -->
+<div class="floating-search-pill-wrap">
+    <form id="heroSearchForm" class="floating-search-pill" action="<?php echo esc_url(site_url('?pagename=tour')); ?>" method="GET">
+        <input type="hidden" name="pagename" value="tour">
+        
+        <!-- Field 1: Destination -->
+        <div class="search-field-block">
+            <span class="search-field-label"><i class="fa-solid fa-location-dot"></i> <span data-i18n="search_dest_label">Destination</span></span>
+            <select name="category" id="searchDestination" class="search-field-select">
+                <option value="" data-i18n="search_dest_placeholder">All Destinations</option>
+                <option value="northern-vietnam-tours" data-i18n="search_dest_north">Hanoi & North Vietnam (Halong Bay, Ninh Binh)</option>
+                <option value="central-vietnam-tours" data-i18n="search_dest_central">Da Nang & Central Vietnam (Hoi An, Hue, Ba Na)</option>
+                <option value="southern-vietnam-tours" data-i18n="search_dest_south">Ho Chi Minh City & South (Mekong Delta, Phu Quoc)</option>
+            </select>
+        </div>
+
+        <!-- Field 2: Travel Date -->
+        <div class="search-field-block">
+            <span class="search-field-label"><i class="fa-regular fa-calendar-days"></i> <span data-i18n="search_date_label">Departure Date</span></span>
+            <input type="date" name="travel_date" id="searchDate" class="search-field-input" value="<?php echo date('Y-m-d'); ?>">
+        </div>
+
+        <!-- Field 3: Guests -->
+        <div class="search-field-block">
+            <span class="search-field-label"><i class="fa-solid fa-user-group"></i> <span data-i18n="search_guest_label">Number of Guests</span></span>
+            <select name="guests" id="searchGuests" class="search-field-select">
+                <option value="1" data-i18n="search_guest_1">1 Guest (Solo Private)</option>
+                <option value="2" selected data-i18n="search_guest_2">2 Guests (Couples / Friends)</option>
+                <option value="4" data-i18n="search_guest_4">3 - 5 Guests (Family)</option>
+                <option value="8" data-i18n="search_guest_8">6+ Guests (Private Group)</option>
+            </select>
+        </div>
+
+        <!-- CTA Search Button -->
+        <button type="submit" class="search-cta-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span data-i18n="btn_search">Search Tours</span>
+        </button>
+    </form>
+</div>
+
 <!-- Editable Content Area for Homepage (Elementor / Gutenberg) -->
 <?php if ( have_posts() ) : ?>
-    <div class="homepage-editable-content container" style="margin-top: 3rem; margin-bottom: 2rem;">
+    <div class="homepage-editable-content container" style="margin-top: 3.5rem; margin-bottom: 2rem;">
         <?php
         while ( have_posts() ) :
             the_post();
@@ -104,31 +157,70 @@ if (!function_exists('bpt_get_main_image_url')) {
                 <div id="ho-chi-minh-city-and-nearby-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
             <?php endif; ?>
 
-            <div id="<?php echo esc_attr($cat['slug']); ?>" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-                <!-- Category Section Header with Ribbons -->
+            <div id="<?php echo esc_attr($cat['slug']); ?>" style="margin-bottom: 4.5rem; scroll-margin-top: 100px;">
+                <!-- Modern Category Section Header (Clean Airbnb/Klook Style) -->
                 <div class="cat-header-wrap">
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/new-badge.png'); ?>" class="new-badge-icon" alt="New Badge">
+                    <span class="category-sub-badge"><i class="fa-solid fa-sparkles"></i> <span data-i18n="cat_badge_selected">Hand-Picked Itineraries</span></span>
                     <h2 class="category-section-title"><?php echo esc_html($cat['name']); ?></h2>
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/new-badge.png'); ?>" class="new-badge-icon" alt="New Badge">
+                    <p class="category-section-desc" data-i18n="cat_desc_common">Experience luxury private journeys with modern vehicles and fully customizable itineraries.</p>
                 </div>
 
                 <div class="tours-grid">
-                    <?php foreach ($catProducts as $product) : ?>
+                    <?php foreach ($catProducts as $product) : 
+                        $tour_url = site_url('?pagename=tour-detail&id=' . $product['id']);
+                        $duration = !empty($product['duration']) ? $product['duration'] : 'Full Day';
+                    ?>
                         <div class="tour-card">
+                            <!-- Image Top Container -->
                             <div class="tour-card-image">
-                                <a href="<?php echo esc_url(site_url('?pagename=tour-detail&id=' . $product['id'])); ?>">
+                                <a href="<?php echo esc_url($tour_url); ?>">
                                     <img src="<?php echo esc_url(bpt_get_main_image_url($product['image'])); ?>" alt="<?php echo esc_attr($product['title']); ?>" loading="lazy">
                                 </a>
+                                
+                                <span class="tour-badge-private">
+                                    <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                                </span>
+                                
+                                <span class="tour-badge-duration">
+                                    <i class="fa-regular fa-clock"></i> <?php echo esc_html($duration); ?>
+                                </span>
+
+                                <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
                             </div>
                             
+                            <!-- Card Body -->
                             <div class="tour-card-body">
-                                <h4 class="tour-card-title">
-                                    <a href="<?php echo esc_url(site_url('?pagename=tour-detail&id=' . $product['id'])); ?>"><?php echo esc_html($product['title']); ?></a>
-                                </h4>
+                                <div class="tour-card-meta">
+                                    <span class="tour-location-tag">
+                                        <i class="fa-solid fa-location-dot"></i> <?php echo esc_html($cat['name']); ?>
+                                    </span>
+                                    <div class="tour-rating-stars">
+                                        <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="tour-card-title">
+                                    <a href="<?php echo esc_url($tour_url); ?>"><?php echo esc_html($product['title']); ?></a>
+                                </h3>
+
+                                <div class="tour-card-perks">
+                                    <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                    <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                    <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                                </div>
                                 
-                                <a href="<?php echo esc_url(site_url('?pagename=tour-detail&id=' . $product['id'])); ?>" class="card-readmore-btn">
-                                    <i class="fa-regular fa-circle-right"></i> Read more
-                                </a>
+                                <div class="tour-card-footer">
+                                    <div class="tour-price-wrap">
+                                        <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                        <span class="tour-price-value"><?php echo esc_html(format_currency($product['price'])); ?></span>
+                                    </div>
+
+                                    <a href="<?php echo esc_url($tour_url); ?>" class="tour-card-cta-btn">
+                                        <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -136,8 +228,13 @@ if (!function_exists('bpt_get_main_image_url')) {
             </div>
         <?php endforeach; ?>
 
-        <!-- Home Featured Videos Section matching screenshot -->
+        <!-- Home Featured Videos Section -->
         <div class="home-videos-section">
+            <div class="cat-header-wrap" style="margin-bottom: 2rem;">
+                <span class="category-sub-badge"><i class="fa-solid fa-video"></i> <span data-i18n="sec_videos_badge">Real Journey Clips</span></span>
+                <h2 class="category-section-title" data-i18n="sec_videos_title">JOURNEYS WITH BUDDY PRIVATE TOUR</h2>
+            </div>
+
             <div class="home-videos-grid">
                 <!-- Video 1 -->
                 <div class="home-video-card">
@@ -157,88 +254,35 @@ if (!function_exists('bpt_get_main_image_url')) {
     </div>
 </div>
 
-<!-- Full-width Middle Banner (bn3.jpg) stretched 100% across the screen -->
-<div class="middle-banner-fullwidth" style="width: 100%; margin-top: 2rem; margin-bottom: 3.5rem; overflow: hidden; line-height: 0;">
-    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn3.jpg'); ?>" alt="Buddy Private Tour Banner" style="width: 100%; height: auto; display: block; object-fit: cover;">
-</div>
-
-<div class="section-padding" style="padding-top: 0; background: #fff;">
-    <div class="container">
-        <!-- Other Services Section matching screenshot -->
-        <?php
-        $other_services_items = BPT_ProductModel::getByCategorySlug('other-services');
-        if (empty($other_services_items)) {
-            $other_services_items = [
-                [
-                    'slug' => 'car-rental',
-                    'title' => 'CAR RENTAL FROM 4-45',
-                    'image' => 'https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/dkt-transport-cung-cap-dich-vu-cho-thue-xe-7-cho-tai-ha-noi.webp'
-                ],
-                [
-                    'slug' => 'hotel',
-                    'title' => 'HOTEL',
-                    'image' => 'https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hotel.webp'
-                ],
-                [
-                    'slug' => 'airline-tickets',
-                    'title' => 'CHEAP AIRLINE TICKETS',
-                    'image' => 'https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/ve-7546-1571044895.webp'
-                ]
-            ];
-        }
-        ?>
-        <div id="other-services" class="other-services-home-section" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div class="cat-header-wrap">
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/new-badge.png'); ?>" class="new-badge-icon" alt="New Badge">
-                <h2 class="category-section-title">OTHER SERVICES</h2>
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/new-badge.png'); ?>" class="new-badge-icon" alt="New Badge">
-            </div>
-
-            <div class="tours-grid">
-                <?php foreach ($other_services_items as $srv) : 
-                    $detail_url = site_url('?pagename=other-services-detail&service=' . $srv['slug']);
-                ?>
-                    <div class="tour-card">
-                        <div class="tour-card-image">
-                            <a href="<?php echo esc_url($detail_url); ?>">
-                                <img src="<?php echo esc_url(bpt_resolve_image_url($srv['image'])); ?>" alt="<?php echo esc_attr($srv['title']); ?>" loading="lazy">
-                            </a>
-                        </div>
-                        <div class="tour-card-body">
-                            <h4 class="tour-card-title">
-                                <a href="<?php echo esc_url($detail_url); ?>"><?php echo esc_html($srv['title']); ?></a>
-                            </h4>
-                            <a href="<?php echo esc_url($detail_url); ?>" class="card-readmore-btn">
-                                <i class="fa-regular fa-circle-right"></i> Read more
-                            </a>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
+<!-- Full-width Middle Banner -->
+<div class="middle-banner-fullwidth">
+    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn3.jpg'); ?>" alt="Buddy Private Tour Banner">
 </div>
 
 <!-- Consultation form section (Glassmorphism layout) -->
 <section id="consultation" class="consultation-section" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/halong-bg.jpg'); ?>');">
     <div class="container">
         <div class="glass-form-box">
-            <h3 class="glass-form-title">ĐĂNG KÝ TƯ VẤN</h3>
-            <form action="#" method="POST" onsubmit="alert('Cảm ơn bạn! Thông tin đăng ký đã được gửi đi.'); return false;">
+            <h3 class="glass-form-title" data-i18n="form_title">CUSTOMIZE YOUR PRIVATE TOUR</h3>
+            <p class="glass-form-subtitle" data-i18n="form_subtitle">Leave your contact details and our travel experts will respond within 15 minutes</p>
+            
+            <form action="#" method="POST" onsubmit="alert('Thank you! Your inquiry has been submitted. Our travel expert will contact you shortly.'); return false;">
                 <div class="glass-form-group">
-                    <label for="cust_name">Your Name:</label>
-                    <input type="text" id="cust_name" class="glass-form-control" required placeholder="Họ và tên">
+                    <label for="cust_name" data-i18n="form_fullname_lbl">FULL NAME *</label>
+                    <input type="text" id="cust_name" class="glass-form-control" required placeholder="e.g. John Smith" data-i18n-placeholder="form_fullname_ph">
                 </div>
                 <div class="glass-form-group">
-                    <label for="cust_phone">Your Phone:</label>
-                    <input type="tel" id="cust_phone" class="glass-form-control" required placeholder="Số điện thoại">
+                    <label for="cust_phone" data-i18n="form_phone_lbl">PHONE / WHATSAPP *</label>
+                    <input type="tel" id="cust_phone" class="glass-form-control" required placeholder="e.g. +84 567 599 998" data-i18n-placeholder="form_phone_ph">
                 </div>
                 <div class="glass-form-group">
-                    <label for="cust_msg">Your Message:</label>
-                    <textarea id="cust_msg" class="glass-form-control" rows="4" placeholder="Lời nhắn hoặc yêu cầu chi tiết..."></textarea>
+                    <label for="cust_msg" data-i18n="form_notes_lbl">SPECIAL REQUESTS / DATES</label>
+                    <textarea id="cust_msg" class="glass-form-control" rows="3" placeholder="Tell us about your preferred schedule, number of travelers, hotel preferences..." data-i18n-placeholder="form_notes_ph"></textarea>
                 </div>
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <button type="submit" class="glass-btn-submit">BOOK NOW</button>
+                <div style="text-align: center; margin-top: 1.75rem;">
+                    <button type="submit" class="glass-btn-submit">
+                        <i class="fa-solid fa-paper-plane" style="margin-right: 0.4rem;"></i> <span data-i18n="form_btn_submit">SEND REQUEST NOW</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -283,7 +327,7 @@ if (!function_exists('bpt_get_main_image_url')) {
 
     function resetTimer() {
         if (slideInterval) clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 5000);
+        slideInterval = setInterval(nextSlide, 5500);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
