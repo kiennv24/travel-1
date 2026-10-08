@@ -381,9 +381,9 @@ window.BPT_I18N = {
     currentLang: 'en',
 
     init: function () {
-        // Default to English ('en') if not explicitly set
-        const savedLang = localStorage.getItem('app_lang') || 'en';
-        this.setLanguage(savedLang, false);
+        // Always force 100% English
+        localStorage.setItem('app_lang', 'en');
+        this.setLanguage('en', false);
         this.bindEvents();
     },
 

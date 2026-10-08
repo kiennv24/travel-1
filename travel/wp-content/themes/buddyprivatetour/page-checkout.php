@@ -7,6 +7,8 @@
 get_header();
 ?>
 
+<link rel="stylesheet" href="<?php echo esc_url( get_template_directory_uri() . '/assets/css/checkout.css?ver=' . (file_exists(get_template_directory() . '/assets/css/checkout.css') ? filemtime(get_template_directory() . '/assets/css/checkout.css') : time()) ); ?>">
+
 <!-- Breadcrumb Navigation -->
 <div class="site-breadcrumb-wrap container">
     <nav class="site-breadcrumb-box">

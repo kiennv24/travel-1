@@ -45,43 +45,44 @@ if (!empty($raw_services)) {
 }
 ?>
 
-<div class="section-padding" style="background: #f8fafc; min-height: 80vh; padding: 2rem 0 4rem 0;">
+<div class="section-padding" style="background: #f8fafc; min-height: 80vh; padding: 2rem 0 5rem 0;">
     <div class="container">
         <!-- Breadcrumb Navigation -->
         <div class="site-breadcrumb-wrap" style="padding-top: 0; margin-bottom: 1.75rem;">
             <nav class="site-breadcrumb-box">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="crumb-link">
-                    <i class="fa-solid fa-house"></i>Home
+                    <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
                 </a>
                 <span class="crumb-separator">/</span>
-                <span class="crumb-current">Other Services</span>
+                <span class="crumb-current" data-i18n="nav_other_services">Car Rental & Hotels</span>
             </nav>
         </div>
 
-        <h1 style="font-size: 2.2rem; font-weight: 800; color: #0c4a85; margin-bottom: 2.5rem; text-transform: uppercase;">OTHER SERVICES</h1>
+        <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2.5rem; text-transform: uppercase;" data-i18n="nav_other_services">CAR RENTAL & TRAVEL SERVICES</h1>
 
-        <div class="services-list" style="display: flex; flex-direction: column; gap: 2rem; max-width: 960px; margin: 0 auto;">
+        <div class="tours-grid">
             <?php foreach ($services as $srv) : ?>
-                <div class="service-item" style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; display: flex; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-                    <div style="flex: 1; max-width: 340px; min-width: 260px; height: 210px; overflow: hidden;">
-                        <a href="<?php echo esc_url($srv['url']); ?>" style="display: block; width: 100%; height: 100%;">
-                            <img src="<?php echo esc_url($srv['image']); ?>" alt="<?php echo esc_attr($srv['title']); ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="<?php echo esc_url($srv['url']); ?>">
+                            <img src="<?php echo esc_url($srv['image']); ?>" alt="<?php echo esc_attr($srv['title']); ?>" loading="lazy">
                         </a>
+                        <span class="tour-badge-private"><i class="fa-solid fa-star"></i> <span>Premium Service</span></span>
                     </div>
-                    <div style="flex: 2; padding: 1.75rem 2rem; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 0.85rem;">
-                        <h3 style="font-size: 1.35rem; font-weight: 800; color: #1e293b; text-transform: uppercase; margin: 0;">
-                            <a href="<?php echo esc_url($srv['url']); ?>" style="color: inherit; text-decoration: none;">
-                                <?php echo esc_html($srv['title']); ?>
-                            </a>
+                    <div class="tour-card-body">
+                        <h3 class="tour-card-title">
+                            <a href="<?php echo esc_url($srv['url']); ?>"><?php echo esc_html($srv['title']); ?></a>
                         </h3>
                         <?php if (!empty($srv['desc'])) : ?>
-                            <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                            <p style="color: #64748b; font-size: 0.92rem; line-height: 1.6; margin: 0.5rem 0 1rem;">
                                 <?php echo esc_html($srv['desc']); ?>
                             </p>
                         <?php endif; ?>
-                        <a href="<?php echo esc_url($srv['url']); ?>" class="btn-primary" style="background: #004b99; border-radius: 4px; padding: 0.6rem 1.6rem; font-size: 0.9rem; font-weight: 700; color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
-                            Read more <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                        <div class="tour-card-footer" style="border-top: none; margin-top: auto;">
+                            <a href="<?php echo esc_url($srv['url']); ?>" class="tour-card-cta-btn" style="width: 100%; justify-content: center;">
+                                <span>View Details</span> <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

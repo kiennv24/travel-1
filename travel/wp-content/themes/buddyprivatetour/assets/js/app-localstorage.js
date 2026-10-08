@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <svg height="24" viewBox="0 0 24 24" width="24" fill="#ffffff" style="margin-left: 2px;"><path d="M8 5v14l11-7z"/></svg>
                         </div>
                         <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; display: flex; align-items: center; gap: 6px;">
-                            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 1rem;"></i> Xem trên YouTube
+                            <i class="fa-brands fa-youtube" style="color: #ff0000; font-size: 1rem;"></i> Watch on YouTube
                         </div>
                     </a>
                 `;

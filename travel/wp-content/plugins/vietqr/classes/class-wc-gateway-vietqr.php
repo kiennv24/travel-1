@@ -491,43 +491,6 @@ class WC_Gateway_VietQR extends WC_Payment_Gateway
 				<div id="qrcode" style="text-align: center;">
 					<img src="' . esc_html($qrcode_url) . '"  alt="VietQR QR Image" width="400px" />
 				</div>
-
-				<!--buton download on email.-->
-				<a style="max-width:200px; margin: 0 auto;background-color: limegreen; color:white; display:' . ($is_sent_email ? 'block' : 'none') . '" href="' . esc_html($qrcode_page) . '" target="_blank" >
-					Tải QR Code             
-				</a>
-				
-				<a id="downloadQR" download="vietqr_' . esc_html($account_fields['account_number']['value']) . '.jpg"  href="' . esc_html($qrcode_url) . '">
-					<button id="btnDownloadQR">
-					<div style="width: 100%;display: flex;align-items: center;justify-content: flex-start;">	
-					
-					<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M3 3H11V1H1V11H3V3Z" fill="white"/>
-					<path d="M11 11V5H5V11H11ZM7 7H9V9H7V7Z" fill="white"/>
-					<path d="M20.5 3H29V11H31V1H20.5V3Z" fill="white"/>
-					<path d="M27 11V5H21V11H27ZM23 7H25V9H23V7Z" fill="white"/>
-					<path d="M11 29H3V21H1V31H11V29Z" fill="white"/>
-					<path d="M11 21H5V27H11V21ZM9 25H7V23H9V25Z" fill="white"/>
-					<path d="M29 29H20.5V31H31V21H29V29Z" fill="white"/>
-					<path d="M17 19H25V23H27V17H17V19Z" fill="white"/>
-					<path d="M27 27V25H15V17H5V19H13V27H27Z" fill="white"/>
-					<path d="M13 5H15V11H13V5Z" fill="white"/>
-					<path d="M5 15H19V5H17V13H5V15Z" fill="white"/>
-					<path d="M21 13H27V15H21V13Z" fill="white"/>
-					<path d="M21 21H23V23H21V21Z" fill="white"/>
-					<path d="M17 21H19V23H17V21Z" fill="white"/>
-					</svg>	
-
-					<div style="margin-left: 16px;text-align: left;">
-					<span style="display:block; font-size:16px; font-weight:bold;">LƯU ẢNH QR</span>
-					<span style="font-size: 12px;"><i> 
-					
-					' . __('Then open the banking App and scan the transfer QR', 'vietqr')  . '
-					</i></span>
-					</div>
-					</div>
-					</button>
-				</a>
 			</div>	';
 				}
 
@@ -536,17 +499,17 @@ class WC_Gateway_VietQR extends WC_Payment_Gateway
 			<section class="woocommerce-vietqr-bank-details">
 
 				<!-- BANK DETAIL TITLE-->
-				<h2 class="wc-vietqr-bank-details-heading" style="text-align: center;">Our bank details</h2>
+				<h2 class="wc-vietqr-bank-details-heading" style="text-align: center;">Our Bank Transfer Details</h2>
 				
 				<!--REQUEST USER-->
-				<h4 style="color: red; text-align: center; margin-bottom: 1.25rem;">Vui lòng chuyển đúng nội dung <b style="color: red;">' . esc_html($this->prefix . $order_id) . '</b> để chúng tôi có thể xác nhận thanh toán</h4>
+				<h4 style="color: red; text-align: center; margin-bottom: 1.25rem;">Please include the exact payment reference <b style="color: red;">' . esc_html($this->prefix . $order_id) . '</b> for instant automated confirmation</h4>
 				
 				<!-- BANK DETAIL INFO TABLE-->
 				<table class="table table-bordered" style="font-size: 15px; max-width: 600px; margin-left: auto; margin-right: auto; width: 100%; border-collapse: collapse; border: 1px solid #dee2e6;">
 				<tbody>
 					<tr style="border-bottom: 1px solid #dee2e6;">
 						<td class="text-right width-column-25" style="text-align: right; width: 35%; padding: 10px 16px; border: 1px solid #dee2e6;">
-							<strong style="color: #0f172a;">Tên tài khoản:</strong>
+							<strong style="color: #0f172a;">Account Name:</strong>
 						</td>
 						<td class="text-left payment-instruction width-column-25" style="text-align: left; padding: 10px 16px; border: 1px solid #dee2e6; color: #0f172a;">
 							' . esc_html($account_fields['account_name']['value']) . '
@@ -554,7 +517,7 @@ class WC_Gateway_VietQR extends WC_Payment_Gateway
 					</tr>
 					<tr style="border-bottom: 1px solid #dee2e6; background-color: #FBFBFB;">
 						<td class="text-right width-column-25" style="text-align: right; width: 35%; padding: 10px 16px; border: 1px solid #dee2e6;">
-							<strong style="color: #0f172a;">Số tài khoản:</strong>
+							<strong style="color: #0f172a;">Account Number:</strong>
 						</td>
 						<td class="text-left payment-instruction width-column-25" style="text-align: left; padding: 10px 16px; border: 1px solid #dee2e6; color: #0f172a;">
 							' . esc_html($account_fields['account_number']['value']) . '
@@ -562,7 +525,7 @@ class WC_Gateway_VietQR extends WC_Payment_Gateway
 					</tr>
 					<tr style="border-bottom: 1px solid #dee2e6;">
 						<td class="text-right width-column-25" style="text-align: right; width: 35%; padding: 10px 16px; border: 1px solid #dee2e6;">
-							<strong style="color: #0f172a;">Ngân hàng:</strong>
+							<strong style="color: #0f172a;">Bank Name:</strong>
 						</td>
 						<td class="text-left payment-instruction width-column-25" style="text-align: left; padding: 10px 16px; border: 1px solid #dee2e6; color: #0f172a;">
 							' . esc_html($account_fields['bank_name']['value']) . '
@@ -570,10 +533,10 @@ class WC_Gateway_VietQR extends WC_Payment_Gateway
 					</tr>
 					<tr style="border-bottom: 1px solid #dee2e6;">
 						<td class="text-right width-column-25" style="text-align: right; width: 35%; padding: 10px 16px; border: 1px solid #dee2e6;">
-							<strong style="color: #0f172a;">Số tiền:</strong>
+							<strong style="color: #0f172a;">Total Amount:</strong>
 						</td>
 						<td class="text-left payment-instruction width-column-25" style="text-align: left; padding: 10px 16px; border: 1px solid #dee2e6; color: #0f172a;">
-							' . esc_html($account_fields['amount']['value']) . '<sup>vnd</sup>
+							' . esc_html($account_fields['amount']['value']) . ' ₫
 						</td>
 					</tr>
 				</tbody>

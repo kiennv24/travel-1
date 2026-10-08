@@ -3,342 +3,1009 @@
    Clean, Luxury Travel Booking & E-Ticket Voucher Experience
    ========================================================================== */
 
+/* Full-width container & no horizontal bleed */
+html {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  display: block !important;
+}
+
+body,
+body.woocommerce-checkout,
+body.woocommerce-page {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  display: block !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .checkout-section {
-  background: var(--bg-body, #f8fafc);
-  min-height: 80vh;
-  padding: 2.5rem 0 5rem;
+  background: var(--bg-body, #f8fafc) !important;
+  min-height: 80vh !important;
+  padding: 2.5rem 0 5rem !important;
+  width: 100% !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  clear: both !important;
 }
 
 .checkout-native-wrapper {
-  background: #ffffff;
-  padding: 3rem;
-  border-radius: 20px;
-  border: 1px solid var(--border-color, #e2e8f0);
-  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
-  max-width: 1100px;
-  margin: 0 auto;
+  background: #ffffff !important;
+  padding: 2.5rem 3rem !important;
+  border-radius: 20px !important;
+  border: 1px solid var(--border-color, #e2e8f0) !important;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05) !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  display: block !important;
+  position: relative !important;
 }
 
-/* 2-Column WooCommerce Layout */
-.woocommerce-checkout {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: 3.5rem;
-  align-items: start;
+/* Clear WooCommerce floats and clearfixes inside form only */
+form.woocommerce-checkout::before,
+form.woocommerce-checkout::after,
+.col2-set::before,
+.col2-set::after,
+#customer_details::before,
+#customer_details::after {
+  content: none !important;
+  display: none !important;
+  clear: none !important;
 }
 
+/* Remove unwanted WooCommerce elements */
+wc-order-attribution-inputs,
+#order_review_heading,
+form.woocommerce-checkout > #order_review_heading {
+  display: none !important;
+}
+
+/* 2-Column Luxury Flexbox Container for Checkout Form ONLY */
+form.woocommerce-checkout,
+form.checkout,
+#static-checkout-form {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  gap: 2.5rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  float: none !important;
+  clear: both !important;
+}
+
+/* Left Column: Customer details */
+form.woocommerce-checkout #customer_details,
+form.checkout #customer_details,
+form.woocommerce-checkout > div:first-child,
+#static-checkout-form > div:first-child,
+.col2-set#customer_details {
+  flex: 1 1 58% !important;
+  max-width: 58% !important;
+  width: 58% !important;
+  min-width: 0 !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2rem !important;
+  box-sizing: border-box !important;
+}
+
+#customer_details .col-1,
+#customer_details .col-2,
+.woocommerce-page form.woocommerce-checkout .col2-set .col-1,
+.woocommerce-page form.woocommerce-checkout .col2-set .col-2 {
+  width: 100% !important;
+  max-width: 100% !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+.woocommerce-billing-fields,
+.woocommerce-additional-fields {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+/* Section Headings with clean cyan accent line */
 .woocommerce-billing-fields h3,
 .woocommerce-additional-fields h3,
-#order_review_heading {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--dark-900, #0f172a);
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  position: relative;
+.woocommerce-checkout-review-order h3 {
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  color: var(--dark-900, #0f172a) !important;
+  margin: 0 0 1.25rem 0 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
 }
 
 .woocommerce-billing-fields h3::after,
-#order_review_heading::after {
-  content: '';
-  display: block;
-  width: 36px;
-  height: 3px;
-  background: var(--primary-color, #0284c7);
-  border-radius: 9999px;
-  margin-top: 0.4rem;
+.woocommerce-additional-fields h3::after,
+.woocommerce-checkout-review-order h3::after {
+  content: '' !important;
+  display: block !important;
+  width: 36px !important;
+  height: 3px !important;
+  background: var(--primary-color, #0284c7) !important;
+  border-radius: 9999px !important;
 }
 
-/* Modern Inputs with Cyan Focus Glow */
-.woocommerce-billing-fields__field-wrapper .form-row,
-.woocommerce-additional-fields__field-wrapper .form-row {
-  margin-bottom: 1.25rem;
+/* Field Wrapper */
+.woocommerce-billing-fields__field-wrapper,
+.woocommerce-additional-fields__field-wrapper {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1.25rem 1rem !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
 }
 
-.woocommerce-billing-fields__field-wrapper label,
-.woocommerce-additional-fields__field-wrapper label {
-  display: block;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--dark-800, #1e293b);
-  margin-bottom: 0.4rem;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+/* Individual Form Rows */
+form.woocommerce-checkout .form-row,
+form.checkout .form-row,
+.woocommerce-page form.woocommerce-checkout .form-row,
+#static-checkout-form .form-row {
+  width: 100% !important;
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+  clear: none !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.4rem !important;
 }
 
-.woocommerce-billing-fields__field-wrapper input.input-text,
-.woocommerce-billing-fields__field-wrapper select,
-.woocommerce-additional-fields__field-wrapper textarea {
-  width: 100%;
-  padding: 0.85rem 1.15rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #0f172a;
-  background: #ffffff;
-  outline: none;
-  transition: all 0.2s ease;
+/* 2-Column Split for First Name, Last Name, Phone, Email */
+form.woocommerce-checkout .form-row.form-row-first,
+form.woocommerce-checkout .form-row.form-row-last,
+form.checkout .form-row.form-row-first,
+form.checkout .form-row.form-row-last,
+#static-checkout-form .form-row.form-row-first,
+#static-checkout-form .form-row.form-row-last,
+#static-checkout-form #billing_first_name_field,
+#static-checkout-form #billing_last_name_field,
+#static-checkout-form #billing_phone_field,
+#static-checkout-form #billing_email_field,
+#billing_first_name_field,
+#billing_last_name_field,
+#billing_phone_field,
+#billing_email_field {
+  width: calc(50% - 0.5rem) !important;
+  flex: 0 0 calc(50% - 0.5rem) !important;
+  max-width: calc(50% - 0.5rem) !important;
 }
 
-.woocommerce-billing-fields__field-wrapper input.input-text:focus,
-.woocommerce-billing-fields__field-wrapper select:focus,
-.woocommerce-additional-fields__field-wrapper textarea:focus {
-  border-color: #0284c7;
-  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+@media (max-width: 640px) {
+  form.woocommerce-checkout .form-row.form-row-first,
+  form.woocommerce-checkout .form-row.form-row-last,
+  form.checkout .form-row.form-row-first,
+  form.checkout .form-row.form-row-last,
+  #static-checkout-form .form-row.form-row-first,
+  #static-checkout-form .form-row.form-row-last,
+  #static-checkout-form #billing_first_name_field,
+  #static-checkout-form #billing_last_name_field,
+  #static-checkout-form #billing_phone_field,
+  #static-checkout-form #billing_email_field,
+  #billing_first_name_field,
+  #billing_last_name_field,
+  #billing_phone_field,
+  #billing_email_field {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
 }
 
-/* Order Review Container */
+/* Full width for standard inputs */
+form.woocommerce-checkout .form-row.form-row-wide,
+form.checkout .form-row.form-row-wide,
+#static-checkout-form .form-row.form-row-wide,
+#billing_country_field,
+#billing_address_1_field,
+#billing_address_2_field,
+#billing_postcode_field,
+#billing_city_field,
+#order_comments_field {
+  width: 100% !important;
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+/* Form Input Labels */
+form.woocommerce-checkout .form-row label,
+form.checkout .form-row label,
+#static-checkout-form label {
+  display: block !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  color: var(--dark-800, #1e293b) !important;
+  margin-bottom: 0.25rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+}
+
+form.woocommerce-checkout .form-row label .required,
+form.checkout .form-row label .required {
+  color: #ef4444 !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+}
+
+/* Form Inputs & Selects */
+form.woocommerce-checkout input.input-text,
+form.woocommerce-checkout select,
+form.woocommerce-checkout textarea,
+form.checkout input.input-text,
+form.checkout select,
+form.checkout textarea,
+#static-checkout-form input.input-text,
+#static-checkout-form textarea {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0.85rem 1.15rem !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 12px !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  color: #0f172a !important;
+  background: #ffffff !important;
+  outline: none !important;
+  font-family: inherit !important;
+  transition: all 0.2s ease !important;
+  line-height: 1.5 !important;
+  box-shadow: none !important;
+}
+
+form.woocommerce-checkout textarea,
+form.checkout textarea,
+#static-checkout-form textarea {
+  min-height: 100px !important;
+  height: 100px !important;
+  resize: vertical !important;
+}
+
+form.woocommerce-checkout input.input-text:focus,
+form.woocommerce-checkout select:focus,
+form.woocommerce-checkout textarea:focus,
+#static-checkout-form input.input-text:focus,
+#static-checkout-form textarea:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15) !important;
+}
+
+/* Select2 Country Dropdown */
+.select2-container {
+  width: 100% !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 48px !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 0.85rem !important;
+  background: #ffffff !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 48px !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  padding-left: 0 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 48px !important;
+  right: 12px !important;
+}
+
+.select2-dropdown {
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden !important;
+  z-index: 99999 !important;
+}
+
+/* Right Column: Order Review Box */
+#order_review,
+form.woocommerce-checkout #order_review,
 .woocommerce-checkout-review-order {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 2rem;
+  flex: 1 1 38% !important;
+  max-width: 38% !important;
+  width: 38% !important;
+  min-width: 0 !important;
+  float: none !important;
+  margin: 0 !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 20px !important;
+  padding: 2rem !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+  position: sticky !important;
+  top: 90px !important;
+  box-sizing: border-box !important;
 }
 
+#order_review:not(:has(h3))::before {
+  content: 'YOUR TOUR ORDER' !important;
+  display: block !important;
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 1.25rem !important;
+  padding-bottom: 0.75rem !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+}
+
+/* Order Review Table */
+.woocommerce-checkout-review-order-table,
 .shop_table.woocommerce-checkout-review-order-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1.5rem;
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-bottom: 1.5rem !important;
+  border: none !important;
+  background: transparent !important;
 }
 
-.shop_table.woocommerce-checkout-review-order-table th,
-.shop_table.woocommerce-checkout-review-order-table td {
-  padding: 0.85rem 0;
-  border-bottom: 1px solid #e2e8f0;
-  font-size: 0.95rem;
+.woocommerce-checkout-review-order-table th,
+.woocommerce-checkout-review-order-table td {
+  padding: 0.85rem 0 !important;
+  border: none !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  background: transparent !important;
+  font-size: 0.95rem !important;
+  color: #334155 !important;
 }
 
-.shop_table.woocommerce-checkout-review-order-table th {
-  font-weight: 800;
-  color: #0f172a;
+.woocommerce-checkout-review-order-table thead th {
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  text-transform: uppercase !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.3px !important;
 }
 
-.shop_table.woocommerce-checkout-review-order-table .order-total th {
-  font-size: 1.15rem;
-  border-bottom: none;
-  padding-top: 1rem;
+.woocommerce-checkout-review-order-table .product-name {
+  font-weight: 600 !important;
+  color: #0f172a !important;
 }
 
-.shop_table.woocommerce-checkout-review-order-table .order-total td {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #f97316;
-  text-align: right;
-  border-bottom: none;
-  padding-top: 1rem;
+.woocommerce-checkout-review-order-table .product-total {
+  text-align: right !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.woocommerce-checkout-review-order-table .cart-subtotal th,
+.woocommerce-checkout-review-order-table .cart-subtotal td {
+  font-weight: 700 !important;
+}
+
+.woocommerce-checkout-review-order-table .order-total th {
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  border-bottom: none !important;
+  padding-top: 1.25rem !important;
+}
+
+.woocommerce-checkout-review-order-table .order-total td {
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  color: #f97316 !important;
+  text-align: right !important;
+  border-bottom: none !important;
+  padding-top: 1.25rem !important;
+}
+
+/* Payment Methods Section */
+#payment,
+.woocommerce-checkout-payment {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-top: 1.25rem !important;
+}
+
+#payment ul.payment_methods,
+#payment ul.wc_payment_methods {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 14px !important;
+  padding: 1.25rem !important;
+  list-style: none !important;
+  margin: 0 0 1.25rem 0 !important;
+}
+
+#payment ul.payment_methods li,
+#payment ul.wc_payment_methods li {
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+#payment ul.payment_methods li:last-child,
+#payment ul.wc_payment_methods li:last-child {
+  margin-bottom: 0 !important;
+}
+
+#payment div.payment_box,
+.payment_box.payment_method_vietqr {
+  background: #f0f9ff !important;
+  border: 1px solid #bae6fd !important;
+  border-radius: 12px !important;
+  padding: 1rem 0.75rem !important;
+  margin: 0.75rem 0 0.5rem 0 !important;
+  font-size: 0.88rem !important;
+  color: #0369a1 !important;
+  font-weight: normal !important;
+  box-sizing: border-box !important;
+}
+
+#payment div.payment_box::before {
+  border-bottom-color: #f0f9ff !important;
+}
+
+.vietqr-row {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 8px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.list-bank {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.list-bank-box {
+  background: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 6px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4px 6px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.15s ease !important;
+}
+
+.list-bank-box:hover {
+  border-color: #0284c7 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 6px rgba(2, 132, 199, 0.12) !important;
+}
+
+.list-bank img,
+.list-bank-box img {
+  max-height: 26px !important;
+  max-width: 90% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
 }
 
 /* Place Order Button */
 #place_order,
-.btn-checkout-place-order {
-  width: 100%;
-  background: linear-gradient(135deg, #f97316 0%, #ff5a5f 100%);
+.btn-checkout-place-order,
+form.woocommerce-checkout #payment #place_order {
+  width: 100% !important;
+  background: linear-gradient(135deg, #f97316 0%, #ff5a5f 100%) !important;
   color: #ffffff !important;
-  font-weight: 800;
-  font-size: 1.05rem;
-  padding: 1rem;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 8px 20px -2px rgba(249, 115, 22, 0.4);
-  transition: all 0.25s ease;
-  margin-top: 1.25rem;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 20px -2px rgba(249, 115, 22, 0.4) !important;
+  transition: all 0.25s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  margin-top: 1.25rem !important;
+  text-align: center !important;
 }
 
 #place_order:hover,
-.btn-checkout-place-order:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(249, 115, 22, 0.55);
+.btn-checkout-place-order:hover,
+form.woocommerce-checkout #payment #place_order:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 25px rgba(249, 115, 22, 0.55) !important;
+  background: linear-gradient(135deg, #ea580c 0%, #f43f5e 100%) !important;
 }
 
 /* ==========================================================================
    E-TICKET VOUCHER CONFIRMATION & VIETQR SCAN CARD
    ========================================================================== */
 .woocommerce-order {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2rem !important;
+  width: 100% !important;
 }
 
-/* E-Ticket Header Card */
+.woocommerce-order ul.woocommerce-order-overview {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 1.5rem !important;
+  background: #f8fafc !important;
+  padding: 1.5rem !important;
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  list-style: none !important;
+  margin: 0 0 2rem 0 !important;
+}
+
+.woocommerce-order ul.woocommerce-order-overview li {
+  border: none !important;
+  font-size: 0.82rem !important;
+  color: #64748b !important;
+  text-transform: uppercase !important;
+  line-height: 1.6 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.woocommerce-order ul.woocommerce-order-overview li strong {
+  display: block !important;
+  font-size: 1.15rem !important;
+  color: #0f172a !important;
+  text-transform: none !important;
+  margin-top: 0.25rem !important;
+  font-weight: 800 !important;
+}
+
+.woocommerce-order ul.woocommerce-order-overview li.woocommerce-order-overview__total strong {
+  color: #f97316 !important;
+}
+
+.woocommerce-order p.woocommerce-notice {
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  color: #15803d !important;
+  background: #dcfce7 !important;
+  border: 1px solid #86efac !important;
+  border-radius: 14px !important;
+  padding: 1.25rem 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 2rem !important;
+}
+
 .e-ticket-voucher-card {
-  background: #ffffff;
-  border: 2px dashed #0284c7;
-  border-radius: 20px;
-  padding: 2.5rem;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.08);
+  background: #ffffff !important;
+  border: 2px dashed #0284c7 !important;
+  border-radius: 20px !important;
+  padding: 2.5rem !important;
+  position: relative !important;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.08) !important;
+  margin-bottom: 2rem !important;
 }
 
 .e-ticket-badge-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #f1f5f9;
-  padding-bottom: 1.25rem;
-  margin-bottom: 1.5rem;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  padding-bottom: 1.25rem !important;
+  margin-bottom: 1.5rem !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
 }
 
 .e-ticket-logo-brand {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #0284c7;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  color: #0284c7 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
 }
 
 .e-ticket-status-pill {
-  background: #dcfce7;
-  color: #15803d;
-  font-size: 0.82rem;
-  font-weight: 800;
-  padding: 0.35rem 0.9rem;
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
+  background: #dcfce7 !important;
+  color: #15803d !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  padding: 0.35rem 0.9rem !important;
+  border-radius: 9999px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
 }
 
-/* VietQR Scan Center Area */
 .vietqr-scan-hero-box {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-  border: 1px solid #bae6fd;
-  border-radius: 20px;
-  padding: 2.5rem 1.5rem;
-  text-align: center;
-  margin: 1.5rem 0;
-  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.08);
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
+  border: 1px solid #bae6fd !important;
+  border-radius: 20px !important;
+  padding: 2.5rem 1.5rem !important;
+  text-align: center !important;
+  margin: 1.5rem 0 !important;
+  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.08) !important;
 }
 
 .vietqr-scan-title {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 0.35rem;
+  font-size: 1.45rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  margin-bottom: 0.35rem !important;
 }
 
 .vietqr-scan-subtitle {
-  color: #475569;
-  font-size: 0.92rem;
-  margin-bottom: 1.75rem;
+  color: #475569 !important;
+  font-size: 0.92rem !important;
+  margin-bottom: 1.75rem !important;
 }
 
 .vietqr-image-wrapper {
-  display: inline-block;
-  background: #ffffff;
-  padding: 14px;
-  border-radius: 20px;
-  border: 3px solid #0284c7;
-  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.2);
-  position: relative;
+  display: inline-block !important;
+  background: #ffffff !important;
+  padding: 14px !important;
+  border-radius: 20px !important;
+  border: 3px solid #0284c7 !important;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.2) !important;
 }
 
 .vietqr-image-wrapper img {
-  width: 240px;
-  height: 240px;
-  object-fit: contain;
-  display: block;
-  border-radius: 10px;
+  width: 240px !important;
+  height: 240px !important;
+  object-fit: contain !important;
+  display: block !important;
+  border-radius: 10px !important;
 }
 
-/* Banking Details Modern Table */
 .bank-transfer-details-box {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  overflow: hidden;
-  max-width: 680px;
-  margin: 1.5rem auto 0;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  max-width: 680px !important;
+  margin: 1.5rem auto 0 !important;
 }
 
 .bank-detail-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #f1f5f9;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 1rem 1.5rem !important;
+  border-bottom: 1px solid #f1f5f9 !important;
 }
 
 .bank-detail-row:last-child {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 .bank-detail-label {
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: #64748b;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  color: #64748b !important;
 }
 
 .bank-detail-val {
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: #0f172a;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  color: #0f172a !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
 }
 
 .bank-detail-val.amount-highlight {
-  color: #f97316;
-  font-size: 1.25rem;
+  color: #f97316 !important;
+  font-size: 1.25rem !important;
 }
 
 .bank-copy-btn {
-  background: #e0f2fe;
-  color: #0284c7;
-  border: none;
-  padding: 0.3rem 0.75rem;
-  border-radius: 8px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  transition: all 0.2s ease;
+  background: #e0f2fe !important;
+  color: #0284c7 !important;
+  border: none !important;
+  padding: 0.35rem 0.85rem !important;
+  border-radius: 8px !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  transition: all 0.2s ease !important;
 }
 
 .bank-copy-btn:hover {
-  background: #0284c7;
-  color: #ffffff;
+  background: #0284c7 !important;
+  color: #ffffff !important;
 }
 
-/* Toast Copy Notification */
-.bpt-toast-notification {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: #0f172a;
-  color: #ffffff;
-  padding: 0.85rem 1.75rem;
-  border-radius: 9999px;
-  font-weight: 700;
-  font-size: 0.92rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  z-index: 999999;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* ==========================================================================
+   VIETQR CENTERING & COMPACT SPACING FOR ORDER RECEIVED / THANK YOU PAGE
+   ========================================================================== */
+.woocommerce-order {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.25rem !important;
+  width: 100% !important;
 }
 
-.bpt-toast-notification.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
+.woocommerce-order ul.woocommerce-order-overview {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  gap: 1rem !important;
+  background: #f8fafc !important;
+  padding: 1.25rem !important;
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  list-style: none !important;
+  margin: 0 0 1rem 0 !important;
 }
 
+.woocommerce-order ul.woocommerce-order-overview li {
+  border: none !important;
+  font-size: 0.8rem !important;
+  color: #64748b !important;
+  text-transform: uppercase !important;
+  line-height: 1.5 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.woocommerce-order ul.woocommerce-order-overview li strong {
+  display: block !important;
+  font-size: 1.05rem !important;
+  color: #0f172a !important;
+  text-transform: none !important;
+  margin-top: 0.2rem !important;
+  font-weight: 800 !important;
+}
+
+.woocommerce-order ul.woocommerce-order-overview li.woocommerce-order-overview__total strong {
+  color: #f97316 !important;
+}
+
+.woocommerce-order p.woocommerce-notice {
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #15803d !important;
+  background: #dcfce7 !important;
+  border: 1px solid #86efac !important;
+  border-radius: 12px !important;
+  padding: 1rem 1.25rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.woocommerce-vietqr-qr-scan {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  max-width: 600px !important;
+  margin: 0.5rem auto !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.woocommerce-vietqr-qr-scan h2.wc-vietqr-bank-details-heading,
+.wc-vietqr-bank-details-heading {
+  text-align: center !important;
+  font-size: 1.3rem !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  margin: 0 auto 0.75rem auto !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+.woocommerce-vietqr-qr-scan > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+#qrcode,
+.woocommerce-vietqr-qr-scan #qrcode {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 0 auto 0.25rem auto !important;
+  text-align: center !important;
+}
+
+#qrcode img,
+.woocommerce-vietqr-qr-scan #qrcode img,
+.woocommerce-vietqr-qr-scan img {
+  display: block !important;
+  margin: 0 auto !important;
+  max-width: 280px !important;
+  width: 100% !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  border: 2px solid #0284c7 !important;
+  padding: 8px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.15) !important;
+}
+
+#downloadQR,
+#btnDownloadQR {
+  display: none !important;
+}
+
+.woocommerce-vietqr-bank-details {
+  width: 100% !important;
+  max-width: 600px !important;
+  margin: 1.25rem auto 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+.woocommerce-vietqr-bank-details h4 {
+  font-size: 0.92rem !important;
+  line-height: 1.5 !important;
+  margin: 0 auto 0.75rem auto !important;
+  color: #ef4444 !important;
+}
+
+.woocommerce-vietqr-bank-details p {
+  text-align: center !important;
+  width: 100% !important;
+  margin: 0 auto 0.75rem auto !important;
+  font-size: 0.9rem !important;
+}
+
+.woocommerce-vietqr-bank-details table,
+.woocommerce-vietqr-bank-details .shop_table,
+.woocommerce-vietqr-bank-details .table {
+  width: 100% !important;
+  max-width: 540px !important;
+  margin: 0.5rem auto 0 auto !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03) !important;
+}
+
+.woocommerce-vietqr-bank-details table th,
+.woocommerce-vietqr-bank-details table td {
+  padding: 0.65rem 1.15rem !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+  border: none !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.woocommerce-vietqr-bank-details table td:first-child,
+.woocommerce-vietqr-bank-details table th:first-child {
+  background: #f8fafc !important;
+  color: #64748b !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  width: 38% !important;
+}
+
+.woocommerce-vietqr-bank-details table td:last-child {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+  text-align: right !important;
+}
+
+.woocommerce-vietqr-bank-details table tr:last-child th,
+.woocommerce-vietqr-bank-details table tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Responsive Media Queries */
 @media (max-width: 991px) {
-  .woocommerce-checkout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  form.woocommerce-checkout,
+  form.checkout,
+  #static-checkout-form {
+    flex-direction: column !important;
+    gap: 2rem !important;
   }
 
+  form.woocommerce-checkout #customer_details,
+  form.checkout #customer_details,
+  form.woocommerce-checkout > div:first-child,
+  #static-checkout-form > div:first-child,
+  .col2-set#customer_details {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  #order_review,
+  form.woocommerce-checkout #order_review,
+  .woocommerce-checkout-review-order {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    position: static !important;
+  }
+}
+
+@media (max-width: 640px) {
   .checkout-native-wrapper {
-    padding: 1.5rem;
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  form.woocommerce-checkout .form-row.form-row-first,
+  form.woocommerce-checkout .form-row.form-row-last,
+  form.checkout .form-row.form-row-first,
+  form.checkout .form-row.form-row-last,
+  #billing_first_name_field,
+  #billing_last_name_field,
+  #billing_phone_field,
+  #billing_email_field {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
   }
 }

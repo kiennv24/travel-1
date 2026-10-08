@@ -51,19 +51,8 @@
                     </ul>
                 </nav>
 
-                <!-- Right Actions: Language Switcher & Cart -->
+                <!-- Right Actions: Cart -->
                 <div class="header-right-actions">
-                    <!-- Bilingual Language Switcher Pill (Default EN) -->
-                    <div class="bpt-lang-switcher" title="Switch Language / Chuyển đổi ngôn ngữ">
-                        <button type="button" class="bpt-lang-btn active" data-lang="en">
-                            <span class="lang-flag">🇬🇧</span> <span class="lang-code">EN</span>
-                        </button>
-                        <span class="bpt-lang-divider">|</span>
-                        <button type="button" class="bpt-lang-btn" data-lang="vi">
-                            <span class="lang-flag">🇻🇳</span> <span class="lang-code">VI</span>
-                        </button>
-                    </div>
-
                     <a href="<?php echo esc_url( function_exists('wc_get_cart_url') ? wc_get_cart_url() : site_url( '?pagename=cart' ) ); ?>" class="nav-cart-btn" title="Your Cart" data-i18n-title="nav_cart">
                         <i class="fa-solid fa-bag-shopping"></i>
                         <span class="cart-badge"><?php echo bpt_db_cart_count(); ?></span>
@@ -80,17 +69,6 @@
                 </a>
 
                 <div class="mobile-header-right">
-                    <!-- Mobile Language Switcher -->
-                    <div class="bpt-lang-switcher mobile-lang-switcher">
-                        <button type="button" class="bpt-lang-btn active" data-lang="en">
-                            <span class="lang-flag">🇬🇧</span> <span class="lang-code">EN</span>
-                        </button>
-                        <span class="bpt-lang-divider">|</span>
-                        <button type="button" class="bpt-lang-btn" data-lang="vi">
-                            <span class="lang-flag">🇻🇳</span> <span class="lang-code">VI</span>
-                        </button>
-                    </div>
-
                     <a href="<?php echo esc_url( function_exists('wc_get_cart_url') ? wc_get_cart_url() : site_url( '?pagename=cart' ) ); ?>" class="nav-cart-btn" title="Cart" style="width: 38px; height: 38px; font-size: 1rem;">
                         <i class="fa-solid fa-bag-shopping"></i>
                         <span class="cart-badge"><?php echo bpt_db_cart_count(); ?></span>

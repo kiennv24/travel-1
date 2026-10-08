@@ -16,6 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
             e.stopPropagation();
             mobileMenuDrawer.classList.toggle('active');
         });
+
+        // Close drawer when clicking anywhere outside
+        document.addEventListener('click', function (e) {
+            if (mobileMenuDrawer.classList.contains('active')) {
+                if (!mobileMenuDrawer.contains(e.target) && !mobileMenuToggleBtn.contains(e.target)) {
+                    mobileMenuDrawer.classList.remove('active');
+                }
+            }
+        });
     }
 
     // Submenu toggle in mobile drawer
@@ -56,9 +65,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (unitPrice && unitPrice > 0) {
             const subtotal = count * unitPrice;
+            const formatted = new Intl.NumberFormat('vi-VN').format(subtotal) + ' đ';
             const subtotalDisplay = document.getElementById('calc-subtotal-display');
             if (subtotalDisplay) {
-                subtotalDisplay.textContent = new Intl.NumberFormat('vi-VN').format(subtotal) + ' đ';
+                subtotalDisplay.textContent = formatted;
+            }
+            const grandTotalDisplay = document.getElementById('calc-grand-total');
+            if (grandTotalDisplay) {
+                grandTotalDisplay.textContent = formatted;
             }
         }
     };
@@ -72,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // 5. One-Click Copy to Clipboard with Modern Toast Notification
-    window.copyToClipboard = function (text, message = 'Đã sao chép vào bộ nhớ tạm!') {
+    window.copyToClipboard = function (text, message = 'Copied to clipboard!') {
         if (!navigator.clipboard) {
             // Fallback
             const textArea = document.createElement('textarea');
@@ -145,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (this.classList.contains('active')) {
                     icon.classList.remove('fa-regular');
                     icon.classList.add('fa-solid');
-                    showToast('Đã lưu vào danh sách yêu thích!');
+                    showToast('Saved to wishlist!');
                 } else {
                     icon.classList.remove('fa-solid');
                     icon.classList.add('fa-regular');

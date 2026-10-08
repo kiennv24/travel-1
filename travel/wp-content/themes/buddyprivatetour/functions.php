@@ -9,26 +9,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Enqueue styles and scripts
 function bpt_enqueue_scripts() {
+    $theme_dir = get_template_directory();
+    $theme_uri = get_template_directory_uri();
+
     // Fonts & FontAwesome
     wp_enqueue_style('bpt-fonts', 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap', array(), null);
     wp_enqueue_style('bpt-fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), null);
     
     // Main Theme base stylesheet
-    wp_enqueue_style('bpt-style', get_template_directory_uri() . '/assets/css/style.css', array(), '1.2.6');
+    $style_ver = file_exists($theme_dir . '/assets/css/style.css') ? filemtime($theme_dir . '/assets/css/style.css') : '2.0.0';
+    wp_enqueue_style('bpt-style', $theme_uri . '/assets/css/style.css', array(), $style_ver);
 
     // Modular Page Stylesheets
-    wp_enqueue_style('bpt-tour-detail', get_template_directory_uri() . '/assets/css/tour-detail.css', array('bpt-style'), '1.0.0');
-    wp_enqueue_style('bpt-tour', get_template_directory_uri() . '/assets/css/tour.css', array('bpt-style'), '1.0.0');
-    wp_enqueue_style('bpt-cart', get_template_directory_uri() . '/assets/css/cart.css', array('bpt-style'), '1.0.0');
-    wp_enqueue_style('bpt-checkout', get_template_directory_uri() . '/assets/css/checkout.css', array('bpt-style'), '1.0.0');
-    wp_enqueue_style('bpt-other-services', get_template_directory_uri() . '/assets/css/other-services.css', array('bpt-style'), '1.0.0');
-    wp_enqueue_style('bpt-pages', get_template_directory_uri() . '/assets/css/pages.css', array('bpt-style'), '1.0.0');
+    $checkout_ver = file_exists($theme_dir . '/assets/css/checkout.css') ? filemtime($theme_dir . '/assets/css/checkout.css') : '2.0.0';
+    $cart_ver = file_exists($theme_dir . '/assets/css/cart.css') ? filemtime($theme_dir . '/assets/css/cart.css') : '2.0.0';
+    $tour_ver = file_exists($theme_dir . '/assets/css/tour.css') ? filemtime($theme_dir . '/assets/css/tour.css') : '2.0.0';
+    $td_ver = file_exists($theme_dir . '/assets/css/tour-detail.css') ? filemtime($theme_dir . '/assets/css/tour-detail.css') : '2.0.0';
+    $os_ver = file_exists($theme_dir . '/assets/css/other-services.css') ? filemtime($theme_dir . '/assets/css/other-services.css') : '2.0.0';
+    $pages_ver = file_exists($theme_dir . '/assets/css/pages.css') ? filemtime($theme_dir . '/assets/css/pages.css') : '2.0.0';
+
+    wp_enqueue_style('bpt-tour-detail', $theme_uri . '/assets/css/tour-detail.css', array('bpt-style'), $td_ver);
+    wp_enqueue_style('bpt-tour', $theme_uri . '/assets/css/tour.css', array('bpt-style'), $tour_ver);
+    wp_enqueue_style('bpt-cart', $theme_uri . '/assets/css/cart.css', array('bpt-style'), $cart_ver);
+    wp_enqueue_style('bpt-checkout', $theme_uri . '/assets/css/checkout.css', array('bpt-style'), $checkout_ver);
+    wp_enqueue_style('bpt-other-services', $theme_uri . '/assets/css/other-services.css', array('bpt-style'), $os_ver);
+    wp_enqueue_style('bpt-pages', $theme_uri . '/assets/css/pages.css', array('bpt-style'), $pages_ver);
 
     // Theme JS (Translations first, then Main Theme JS)
-    wp_enqueue_script('bpt-translations', get_template_directory_uri() . '/assets/js/translations.js', array(), '1.0.0', false);
-    wp_enqueue_script('bpt-main', get_template_directory_uri() . '/assets/js/main.js', array('bpt-translations'), '1.0.0', true);
+    $trans_ver = file_exists($theme_dir . '/assets/js/translations.js') ? filemtime($theme_dir . '/assets/js/translations.js') : '2.0.0';
+    $main_ver = file_exists($theme_dir . '/assets/js/main.js') ? filemtime($theme_dir . '/assets/js/main.js') : '2.0.0';
+
+    wp_enqueue_script('bpt-translations', $theme_uri . '/assets/js/translations.js', array(), $trans_ver, false);
+    wp_enqueue_script('bpt-main', $theme_uri . '/assets/js/main.js', array('bpt-translations'), $main_ver, true);
 }
-add_action('wp_enqueue_scripts', 'bpt_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'bpt_enqueue_scripts', 99);
 
 // Theme setup
 function bpt_theme_setup() {

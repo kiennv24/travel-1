@@ -74,11 +74,11 @@ $comments_count = count($comments);
         <div class="site-breadcrumb-wrap" style="padding-top: 0; margin-bottom: 1.75rem;">
             <nav class="site-breadcrumb-box">
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="crumb-link">
-                    <i class="fa-solid fa-house"></i>Home
+                    <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
                 </a>
                 <span class="crumb-separator">/</span>
-                <a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>" class="crumb-link">
-                    Other Services
+                <a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>" class="crumb-link" data-i18n="nav_other_services">
+                    Car Rental & Hotels
                 </a>
                 <span class="crumb-separator">/</span>
                 <span class="crumb-current"><?php echo esc_html($service['title']); ?></span>
@@ -92,7 +92,7 @@ $comments_count = count($comments);
             </h1>
             <div class="services-meta-bar">
                 <span class="services-meta-item"><i class="fa-solid fa-user"></i> by: qcv</span>
-                <span class="services-meta-item"><i class="fa-regular fa-folder-open"></i> Other Services</span>
+                <span class="services-meta-item"><i class="fa-regular fa-folder-open"></i> <span data-i18n="nav_other_services">Car Rental & Hotels</span></span>
                 <span class="services-meta-item"><i class="fa-regular fa-comment"></i> <span id="comment-count-display"><?php echo $comments_count; ?></span></span>
                 <span class="services-meta-item"><i class="fa-regular fa-calendar-days"></i> <?php echo esc_html($service['date']); ?></span>
             </div>

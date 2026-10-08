@@ -354,7 +354,7 @@ class BPT_ExportController {
 <!-- Top Announcement Ticker Bar -->
 <div class="header-top-ticker">
     <div class="container">
-        <span>✨ <span data-i18n="ticker_welcome">Welcome to BUDDY PRIVATE TOUR – 24/7 Hotline / WhatsApp Support:</span> <a href="tel:+84567599998">+84 567 599 998</a></span>
+        <span><span data-i18n="ticker_welcome">✨ Welcome to BUDDY PRIVATE TOUR – 24/7 Hotline / WhatsApp Support:</span> <a href="tel:+84567599998">+84 567 599 998</a></span>
     </div>
 </div>
 
@@ -386,13 +386,7 @@ class BPT_ExportController {
                 </nav>
 
                 <div class="header-right-actions">
-                    <div class="bpt-lang-switcher" title="Select Language">
-                        <button type="button" class="bpt-lang-btn active" data-lang="en">🇬🇧 EN</button>
-                        <span class="bpt-lang-sep">|</span>
-                        <button type="button" class="bpt-lang-btn" data-lang="vi">🇻🇳 VI</button>
-                    </div>
-
-                    <a href="{$assetPrefix}cart.html" class="nav-cart-btn" title="Shopping Cart">
+                    <a href="{$assetPrefix}cart.html" class="nav-cart-btn" title="Your Cart" data-i18n-title="nav_cart">
                         <i class="fa-solid fa-bag-shopping"></i>
                         <span class="cart-badge">0</span>
                     </a>
@@ -408,13 +402,7 @@ class BPT_ExportController {
                 </a>
 
                 <div class="mobile-header-right">
-                    <div class="bpt-lang-switcher" title="Select Language" style="padding: 3px 6px;">
-                        <button type="button" class="bpt-lang-btn active" data-lang="en" style="font-size: 0.72rem; padding: 2px 5px;">EN</button>
-                        <span class="bpt-lang-sep">|</span>
-                        <button type="button" class="bpt-lang-btn" data-lang="vi" style="font-size: 0.72rem; padding: 2px 5px;">VI</button>
-                    </div>
-
-                    <a href="{$assetPrefix}cart.html" class="nav-cart-btn" title="Shopping Cart" style="width: 38px; height: 38px; font-size: 1rem;">
+                    <a href="{$assetPrefix}cart.html" class="nav-cart-btn" title="Cart" style="width: 38px; height: 38px; font-size: 1rem;">
                         <i class="fa-solid fa-bag-shopping"></i>
                         <span class="cart-badge">0</span>
                     </a>
@@ -435,9 +423,9 @@ class BPT_ExportController {
                             <span class="mobile-sub-toggle"><i class="fa-solid fa-chevron-down"></i></span>
                         </div>
                         <ul class="mobile-sub-list">
-                            <li><a href="{$assetPrefix}tour.html?category=northern-vietnam-tours"><span data-i18n="nav_north">Hanoi & North Vietnam</span></a></li>
-                            <li><a href="{$assetPrefix}tour.html?category=central-vietnam-tours"><span data-i18n="nav_central">Da Nang & Central Vietnam</span></a></li>
-                            <li><a href="{$assetPrefix}tour.html?category=southern-vietnam-tours"><span data-i18n="nav_south">Ho Chi Minh City & South</span></a></li>
+                            <li><a href="{$assetPrefix}tour.html?category=northern-vietnam-tours" data-i18n="nav_north">Hanoi & North Vietnam</a></li>
+                            <li><a href="{$assetPrefix}tour.html?category=central-vietnam-tours" data-i18n="nav_central">Da Nang & Central Vietnam</a></li>
+                            <li><a href="{$assetPrefix}tour.html?category=southern-vietnam-tours" data-i18n="nav_south">Ho Chi Minh City & South</a></li>
                         </ul>
                     </li>
                     <li><a href="{$assetPrefix}other-services.html"><i class="fa-solid fa-car" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
@@ -453,6 +441,7 @@ HTML;
 
     private static function getStaticFooter($isSubfolder = false) {
         $assetPrefix = $isSubfolder ? '../' : '';
+        $currentYear = date('Y');
 
         return <<<HTML
 <!-- Luxury Dark Footer Section (#0f172a) -->
@@ -464,8 +453,8 @@ HTML;
                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
                     <img src="{$assetPrefix}assets/images/logo.png" alt="BUDDY PRIVATE TOUR" style="height: 48px; width: auto; filter: brightness(0) invert(1);">
                 </div>
-                <p class="footer-brand-desc">
-                    Chuyên gia tổ chức các chuyến du lịch trải nghiệm riêng tư, cá nhân hóa cao cấp tại Việt Nam. Đồng hành cùng hướng dẫn viên bản địa am hiểu văn hóa và đội xe hiện đại.
+                <p class="footer-brand-desc" data-i18n="footer_brand_desc">
+                    Specialist in organizing premium, personalized private travel experiences in Vietnam. Accompanied by knowledgeable local guides and modern private vehicles.
                 </p>
                 <div style="font-size: 0.85rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1rem;">
                     <strong><span data-i18n="footer_license_lbl">Tour Operator License:</span></strong> 48-0284/2024/TCDL-GP LHQT<br>
@@ -538,7 +527,7 @@ HTML;
     <div class="footer-bottom-bar">
         <div class="container footer-bottom-flex">
             <div>
-                © 2026 <strong>BUDDY PRIVATE TOUR</strong>. <span data-i18n="footer_copyright">All Rights Reserved. Crafted with Passion for Travel Excellence.</span>
+                © {$currentYear} <strong>BUDDY PRIVATE TOUR</strong>. <span data-i18n="footer_copyright">All Rights Reserved. Crafted with Passion for Travel Excellence.</span>
             </div>
             <div class="footer-payment-icons">
                 <span class="footer-payment-tag"><i class="fa-solid fa-qrcode" style="color: #0284c7;"></i> VietQR</span>
@@ -584,12 +573,25 @@ HTML;
         $page = get_page_by_path('about-us');
         $content = $page ? apply_filters('the_content', $page->post_content) : '';
         $content = str_replace(home_url(), 'https://buddyprivatetour.com', $content);
+        if (empty($content)) {
+            $content = '<p>Welcome to <strong>Buddy Private Tour</strong> – Vietnam’s premier luxury private travel specialist. We curate custom-tailored travel itineraries across Hanoi, Halong Bay, Ninh Binh, Da Nang, Hoi An, Hue, Saigon, and Phu Quoc with private modern vehicles and dedicated English-speaking local guides.</p>';
+        }
         
         return <<<HTML
 {$header}
-<div class="section-padding" style="background: #f8fafc; min-height: 60vh;">
+<div class="section-padding" style="background: #f8fafc; min-height: 70vh; padding: 2rem 0 5rem 0;">
     <div class="container">
-        <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2rem; text-transform: uppercase;" data-i18n="nav_about">ABOUT US</h1>
+        <div class="site-breadcrumb-wrap" style="padding-top: 0; margin-bottom: 1.75rem;">
+            <nav class="site-breadcrumb-box">
+                <a href="index.html" class="crumb-link">
+                    <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
+                </a>
+                <span class="crumb-separator">/</span>
+                <span class="crumb-current" data-i18n="nav_about">About Us</span>
+            </nav>
+        </div>
+
+        <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2.5rem; text-transform: uppercase;" data-i18n="nav_about">ABOUT US</h1>
         <div style="background: #fff; padding: 3rem; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); max-width: 960px; margin: 0 auto;">
             <div class="about-content" style="font-size: 1.05rem; line-height: 1.85; color: #334155;">
                 {$content}
@@ -604,6 +606,52 @@ HTML;
     private static function buildStaticTour($products, $seedProductsJson, $seedCategoriesJson, $seedCartJson, $seedOrdersJson) {
         $header = self::getStaticHeader("Tour Packages - Buddy Private Tour");
         $footer = self::getStaticFooter();
+
+        $toursGridHtml = '';
+        foreach ($products as $p) {
+            $tourUrl = 'products/product-' . intval($p['id']) . '.html';
+            $pImg = htmlspecialchars($p['image'], ENT_QUOTES, 'UTF-8');
+            $pTitle = htmlspecialchars($p['title'], ENT_QUOTES, 'UTF-8');
+            $duration = htmlspecialchars(!empty($p['duration']) ? $p['duration'] : 'Full Day', ENT_QUOTES, 'UTF-8');
+            $catName = htmlspecialchars($p['category_name'] ?? '', ENT_QUOTES, 'UTF-8');
+            $pPriceFormatted = format_currency($p['price']);
+
+            $toursGridHtml .= '
+                <div class="tour-card">
+                    <div class="tour-card-image">
+                        <a href="' . $tourUrl . '">
+                            <img src="' . $pImg . '" alt="' . $pTitle . '" loading="lazy">
+                        </a>
+                        <span class="tour-badge-private"><i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span></span>
+                        <span class="tour-badge-duration"><i class="fa-regular fa-clock"></i> ' . $duration . '</span>
+                        <button type="button" class="tour-wishlist-btn" title="Wishlist"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="tour-card-body">
+                        <div class="tour-card-meta">
+                            <span class="tour-location-tag"><i class="fa-solid fa-location-dot"></i> ' . $catName . '</span>
+                            <div class="tour-rating-stars"><i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span></div>
+                        </div>
+                        <h3 class="tour-card-title">
+                            <a href="' . $tourUrl . '">' . $pTitle . '</a>
+                        </h3>
+                        <div class="tour-card-perks">
+                            <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                            <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                            <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_pickup">Hotel pickup</span></span>
+                        </div>
+                        <div class="tour-card-footer">
+                            <div class="tour-price-wrap">
+                                <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                <span class="tour-price-value">' . $pPriceFormatted . '</span>
+                            </div>
+                            <a href="' . $tourUrl . '" class="tour-card-cta-btn">
+                                <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>';
+        }
+
         return <<<HTML
 {$header}
 <div class="tour-page-wrapper">
@@ -635,7 +683,9 @@ HTML;
         </div>
 
         <!-- Tour List Grid -->
-        <div class="tours-grid" id="static-tours-grid"></div>
+        <div class="tours-grid" id="static-tours-grid">
+            {$toursGridHtml}
+        </div>
     </div>
 </div>
 
@@ -647,7 +697,11 @@ const seedOrders = {$seedOrdersJson};
 
 document.addEventListener('DOMContentLoaded', function() {
     BPT_Storage.init(seedProducts, seedCategories, seedCart, seedOrders);
-    renderAllTours();
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get('category');
+    if (categoryParam) {
+        renderAllTours();
+    }
 });
 
 function renderAllTours() {
@@ -665,17 +719,17 @@ function renderAllTours() {
     document.querySelectorAll('.cat-pill-btn').forEach(btn => btn.classList.remove('active'));
 
     if (categoryParam) {
-        if (categoryParam.includes('north') || categoryParam.includes('ha-noi') || categoryParam === '1') {
+        if (categoryParam.includes('north') || categoryParam.includes('ha-noi') || categoryParam === '1' || categoryParam === '18') {
             filterKey = 'north';
             currentCatName = 'HANOI & NORTHERN VIETNAM TOURS';
             const t = document.getElementById('cat-tab-north');
             if (t) t.classList.add('active');
-        } else if (categoryParam.includes('central') || categoryParam.includes('da-nang') || categoryParam.includes('danang') || categoryParam === '2') {
+        } else if (categoryParam.includes('central') || categoryParam.includes('da-nang') || categoryParam.includes('danang') || categoryParam === '2' || categoryParam === '19') {
             filterKey = 'central';
             currentCatName = 'DA NANG & CENTRAL VIETNAM TOURS';
             const t = document.getElementById('cat-tab-central');
             if (t) t.classList.add('active');
-        } else if (categoryParam.includes('south') || categoryParam.includes('ho-chi-minh') || categoryParam === '3') {
+        } else if (categoryParam.includes('south') || categoryParam.includes('ho-chi-minh') || categoryParam === '3' || categoryParam === '20') {
             filterKey = 'south';
             currentCatName = 'HO CHI MINH CITY & SOUTHERN VIETNAM TOURS';
             const t = document.getElementById('cat-tab-south');
@@ -706,13 +760,13 @@ function renderAllTours() {
             const cName = (p.category_name || '').toLowerCase();
             const cId = parseInt(p.category_id) || 0;
             if (filterKey === 'north') {
-                return cSlug.includes('north') || cName.includes('north') || cSlug.includes('ha-noi') || cName.includes('ha noi') || cName.includes('bắc') || cId === 1;
+                return cSlug.includes('north') || cName.includes('north') || cSlug.includes('ha-noi') || cName.includes('ha noi') || cName.includes('bắc') || cId === 1 || cId === 18;
             }
             if (filterKey === 'central') {
-                return cSlug.includes('central') || cName.includes('central') || cSlug.includes('da-nang') || cName.includes('da nang') || cName.includes('trung') || cId === 2;
+                return cSlug.includes('central') || cName.includes('central') || cSlug.includes('da-nang') || cName.includes('da nang') || cName.includes('trung') || cId === 2 || cId === 19;
             }
             if (filterKey === 'south') {
-                return cSlug.includes('south') || cName.includes('south') || cSlug.includes('ho-chi-minh') || cName.includes('ho chi minh') || cName.includes('nam') || cId === 3;
+                return cSlug.includes('south') || cName.includes('south') || cSlug.includes('ho-chi-minh') || cName.includes('ho chi minh') || cName.includes('nam') || cId === 3 || cId === 20;
             }
             return true;
         });
@@ -720,8 +774,11 @@ function renderAllTours() {
 
     if (products.length === 0) {
         grid.innerHTML = `
-            <div style="grid-column: 1 / -1; background: #fff; padding: 4rem; text-align: center; border-radius: 16px; border: 1px solid #e2e8f0;">
-                <p style="color: #64748b; font-size: 1.1rem; margin: 0;" data-i18n="no_tours_found">No tours found in this category.</p>
+            <div style="grid-column: 1 / -1; background: #fff; padding: 4rem; text-align: center; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: var(--shadow-sm);">
+                <i class="fa-solid fa-compass" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;" data-i18n="no_tours_found">No tours found</h3>
+                <p style="color: #64748b; font-size: 1rem; margin-bottom: 1.5rem;" data-i18n="no_tours_desc">Please select another category or contact our hotline for a customized itinerary.</p>
+                <a href="tour.html" class="cat-pill-btn active" data-i18n="btn_view_all_tours">View All Tours</a>
             </div>`;
         return;
     }
@@ -737,12 +794,12 @@ function renderAllTours() {
                     </a>
                     <span class="tour-badge-private"><i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span></span>
                     <span class="tour-badge-duration"><i class="fa-regular fa-clock"></i> \${p.duration || 'Full Day'}</span>
-                    <button type="button" class="tour-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
+                    <button type="button" class="tour-wishlist-btn" title="Wishlist"><i class="fa-regular fa-heart"></i></button>
                 </div>
                 <div class="tour-card-body">
                     <div class="tour-card-meta">
                         <span class="tour-location-tag"><i class="fa-solid fa-location-dot"></i> \${p.category_name}</span>
-                        <div class="tour-rating-stars"><i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86)</span></div>
+                        <div class="tour-rating-stars"><i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span></div>
                     </div>
                     <h3 class="tour-card-title">
                         <a href="products/product-\${p.id}.html">\${p.title}</a>
@@ -777,44 +834,68 @@ HTML;
         
         return <<<HTML
 {$header}
-<div class="section-padding" style="background: #f8fafc; min-height: 80vh;">
+<div class="section-padding" style="background: #f8fafc; min-height: 80vh; padding: 2rem 0 5rem 0;">
     <div class="container">
         <div class="site-breadcrumb-wrap" style="padding-top: 0; margin-bottom: 1.75rem;">
             <nav class="site-breadcrumb-box">
                 <a href="index.html" class="crumb-link"><i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span></a>
                 <span class="crumb-separator">/</span>
-                <span class="crumb-current" data-i18n="nav_other_services">Other Services</span>
+                <span class="crumb-current" data-i18n="nav_other_services">Car Rental & Hotels</span>
             </nav>
         </div>
 
-        <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2.5rem; text-transform: uppercase;">CAR RENTAL & TRAVEL SERVICES</h1>
+        <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2.5rem; text-transform: uppercase;" data-i18n="nav_other_services">CAR RENTAL & TRAVEL SERVICES</h1>
 
         <div class="tours-grid">
             <div class="tour-card">
                 <div class="tour-card-image">
-                    <a href="other-services-detail-car-rental.html"><img src="assets/images/dkt-transport-cung-cap-dich-vu-cho-thue-xe-7-cho-tai-ha-noi.webp" alt="Car Rental"></a>
+                    <a href="other-services-detail-car-rental.html"><img src="assets/images/dkt-transport-cung-cap-dich-vu-cho-thue-xe-7-cho-tai-ha-noi-1024x576.jpg" alt="Car Rental" loading="lazy"></a>
+                    <span class="tour-badge-private"><i class="fa-solid fa-star"></i> <span>Premium Service</span></span>
                 </div>
                 <div class="tour-card-body">
                     <h3 class="tour-card-title"><a href="other-services-detail-car-rental.html">CAR RENTAL FROM 4 - 45 SEATS</a></h3>
-                    <div class="tour-card-footer" style="border-top: none;"><a href="other-services-detail-car-rental.html" class="tour-card-cta-btn" style="width: 100%; justify-content: center;"><span>View Details</span></a></div>
+                    <p style="color: #64748b; font-size: 0.92rem; line-height: 1.6; margin: 0.5rem 0 1rem;">
+                        Professional private car rental services with clean vehicles, experienced English-speaking drivers, and competitive pricing for travelers in Vietnam.
+                    </p>
+                    <div class="tour-card-footer" style="border-top: none; margin-top: auto;">
+                        <a href="other-services-detail-car-rental.html" class="tour-card-cta-btn" style="width: 100%; justify-content: center;">
+                            <span>View Details</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="tour-card">
                 <div class="tour-card-image">
-                    <a href="other-services-detail-hotel.html"><img src="assets/images/hotel.webp" alt="Hotel & Resort"></a>
+                    <a href="other-services-detail-hotel.html"><img src="assets/images/mau-tam-trang-tri-giuong-khach-san-dep-nhat-19.jpg" alt="Hotel & Resort" loading="lazy"></a>
+                    <span class="tour-badge-private"><i class="fa-solid fa-star"></i> <span>Premium Service</span></span>
                 </div>
                 <div class="tour-card-body">
                     <h3 class="tour-card-title"><a href="other-services-detail-hotel.html">HOTEL & RESORT RESERVATIONS</a></h3>
-                    <div class="tour-card-footer" style="border-top: none;"><a href="other-services-detail-hotel.html" class="tour-card-cta-btn" style="width: 100%; justify-content: center;"><span>View Details</span></a></div>
+                    <p style="color: #64748b; font-size: 0.92rem; line-height: 1.6; margin: 0.5rem 0 1rem;">
+                        Hand-picked accommodation recommendations, hotel bookings, and custom holiday stays across Vietnam ranging from luxury resorts to local homestays.
+                    </p>
+                    <div class="tour-card-footer" style="border-top: none; margin-top: auto;">
+                        <a href="other-services-detail-hotel.html" class="tour-card-cta-btn" style="width: 100%; justify-content: center;">
+                            <span>View Details</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="tour-card">
                 <div class="tour-card-image">
-                    <a href="other-services-detail-airline-tickets.html"><img src="assets/images/ve-7546-1571044895.webp" alt="Airline Tickets"></a>
+                    <a href="other-services-detail-airline-tickets.html"><img src="assets/images/ve-7546-1571044895.jpg" alt="Airline Tickets" loading="lazy"></a>
+                    <span class="tour-badge-private"><i class="fa-solid fa-star"></i> <span>Premium Service</span></span>
                 </div>
                 <div class="tour-card-body">
                     <h3 class="tour-card-title"><a href="other-services-detail-airline-tickets.html">CHEAP AIRLINE TICKETS</a></h3>
-                    <div class="tour-card-footer" style="border-top: none;"><a href="other-services-detail-airline-tickets.html" class="tour-card-cta-btn" style="width: 100%; justify-content: center;"><span>View Details</span></a></div>
+                    <p style="color: #64748b; font-size: 0.92rem; line-height: 1.6; margin: 0.5rem 0 1rem;">
+                        Domestic and international flight ticketing services with optimized routes, cheap fares, and full-support booking management.
+                    </p>
+                    <div class="tour-card-footer" style="border-top: none; margin-top: auto;">
+                        <a href="other-services-detail-airline-tickets.html" class="tour-card-cta-btn" style="width: 100%; justify-content: center;">
+                            <span>View Details</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -837,33 +918,153 @@ HTML;
             if (!preg_match('/^https?:\/\//i', $src)) {
                 $src = ltrim($src, './');
             }
-            $imagesHtml .= '<div style="width: 100%; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm);"><img src="' . esc_attr($src) . '" alt="' . esc_attr($service['title']) . '" style="width: 100%; height: auto; display: block;"></div>';
+            $imagesHtml .= '<div style="width: 100%; border: 1px solid #e2e8f0; border-radius: 2px; overflow: hidden; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.03);"><img src="' . esc_attr($src) . '" alt="' . esc_attr($service['title']) . '" style="width: 100%; height: auto; display: block; object-fit: contain; max-height: 550px;"></div>';
         }
+
+        $datePub = htmlspecialchars($service['date_published'] ?? '2022-10-25 03:30:00', ENT_QUOTES, 'UTF-8');
+        $titleEsc = htmlspecialchars($service['title'], ENT_QUOTES, 'UTF-8');
 
         return <<<HTML
 {$header}
-<div class="section-padding" style="background: #f8fafc; min-height: 80vh; padding-top: 1.5rem; padding-bottom: 4rem;">
-    <div class="container" style="max-width: 900px; margin: 0 auto;">
+<div class="section-padding services-detail-wrapper">
+    <div class="container services-detail-container">
         <div class="site-breadcrumb-wrap" style="padding-top: 0; margin-bottom: 1.75rem;">
             <nav class="site-breadcrumb-box">
                 <a href="index.html" class="crumb-link"><i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span></a>
                 <span class="crumb-separator">/</span>
-                <a href="other-services.html" class="crumb-link" data-i18n="nav_other_services">Other Services</a>
+                <a href="other-services.html" class="crumb-link" data-i18n="nav_other_services">Car Rental & Hotels</a>
                 <span class="crumb-separator">/</span>
-                <span class="crumb-current">{$service['title']}</span>
+                <span class="crumb-current">{$titleEsc}</span>
             </nav>
         </div>
 
-        <div style="margin-bottom: 2rem;">
-            <h1 style="font-size: 2rem; font-weight: 800; color: #0f172a; text-transform: uppercase; margin-bottom: 0.5rem;">{$service['title']}</h1>
-            <p style="color: #64748b; font-size: 0.95rem;"><i class="fa-regular fa-calendar-days"></i> Latest update 2026</p>
+        <div class="services-article-card">
+            <h1 class="services-article-title">{$titleEsc}</h1>
+            <div class="services-meta-bar">
+                <span class="services-meta-item"><i class="fa-solid fa-user"></i> by: qcv</span>
+                <span class="services-meta-item"><i class="fa-regular fa-folder-open"></i> <span data-i18n="nav_other_services">Car Rental & Hotels</span></span>
+                <span class="services-meta-item"><i class="fa-regular fa-comment"></i> <span id="comment-count-display">0</span></span>
+                <span class="services-meta-item"><i class="fa-regular fa-calendar-days"></i> {$datePub}</span>
+            </div>
+
+            <div class="gallery-stack" style="display: flex; flex-direction: column; gap: 2rem; margin-bottom: 3.5rem; align-items: center;">
+                {$imagesHtml}
+            </div>
+
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                <i class="fa-solid fa-tag"></i> <strong>Tags:</strong> No Tag
+            </div>
         </div>
 
-        <div class="gallery-stack" style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem;">
-            {$imagesHtml}
+        <!-- Comments Area Card -->
+        <div class="services-comments-card">
+            <!-- List of Comments -->
+            <div id="comments-list-section" style="margin-bottom: 3rem; display: none;">
+                <h3 class="services-comments-heading">Comments</h3>
+                <div id="comments-container" style="display: flex; flex-direction: column; gap: 1.5rem;"></div>
+            </div>
+
+            <!-- Comment Form -->
+            <h3 class="services-comments-heading" style="border-bottom: none; margin-bottom: 0.25rem;">Leave Comments</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Your comment will be posted directly below.</p>
+            
+            <form id="comment-form" action="" method="POST" class="services-comment-form" onsubmit="handleStaticComment(event, '{$service_slug}')">
+                <div class="services-form-group-full" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" id="save_info" style="cursor: pointer;">
+                    <label for="save_info" style="font-size: 0.85rem; color: var(--text-muted); cursor: pointer; user-select: none;">Save my name, email, and website in this browser for the next time I comment.</label>
+                </div>
+
+                <div>
+                    <label for="author_name" style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-dark);">Name <span style="color: red;">*</span></label>
+                    <input type="text" name="author_name" id="author_name" required placeholder="Your full name" class="services-form-input">
+                </div>
+                <div>
+                    <label for="author_email" style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-dark);">Email <span style="color: red;">*</span></label>
+                    <input type="email" name="author_email" id="author_email" required placeholder="Your email address" class="services-form-input">
+                </div>
+
+                <div class="services-form-group-full">
+                    <label for="author_website" style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-dark);">Website</label>
+                    <input type="text" name="author_website" id="author_website" placeholder="Website (optional)" class="services-form-input">
+                </div>
+
+                <div class="services-form-group-full">
+                    <label for="comment_text" style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-dark);">Comment <span style="color: red;">*</span></label>
+                    <textarea name="comment_text" id="comment_text" rows="5" required placeholder="Write your comment here..." class="services-form-textarea"></textarea>
+                </div>
+
+                <div class="services-form-group-full" style="margin-top: 0.5rem;">
+                    <button type="submit" class="services-submit-btn">Post Comment</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<script>
+function renderStaticComments(slug) {
+    const list = JSON.parse(localStorage.getItem('bpt_local_comments_' + slug) || '[]');
+    const countDisplay = document.getElementById('comment-count-display');
+    const section = document.getElementById('comments-list-section');
+    const container = document.getElementById('comments-container');
+    if (countDisplay) countDisplay.textContent = list.length;
+    if (list.length > 0 && section && container) {
+        section.style.display = 'block';
+        let html = '';
+        list.forEach(cmt => {
+            html += `
+                <div class="services-comment-item">
+                    <div class="services-comment-header">
+                        <strong class="services-comment-author">\${cmt.name}</strong>
+                        <span class="services-comment-date">\${cmt.date}</span>
+                    </div>
+                    <p class="services-comment-text">\${cmt.text}</p>
+                </div>`;
+        });
+        container.innerHTML = html;
+    }
+}
+
+function handleStaticComment(e, slug) {
+    e.preventDefault();
+    const saveChecked = document.getElementById('save_info').checked;
+    const nameVal = document.getElementById('author_name').value.trim();
+    const emailVal = document.getElementById('author_email').value.trim();
+    const webVal = document.getElementById('author_website').value.trim();
+    const textVal = document.getElementById('comment_text').value.trim();
+
+    if (saveChecked) {
+        localStorage.setItem('bpt_comment_save_info', 'true');
+        localStorage.setItem('bpt_comment_author_name', nameVal);
+        localStorage.setItem('bpt_comment_author_email', emailVal);
+        localStorage.setItem('bpt_comment_author_website', webVal);
+    }
+
+    let localComments = JSON.parse(localStorage.getItem('bpt_local_comments_' + slug) || '[]');
+    localComments.unshift({
+        name: nameVal,
+        email: emailVal,
+        website: webVal,
+        text: textVal,
+        date: new Date().toLocaleString()
+    });
+    localStorage.setItem('bpt_local_comments_' + slug, JSON.stringify(localComments));
+    document.getElementById('comment_text').value = '';
+    renderStaticComments(slug);
+    alert('Thank you! Your comment has been posted.');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceSlug = '{$service_slug}';
+    if (localStorage.getItem('bpt_comment_save_info') === 'true') {
+        document.getElementById('save_info').checked = true;
+        document.getElementById('author_name').value = localStorage.getItem('bpt_comment_author_name') || '';
+        document.getElementById('author_email').value = localStorage.getItem('bpt_comment_author_email') || '';
+        document.getElementById('author_website').value = localStorage.getItem('bpt_comment_author_website') || '';
+    }
+    renderStaticComments(serviceSlug);
+});
+</script>
 {$footer}
 HTML;
     }
@@ -874,21 +1075,31 @@ HTML;
         
         return <<<HTML
 {$header}
-<div class="section-padding" style="background: #f8fafc; min-height: 80vh;">
+<div class="section-padding" style="background: #f8fafc; min-height: 80vh; padding: 2rem 0 5rem 0;">
     <div class="container">
+        <div class="site-breadcrumb-wrap" style="padding-top: 0; margin-bottom: 1.75rem;">
+            <nav class="site-breadcrumb-box">
+                <a href="index.html" class="crumb-link">
+                    <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
+                </a>
+                <span class="crumb-separator">/</span>
+                <span class="crumb-current" data-i18n="nav_videos">Videos</span>
+            </nav>
+        </div>
+
         <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2.5rem; text-transform: uppercase;" data-i18n="nav_videos">JOURNEY VIDEOS</h1>
 
         <div class="home-videos-section">
             <div class="home-videos-grid">
                 <div class="home-video-card">
                     <div class="home-video-wrapper">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AAeb7JPwJfw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AAeb7JPwJfw?si=w0Z43dropCnsjNTq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
 
                 <div class="home-video-card">
                     <div class="home-video-wrapper">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/STt213h-_hM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/STt213h-_hM?si=FOz-tYlcH1LChGxP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -905,35 +1116,87 @@ HTML;
         
         return <<<HTML
 {$header}
-<div class="section-padding" style="background: #ffffff; min-height: 80vh; padding-top: 3.5rem; padding-bottom: 5rem;">
-    <div class="container" style="max-width: 1100px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem;">
-            <div>
-                <h1 style="font-size: 1.85rem; font-weight: 800; color: #0f172a; text-transform: uppercase; margin-bottom: 1.5rem;" data-i18n="form_title">CUSTOMIZE YOUR PRIVATE TOUR</h1>
-                <form action="#" method="POST" onsubmit="alert('Thank you! Your message has been sent successfully.'); return false;">
-                    <div style="margin-bottom: 1.25rem;">
-                        <label for="c_name" style="display: block; font-size: 0.88rem; color: #334155; font-weight: 700; margin-bottom: 0.4rem;" data-i18n="form_fullname_lbl">FULL NAME *</label>
-                        <input type="text" id="c_name" required class="form-control" style="border-radius: 10px; padding: 0.75rem;" placeholder="e.g. John Smith" data-i18n-placeholder="form_fullname_ph">
-                    </div>
-                    <div style="margin-bottom: 1.25rem;">
-                        <label for="c_phone" style="display: block; font-size: 0.88rem; color: #334155; font-weight: 700; margin-bottom: 0.4rem;" data-i18n="form_phone_lbl">PHONE / WHATSAPP *</label>
-                        <input type="tel" id="c_phone" required class="form-control" style="border-radius: 10px; padding: 0.75rem;" placeholder="e.g. +84 567 599 998" data-i18n-placeholder="form_phone_ph">
-                    </div>
-                    <div style="margin-bottom: 1.5rem;">
-                        <label for="c_msg" style="display: block; font-size: 0.88rem; color: #334155; font-weight: 700; margin-bottom: 0.4rem;" data-i18n="form_notes_lbl">SPECIAL REQUESTS / DATES</label>
-                        <textarea id="c_msg" rows="4" class="form-control" style="border-radius: 10px; padding: 0.75rem;" placeholder="Tell us about your preferred schedule, number of travelers, hotel preferences..." data-i18n-placeholder="form_notes_ph"></textarea>
-                    </div>
-                    <button type="submit" class="tour-card-cta-btn" style="padding: 0.85rem 2rem; font-size: 1rem;" data-i18n="form_btn_submit">SEND REQUEST NOW</button>
-                </form>
-            </div>
+<div class="contact-page-wrapper">
+    <div class="site-breadcrumb-wrap container">
+        <nav class="site-breadcrumb-box">
+            <a href="index.html" class="crumb-link">
+                <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
+            </a>
+            <span class="crumb-separator">/</span>
+            <span class="crumb-current" data-i18n="nav_contact">Contact Us</span>
+        </nav>
+    </div>
 
-            <div style="display: flex; flex-direction: column; justify-content: flex-start; padding-top: 1.5rem;">
-                <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; text-transform: uppercase; margin-bottom: 1rem;" data-i18n="footer_col_support">CUSTOMER SUPPORT</h3>
-                <h4 style="font-size: 1.05rem; font-weight: 800; color: #0284c7; margin-bottom: 1.25rem;">BUDDY PRIVATE TOUR</h4>
-                <div style="font-size: 0.95rem; line-height: 1.8; color: #475569; display: flex; flex-direction: column; gap: 1rem;">
-                    <p style="margin: 0;"><i class="fa-solid fa-location-dot" style="color: #0284c7; width: 20px;"></i> 24/9 Nguyen Luong Bang, Hoa Khanh Bac, Lien Chieu, Da Nang, Vietnam.</p>
-                    <p style="margin: 0;"><i class="fa-solid fa-phone" style="color: #0284c7; width: 20px;"></i> Hotline / WhatsApp: <strong>+84 567 599 998</strong></p>
-                    <p style="margin: 0;"><i class="fa-solid fa-envelope" style="color: #0284c7; width: 20px;"></i> Email: buddyprivatetour@gmail.com</p>
+    <div class="container contact-container">
+        <div class="contact-card-box">
+            <div class="contact-grid">
+                <!-- Contact Form (Left Column) -->
+                <div>
+                    <h1 class="contact-heading" data-i18n="nav_contact">CONTACT US</h1>
+                    <p class="contact-subheading-text" data-i18n="form_subtitle">Leave your contact details and our travel experts will respond within 15 minutes.</p>
+                    
+                    <form action="#" method="POST" onsubmit="alert('Thank you! Your inquiry has been sent successfully. Our team will contact you shortly.'); return false;">
+                        <div class="contact-form-group">
+                            <label for="c_name" class="contact-form-label" data-i18n="form_fullname_lbl">Full Name *</label>
+                            <input type="text" id="c_name" required class="contact-input" placeholder="e.g. John Smith" data-i18n-placeholder="form_fullname_ph">
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="c_phone" class="contact-form-label" data-i18n="form_phone_lbl">Phone / WhatsApp *</label>
+                            <input type="tel" id="c_phone" required class="contact-input" placeholder="e.g. +84 567 599 998" data-i18n-placeholder="form_phone_ph">
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="c_email" class="contact-form-label" data-i18n="form_email_lbl">Email Address</label>
+                            <input type="email" id="c_email" class="contact-input" placeholder="e.g. john@example.com" data-i18n-placeholder="form_email_ph">
+                        </div>
+                        <div class="contact-form-group" style="margin-bottom: 1.75rem;">
+                            <label for="c_msg" class="contact-form-label" data-i18n="form_notes_lbl">Special Requests / Preferred Dates</label>
+                            <textarea id="c_msg" rows="4" class="contact-textarea" placeholder="Tell us about your preferred schedule, number of travelers, hotel preferences..." data-i18n-placeholder="form_notes_ph"></textarea>
+                        </div>
+                        <button type="submit" class="contact-submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i> <span data-i18n="form_btn_submit">SEND REQUEST NOW</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info (Right Column) -->
+                <div class="contact-info-col">
+                    <h3 class="contact-info-heading">
+                        <i class="fa-solid fa-circle-info"></i> <span data-i18n="footer_col_support">CUSTOMER SUPPORT</span>
+                    </h3>
+                    
+                    <div class="contact-info-details">
+                        <div class="contact-item-row">
+                            <div class="contact-item-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="contact-item-text">
+                                <strong>Headquarters</strong>
+                                24/9 Nguyen Luong Bang street, Hoa Khanh Bac, Lien Chieu, Da Nang, Vietnam.
+                            </div>
+                        </div>
+
+                        <div class="contact-item-row">
+                            <div class="contact-item-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                            <div class="contact-item-text">
+                                <strong>24/7 Hotline & WhatsApp</strong>
+                                <a href="tel:+84567599998" style="color: #0284c7; font-weight: 700;">+84 567 599 998</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item-row">
+                            <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="contact-item-text">
+                                <strong>Official Email</strong>
+                                <a href="mailto:buddyprivatetour@gmail.com" style="color: #0284c7;">buddyprivatetour@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item-row">
+                            <div class="contact-item-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="contact-item-text">
+                                <strong>Working Hours</strong>
+                                24/7 Online Support & Concierge
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -946,30 +1209,166 @@ HTML;
     private static function buildStaticIndex($categories, $products, $seedProductsJson, $seedCategoriesJson, $seedCartJson, $seedOrdersJson) {
         $header = self::getStaticHeader("Buddy Private Tour - Modern Luxury Private Journeys");
         $footer = self::getStaticFooter();
+        $currentDate = date('Y-m-d');
+
+        // Helper for sorting categories: North (1), Central (2), South (3)
+        $getOrder = function($cat) {
+            $s = strtolower(($cat['slug'] ?? '') . ' ' . ($cat['name'] ?? ''));
+            if (strpos($s, 'north') !== false || strpos($s, 'bac') !== false || strpos($s, 'hà nội') !== false || strpos($s, 'ha noi') !== false || (int)($cat['id'] ?? 0) === 1 || (int)($cat['id'] ?? 0) === 18) return 1;
+            if (strpos($s, 'central') !== false || strpos($s, 'trung') !== false || strpos($s, 'đà nẵng') !== false || strpos($s, 'da nang') !== false || (int)($cat['id'] ?? 0) === 2 || (int)($cat['id'] ?? 0) === 19) return 2;
+            if (strpos($s, 'south') !== false || strpos($s, 'nam') !== false || strpos($s, 'hồ chí minh') !== false || strpos($s, 'hcm') !== false || (int)($cat['id'] ?? 0) === 3 || (int)($cat['id'] ?? 0) === 20) return 3;
+            return 99;
+        };
+
+        usort($categories, function($a, $b) use ($getOrder) {
+            return $getOrder($a) - $getOrder($b);
+        });
+
+        $categoriesHtml = '';
+
+        foreach ($categories as $cat) {
+            if (($cat['slug'] ?? '') === 'other-services' || (int)($cat['id'] ?? 0) === 4 || (int)($cat['id'] ?? 0) === 21) continue;
+            $catProducts = array_filter($products, function($p) use ($cat) {
+                return (int)($p['category_id'] ?? 0) === (int)($cat['id'] ?? 0);
+            });
+            if (empty($catProducts)) continue;
+
+            $cat_str = strtolower(($cat['slug'] ?? '') . ' ' . ($cat['name'] ?? ''));
+            $isNorth = (strpos($cat_str, 'north') !== false || strpos($cat_str, 'bac') !== false || (int)($cat['id'] ?? 0) === 1 || (int)($cat['id'] ?? 0) === 18);
+            $isCentral = (strpos($cat_str, 'central') !== false || strpos($cat_str, 'trung') !== false || (int)($cat['id'] ?? 0) === 2 || (int)($cat['id'] ?? 0) === 19);
+            $isSouth = (strpos($cat_str, 'south') !== false || strpos($cat_str, 'nam') !== false || (int)($cat['id'] ?? 0) === 3 || (int)($cat['id'] ?? 0) === 20);
+
+            if ($isCentral) {
+                $categoriesHtml .= '
+                <!-- Quảng Bình middle banner -->
+                <div class="middle-banner-section">
+                    <img src="assets/images/quangbinh-banner.jpg" alt="Quang Binh Banner">
+                </div>';
+            }
+
+            if ($isNorth) {
+                $categoriesHtml .= '<div id="northern-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div><div id="ha-noi-and-nearby-tours" style="position:relative; top:-90px; visibility:hidden;"></div>';
+            } elseif ($isCentral) {
+                $categoriesHtml .= '<div id="central-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div><div id="danang-and-nearby-tours" style="position:relative; top:-90px; visibility:hidden;"></div>';
+            } elseif ($isSouth) {
+                $categoriesHtml .= '<div id="southern-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div><div id="ho-chi-minh-city-and-nearby-tours" style="position:relative; top:-90px; visibility:hidden;"></div>';
+            }
+
+            $catSlug = htmlspecialchars($cat['slug'] ?? '', ENT_QUOTES, 'UTF-8');
+            $catName = htmlspecialchars($cat['name'] ?? '', ENT_QUOTES, 'UTF-8');
+
+            $i18nKey = '';
+            if ($isNorth) $i18nKey = 'cat_north_title';
+            elseif ($isCentral) $i18nKey = 'cat_central_title';
+            elseif ($isSouth) $i18nKey = 'cat_south_title';
+
+            $categoriesHtml .= '
+            <div id="' . $catSlug . '" style="margin-bottom: 4.5rem; scroll-margin-top: 100px;">
+                <!-- Modern Category Section Header -->
+                <div class="cat-header-wrap">
+                    <span class="category-sub-badge"><i class="fa-solid fa-sparkles"></i> <span data-i18n="cat_badge_selected">Hand-Picked Itineraries</span></span>
+                    <h2 class="category-section-title"' . ($i18nKey ? ' data-i18n="' . $i18nKey . '"' : '') . '>' . $catName . '</h2>
+                    <p class="category-section-desc" data-i18n="cat_desc_common">Experience luxury private journeys with modern vehicles and fully customizable itineraries.</p>
+                </div>
+
+                <div class="tours-grid">';
+
+            foreach ($catProducts as $p) {
+                $tourUrl = 'products/product-' . intval($p['id']) . '.html';
+                $pImg = htmlspecialchars($p['image'], ENT_QUOTES, 'UTF-8');
+                $pTitle = htmlspecialchars($p['title'], ENT_QUOTES, 'UTF-8');
+                $duration = htmlspecialchars(!empty($p['duration']) ? $p['duration'] : 'Full Day', ENT_QUOTES, 'UTF-8');
+                $pPriceFormatted = format_currency($p['price']);
+
+                $categoriesHtml .= '
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="' . $tourUrl . '">
+                                <img src="' . $pImg . '" alt="' . $pTitle . '" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> ' . $duration . '
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> ' . $catName . '
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="' . $tourUrl . '">' . $pTitle . '</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">' . $pPriceFormatted . '</span>
+                                </div>
+
+                                <a href="' . $tourUrl . '" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>';
+            }
+
+            $categoriesHtml .= '
+                </div>
+            </div>';
+        }
 
         return <<<HTML
 {$header}
 <!-- Hero Slider Section -->
 <section class="hero-slider" id="hero-slider">
     <div class="slider-wrapper">
+        <!-- Slide 1 -->
         <div class="slide-item active">
-            <img src="assets/images/bn3.jpg" alt="Buddy Private Tour" class="slide-img" />
+            <img src="assets/images/bn3.jpg" alt="Buddy Private Tour - Exclusive Journeys" class="slide-img" />
             <div class="hero-overlay">
                 <span class="hero-tagline"><i class="fa-solid fa-crown"></i> <span data-i18n="hero_tagline_1">Exclusive Private Tour Services</span></span>
                 <h1 class="hero-title" data-i18n="hero_title_1">Explore Vietnam In Your Own Unique Way</h1>
                 <p class="hero-subtitle" data-i18n="hero_sub_1">Tailor-made private journeys for families & friends featuring modern private cars and licensed local tour guides.</p>
             </div>
         </div>
+
+        <!-- Slide 2 -->
         <div class="slide-item">
-            <img src="assets/images/bn2.jpg" alt="Buddy Private Tour" class="slide-img" />
+            <img src="assets/images/bn2.jpg" alt="Stimulate tourism with Buddy Private Tour" class="slide-img" />
             <div class="hero-overlay">
                 <span class="hero-tagline"><i class="fa-solid fa-percent"></i> <span data-i18n="hero_tagline_2">Seasonal Tour Offers</span></span>
                 <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_2">Cherish Every Unforgettable Moment</h2>
                 <p class="hero-subtitle" data-i18n="hero_sub_2">Indulge in 5-star standard private services with complete itinerary flexibility.</p>
             </div>
         </div>
+
+        <!-- Slide 3 -->
         <div class="slide-item">
-            <img src="assets/images/bn1.jpg" alt="Buddy Private Tour" class="slide-img" />
+            <img src="assets/images/bn1.jpg" alt="Roaming Everywhere Together - Travel Vietnam" class="slide-img" />
             <div class="hero-overlay">
                 <span class="hero-tagline"><i class="fa-solid fa-gem"></i> <span data-i18n="hero_tagline_3">Distinctive Travel Experiences</span></span>
                 <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_3">Hanoi • Da Nang • Phu Quoc • Saigon</h2>
@@ -978,19 +1377,26 @@ HTML;
         </div>
     </div>
 
+    <!-- Bullets Navigation -->
     <div class="slider-bullets">
-        <span class="bullet active" onclick="setSlide(0)"></span>
-        <span class="bullet" onclick="setSlide(1)"></span>
-        <span class="bullet" onclick="setSlide(2)"></span>
+        <span class="bullet active" onclick="setSlide(0)" aria-label="Slide 1"></span>
+        <span class="bullet" onclick="setSlide(1)" aria-label="Slide 2"></span>
+        <span class="bullet" onclick="setSlide(2)" aria-label="Slide 3"></span>
     </div>
 
-    <button class="slider-nav prev" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-    <button class="slider-nav next" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    <!-- Navigation Arrows -->
+    <button class="slider-nav prev" onclick="changeSlide(-1)" aria-label="Previous Slide">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="slider-nav next" onclick="changeSlide(1)" aria-label="Next Slide">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
 </section>
 
-<!-- Floating Interactive Search Pill -->
+<!-- Floating Interactive Search Pill (Airbnb & Klook Style) -->
 <div class="floating-search-pill-wrap">
     <form id="heroSearchForm" class="floating-search-pill" action="tour.html" method="GET">
+        <!-- Field 1: Destination -->
         <div class="search-field-block">
             <span class="search-field-label"><i class="fa-solid fa-location-dot"></i> <span data-i18n="search_dest_label">Destination</span></span>
             <select name="category" id="searchDestination" class="search-field-select">
@@ -1001,11 +1407,13 @@ HTML;
             </select>
         </div>
 
+        <!-- Field 2: Travel Date -->
         <div class="search-field-block">
             <span class="search-field-label"><i class="fa-regular fa-calendar-days"></i> <span data-i18n="search_date_label">Departure Date</span></span>
-            <input type="date" name="travel_date" id="searchDate" class="search-field-input" value="2026-10-04">
+            <input type="date" name="travel_date" id="searchDate" class="search-field-input" value="{$currentDate}">
         </div>
 
+        <!-- Field 3: Guests -->
         <div class="search-field-block">
             <span class="search-field-label"><i class="fa-solid fa-user-group"></i> <span data-i18n="search_guest_label">Number of Guests</span></span>
             <select name="guests" id="searchGuests" class="search-field-select">
@@ -1016,6 +1424,7 @@ HTML;
             </select>
         </div>
 
+        <!-- CTA Search Button -->
         <button type="submit" class="search-cta-btn">
             <i class="fa-solid fa-magnifying-glass"></i>
             <span data-i18n="btn_search">Search Tours</span>
@@ -1023,9 +1432,10 @@ HTML;
     </form>
 </div>
 
-<div id="catalog" class="section-padding">
+<!-- Product Catalog -->
+<div id="products-catalog" class="section-padding">
     <div class="container">
-        <div id="static-catalog-container"></div>
+        {$categoriesHtml}
 
         <!-- Home Featured Videos Section -->
         <div class="home-videos-section">
@@ -1033,15 +1443,19 @@ HTML;
                 <span class="category-sub-badge"><i class="fa-solid fa-video"></i> <span data-i18n="sec_videos_badge">Real Journey Clips</span></span>
                 <h2 class="category-section-title" data-i18n="sec_videos_title">JOURNEYS WITH BUDDY PRIVATE TOUR</h2>
             </div>
+
             <div class="home-videos-grid">
+                <!-- Video 1 -->
                 <div class="home-video-card">
                     <div class="home-video-wrapper">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AAeb7JPwJfw" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AAeb7JPwJfw?si=w0Z43dropCnsjNTq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
+
+                <!-- Video 2 -->
                 <div class="home-video-card">
                     <div class="home-video-wrapper">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/STt213h-_hM" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/STt213h-_hM?si=FOz-tYlcH1LChGxP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -1049,17 +1463,19 @@ HTML;
     </div>
 </div>
 
+<!-- Full-width Middle Banner -->
 <div class="middle-banner-fullwidth">
     <img src="assets/images/bn3.jpg" alt="Buddy Private Tour Banner">
 </div>
 
-<!-- Consultation form section -->
+<!-- Consultation form section (Glassmorphism layout) -->
 <section id="consultation" class="consultation-section" style="background-image: url('assets/images/halong-bg.jpg');">
     <div class="container">
         <div class="glass-form-box">
             <h3 class="glass-form-title" data-i18n="form_title">CUSTOMIZE YOUR PRIVATE TOUR</h3>
             <p class="glass-form-subtitle" data-i18n="form_subtitle">Leave your contact details and our travel experts will respond within 15 minutes</p>
-            <form action="#" method="POST" onsubmit="alert('Thank you! Your inquiry has been submitted.'); return false;">
+            
+            <form action="#" method="POST" onsubmit="alert('Thank you! Your inquiry has been submitted. Our travel expert will contact you shortly.'); return false;">
                 <div class="glass-form-group">
                     <label for="cust_name" data-i18n="form_fullname_lbl">FULL NAME *</label>
                     <input type="text" id="cust_name" class="glass-form-control" required placeholder="e.g. John Smith" data-i18n-placeholder="form_fullname_ph">
@@ -1073,13 +1489,16 @@ HTML;
                     <textarea id="cust_msg" class="glass-form-control" rows="3" placeholder="Tell us about your preferred schedule, number of travelers, hotel preferences..." data-i18n-placeholder="form_notes_ph"></textarea>
                 </div>
                 <div style="text-align: center; margin-top: 1.75rem;">
-                    <button type="submit" class="glass-btn-submit" data-i18n="form_btn_submit"><i class="fa-solid fa-paper-plane"></i> SEND REQUEST NOW</button>
+                    <button type="submit" class="glass-btn-submit">
+                        <i class="fa-solid fa-paper-plane" style="margin-right: 0.4rem;"></i> <span data-i18n="form_btn_submit">SEND REQUEST NOW</span>
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </section>
 
+<!-- Slider & Storage Script -->
 <script>
 const seedProducts = {$seedProductsJson};
 const seedCategories = {$seedCategoriesJson};
@@ -1088,132 +1507,60 @@ const seedOrders = {$seedOrdersJson};
 
 document.addEventListener('DOMContentLoaded', function() {
     BPT_Storage.init(seedProducts, seedCategories, seedCart, seedOrders);
-    renderCatalog();
 });
 
-function renderCatalog() {
-    const categories = BPT_Storage.getCategories();
-    const products = BPT_Storage.getProducts();
-    const container = document.getElementById('static-catalog-container');
-    let html = '';
+(function() {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slider .slide-item');
+    const bullets = document.querySelectorAll('.hero-slider .bullet');
+    let slideInterval = null;
 
-    const getOrder = (cat) => {
-        const s = ((cat.slug || '') + ' ' + (cat.name || '')).toLowerCase();
-        if (s.includes('north') || s.includes('bac') || s.includes('hà nội') || s.includes('ha noi')) return 1;
-        if (s.includes('central') || s.includes('trung') || s.includes('đà nẵng') || s.includes('da nang')) return 2;
-        if (s.includes('south') || s.includes('nam') || s.includes('hồ chí minh') || s.includes('hcm')) return 3;
-        return 99;
+    function showSlide(index) {
+        if (!slides || slides.length === 0) return;
+        slides.forEach(s => s.classList.remove('active'));
+        bullets.forEach(b => b.classList.remove('active'));
+
+        currentSlide = (index + slides.length) % slides.length;
+        if (slides[currentSlide]) {
+            slides[currentSlide].classList.add('active');
+        }
+        if (bullets[currentSlide]) {
+            bullets[currentSlide].classList.add('active');
+        }
+    }
+
+    window.setSlide = function(index) {
+        showSlide(index);
+        resetTimer();
     };
 
-    const sortedCategories = [...categories].sort((a, b) => getOrder(a) - getOrder(b));
+    window.changeSlide = function(direction) {
+        showSlide(currentSlide + direction);
+        resetTimer();
+    };
 
-    sortedCategories.forEach(cat => {
-        if (cat.slug === 'other-services' || cat.id == 4 || cat.id == 21) return;
-        const catProducts = products.filter(p => p.category_id == cat.id);
-        if (catProducts.length === 0) return;
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
 
-        const s = ((cat.slug || '') + ' ' + (cat.name || '')).toLowerCase();
-        const isCentral = s.includes('central') || s.includes('trung') || cat.id == 2 || cat.id == 19;
+    function resetTimer() {
+        if (slideInterval) clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5500);
+    }
 
-        if (isCentral) {
-            html += `
-            <div class="middle-banner-section">
-                <img src="assets/images/quangbinh-banner.jpg" alt="Quang Binh Banner">
-            </div>`;
+    document.addEventListener('DOMContentLoaded', function() {
+        resetTimer();
+        const slider = document.getElementById('hero-slider');
+        if (slider) {
+            slider.addEventListener('mouseenter', function() {
+                if (slideInterval) clearInterval(slideInterval);
+            });
+            slider.addEventListener('mouseleave', function() {
+                resetTimer();
+            });
         }
-
-        let anchorAlias = '';
-        if (s.includes('north') || s.includes('bac')) anchorAlias = 'northern-vietnam-tours';
-        else if (s.includes('central') || s.includes('trung')) anchorAlias = 'central-vietnam-tours';
-        else if (s.includes('south') || s.includes('nam')) anchorAlias = 'southern-vietnam-tours';
-
-        html += `
-        \${anchorAlias ? \`<div id="\${anchorAlias}" style="position:relative; top:-90px; visibility:hidden;"></div>\` : ''}
-        <div id="\${cat.slug}" style="margin-bottom: 4.5rem; scroll-margin-top: 100px;">
-            <div class="cat-header-wrap">
-                <span class="category-sub-badge"><i class="fa-solid fa-sparkles"></i> <span data-i18n="cat_badge_selected">Hand-Picked Itineraries</span></span>
-                <h2 class="category-section-title">\${cat.name}</h2>
-                <p class="category-section-desc" data-i18n="cat_desc_common">Experience luxury private journeys with modern vehicles and fully customizable itineraries.</p>
-            </div>
-            <div class="tours-grid">`;
-
-        catProducts.forEach(p => {
-            const imgSrc = BPT_Storage.fixImagePath(p.image);
-            html += `
-                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-\${p.id}.html">
-                            <img src="\${imgSrc}" alt="\${p.title}" loading="lazy">
-                        </a>
-                        <span class="tour-badge-private"><i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span></span>
-                        <span class="tour-badge-duration"><i class="fa-regular fa-clock"></i> \${p.duration || 'Full Day'}</span>
-                        <button type="button" class="tour-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-                    <div class="tour-card-body">
-                        <div class="tour-card-meta">
-                            <span class="tour-location-tag"><i class="fa-solid fa-location-dot"></i> \${cat.name}</span>
-                            <div class="tour-rating-stars"><i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span></div>
-                        </div>
-                        <h3 class="tour-card-title">
-                            <a href="products/product-\${p.id}.html">\${p.title}</a>
-                        </h3>
-                        <div class="tour-card-perks">
-                            <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
-                            <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
-                            <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
-                        </div>
-                        <div class="tour-card-footer">
-                            <div class="tour-price-wrap">
-                                <span class="tour-price-label" data-i18n="card_price_from">From</span>
-                                <span class="tour-price-value">\${BPT_Storage.formatCurrency(p.price)}</span>
-                            </div>
-                            <a href="products/product-\${p.id}.html" class="tour-card-cta-btn">
-                                <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>`;
-        });
-
-        html += `</div></div>`;
     });
-
-    container.innerHTML = html;
-}
-
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide-item');
-const bullets = document.querySelectorAll('.bullet');
-let slideInterval = setInterval(nextSlide, 5500);
-
-function showSlide(index) {
-    if (slides.length === 0) return;
-    slides.forEach(s => s.classList.remove('active'));
-    bullets.forEach(b => b.classList.remove('active'));
-
-    currentSlide = (index + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
-    bullets[currentSlide].classList.add('active');
-}
-
-function setSlide(index) {
-    showSlide(index);
-    resetTimer();
-}
-
-function changeSlide(direction) {
-    showSlide(currentSlide + direction);
-    resetTimer();
-}
-
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
-
-function resetTimer() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 5500);
-}
+})();
 </script>
 {$footer}
 HTML;
@@ -1225,6 +1572,7 @@ HTML;
         $footer = self::getStaticFooter(true);
         
         $gallery_images = json_decode($product['images'] ?? '[]', true) ?: [];
+        $highlights = json_decode($product['highlights'] ?? '[]', true) ?: [];
         $included = json_decode($product['included'] ?? '[]', true) ?: [];
         $excluded = json_decode($product['excluded'] ?? '[]', true) ?: [];
         
@@ -1233,6 +1581,15 @@ HTML;
         }
         if (empty($excluded) && !empty($product['excluded'])) {
             $excluded = array_filter(array_map('trim', explode("\n", $product['excluded'])));
+        }
+
+        if (empty($highlights)) {
+            $highlights = [
+                '100% private and customizable itinerary tailored to your preferences.',
+                'Modern private air-conditioned vehicle with direct hotel/airport pickup.',
+                'Licensed local English/Vietnamese speaking guide with deep cultural knowledge.',
+                'Authentic local cuisine dining at handpicked reputable restaurants.'
+            ];
         }
 
         $all_gallery = array_values(array_unique(array_filter(array_merge([$product['image']], $gallery_images))));
@@ -1254,13 +1611,18 @@ HTML;
             $mosaicHtml .= '<div class="mosaic-item" onclick="switchBptMosaicImage(\'' . $img . '\', this)"><img src="' . $img . '" alt="Gallery ' . $i . '"></div>';
         }
 
+        $highlightsHtml = '';
+        foreach ($highlights as $hl) {
+            $highlightsHtml .= '<li class="tour-highlight-item"><i class="fa-solid fa-circle-check"></i> <span>' . htmlspecialchars($hl, ENT_QUOTES, 'UTF-8') . '</span></li>';
+        }
+
         $includedHtml = '';
         if (!empty($included)) {
             foreach ($included as $inc) {
                 $includedHtml .= '<li><i class="fa-solid fa-check"></i> <span>' . htmlspecialchars($inc, ENT_QUOTES, 'UTF-8') . '</span></li>';
             }
         } else {
-            $includedHtml = '<li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_1">Modern air-conditioned private vehicle throughout</span></li><li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_2">Professional English / Vietnamese speaking private guide</span></li><li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_3">All entrance fees and sightseeing tickets</span></li>';
+            $includedHtml = '<li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_1">Modern air-conditioned private vehicle throughout</span></li><li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_2">Professional English / Vietnamese speaking private guide</span></li><li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_3">All entrance fees and sightseeing tickets</span></li><li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_4">Complimentary bottled water and cold towels</span></li><li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_5">Full-coverage travel insurance</span></li>';
         }
 
         $excludedHtml = '';
@@ -1269,8 +1631,59 @@ HTML;
                 $excludedHtml .= '<li><i class="fa-solid fa-xmark"></i> <span>' . htmlspecialchars($exc, ENT_QUOTES, 'UTF-8') . '</span></li>';
             }
         } else {
-            $excludedHtml = '<li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_1">Personal expenses outside program (shopping, laundry)</span></li><li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_2">Gratuities & tips for driver and tour guide</span></li>';
+            $excludedHtml = '<li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_1">Personal expenses outside program (shopping, laundry)</span></li><li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_2">Gratuities & tips for driver and tour guide</span></li><li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_3">VAT invoice (if tax receipt requested)</span></li>';
         }
+
+        $relatedProducts = array_filter($allProducts, function($p) use ($product) {
+            return $p['category_id'] == $product['category_id'] && $p['id'] != $product['id'];
+        });
+        $relatedHtml = '';
+        if (!empty($relatedProducts)) {
+            $relatedHtml .= '<div style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid #e2e8f0;">
+                <div class="cat-header-wrap" style="margin-bottom: 2rem;">
+                    <span class="category-sub-badge"><i class="fa-solid fa-compass"></i> <span data-i18n="sec_related_badge">More Recommendations</span></span>
+                    <h2 class="category-section-title" data-i18n="sec_related_title">OTHER POPULAR PRIVATE TOURS</h2>
+                </div>
+                <div class="tours-grid">';
+            foreach (array_slice($relatedProducts, 0, 3) as $rel) {
+                $relImg = htmlspecialchars($rel['image'], ENT_QUOTES, 'UTF-8');
+                $relTitle = htmlspecialchars($rel['title'], ENT_QUOTES, 'UTF-8');
+                $relPriceFormatted = format_currency($rel['price']);
+                $relId = intval($rel['id']);
+                $relatedHtml .= '
+                    <div class="tour-card">
+                        <div class="tour-card-image">
+                            <a href="product-' . $relId . '.html">
+                                <img src="' . $relImg . '" alt="' . $relTitle . '" loading="lazy">
+                            </a>
+                            <span class="tour-badge-private"><i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span></span>
+                        </div>
+                        <div class="tour-card-body">
+                            <h3 class="tour-card-title">
+                                <a href="product-' . $relId . '.html">' . $relTitle . '</a>
+                            </h3>
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">' . $relPriceFormatted . '</span>
+                                </div>
+                                <a href="product-' . $relId . '.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>';
+            }
+            $relatedHtml .= '</div></div>';
+        }
+
+        $summaryHtml = '';
+        if (!empty($pSummary)) {
+            $summaryHtml = '<p style="font-size: 1.1rem; color: #1e293b; line-height: 1.8; margin-bottom: 1.5rem; font-weight: 500; font-style: italic; background: #f8fafc; padding: 1.25rem; border-left: 4px solid #0284c7; border-radius: 4px;">' . $pSummary . '</p>';
+        }
+
+        $currentDate = date('Y-m-d');
+        $galleryCount = count($all_gallery);
 
         return <<<HTML
 {$header}
@@ -1304,7 +1717,7 @@ HTML;
             </div>
             {$mosaicHtml}
             <button type="button" class="mosaic-view-all-btn" onclick="alert('Viewing all gallery photos!')">
-                <i class="fa-solid fa-grip-vertical"></i> <span data-i18n="gallery_btn_view_all">View all photos</span> (5)
+                <i class="fa-solid fa-grip-vertical"></i> <span data-i18n="gallery_btn_view_all">View all photos</span> ({$galleryCount})
             </button>
         </div>
 
@@ -1352,10 +1765,7 @@ HTML;
                 <div class="tour-highlights-card">
                     <h3 class="tour-highlights-title"><i class="fa-solid fa-star"></i> <span data-i18n="sec_highlights_title">TOUR HIGHLIGHTS</span></h3>
                     <ul class="tour-highlights-list">
-                        <li class="tour-highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Enjoy a 100% personalized private journey fully customized to your preferences.</span></li>
-                        <li class="tour-highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Premium modern air-conditioned private vehicle with direct hotel/airport pickup.</span></li>
-                        <li class="tour-highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Enthusiastic, licensed local tour guide speaking fluent English & Vietnamese.</span></li>
-                        <li class="tour-highlight-item"><i class="fa-solid fa-circle-check"></i> <span>Taste handpicked authentic regional specialties at verified dining venues.</span></li>
+                        {$highlightsHtml}
                     </ul>
                 </div>
 
@@ -1398,6 +1808,7 @@ HTML;
 
                 <div>
                     <h3 class="tour-section-heading"><i class="fa-solid fa-circle-info" style="color: #0284c7;"></i> <span data-i18n="sec_overview_title">ABOUT THIS TRIP</span></h3>
+                    {$summaryHtml}
                     <div class="bpt-tour-rich-description">
                         {$pDesc}
                     </div>
@@ -1420,7 +1831,7 @@ HTML;
 
                     <div class="booking-form-group">
                         <label class="booking-input-label" for="detail-tour-date"><i class="fa-regular fa-calendar"></i> <span data-i18n="booking_date_lbl">Select Departure Date:</span></label>
-                        <input type="date" id="detail-tour-date" class="booking-input-control" value="2026-10-04">
+                        <input type="date" id="detail-tour-date" class="booking-input-control" value="{$currentDate}">
                     </div>
 
                     <div class="booking-form-group">
@@ -1459,7 +1870,20 @@ HTML;
                 </div>
             </div>
         </div>
+
+        {$relatedHtml}
     </div>
+</div>
+
+<!-- Mobile Sticky Bottom Booking Bar -->
+<div class="mobile-bottom-booking-bar">
+    <div class="mobile-bottom-bar-price">
+        <span class="label" data-i18n="mobile_price_label">From</span>
+        <span class="val">\${BPT_Storage.formatCurrency(tourPrice)}</span>
+    </div>
+    <button type="button" onclick="addToCartLocalDetail({$pId})" class="mobile-bottom-bar-cta">
+        <i class="fa-solid fa-cart-shopping"></i> <span data-i18n="mobile_btn_book">Book Now</span>
+    </button>
 </div>
 
 <script>
@@ -1601,7 +2025,7 @@ function renderCart() {
 
                 <div class="cart-card-footer">
                     <a href="tour.html" class="cart-continue-link"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="cart_btn_continue">Choose More Tours</span></a>
-                    <span style="font-size: 0.85rem; color: #64748b;"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i> Includes modern private car and dedicated tour guide.</span>
+                    <span style="font-size: 0.85rem; color: #64748b;"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i> <span data-i18n="inc_item_1">Modern air-conditioned private vehicle throughout</span></span>
                 </div>
             </div>
 
@@ -1627,6 +2051,21 @@ function renderCart() {
                     </div>
                     <a href="checkout.html" class="btn-cart-checkout"><span data-i18n="cart_btn_checkout">PROCEED TO SECURE CHECKOUT</span> <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
+
+                <div class="cart-trust-box">
+                    <div class="cart-trust-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span data-i18n="cart_trust_1">Instant reservation confirmation & VietQR E-Ticket</span>
+                    </div>
+                    <div class="cart-trust-item">
+                        <i class="fa-solid fa-car-side"></i>
+                        <span data-i18n="cart_trust_2">Dedicated private English-speaking tour guide</span>
+                    </div>
+                    <div class="cart-trust-item">
+                        <i class="fa-solid fa-headset"></i>
+                        <span data-i18n="cart_trust_3">Full-coverage licensed travel insurance included</span>
+                    </div>
+                </div>
             </div>
         </div>`;
 }
@@ -1645,7 +2084,7 @@ HTML;
     <nav class="site-breadcrumb-box" id="checkout-breadcrumbs">
         <a href="index.html" class="crumb-link"><i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span></a>
         <span class="crumb-separator">/</span>
-        <span class="crumb-current" data-i18n="crumb_order_received">Ticket Confirmation & VietQR</span>
+        <span class="crumb-current" data-i18n="crumb_tour_payment">Tour Order Checkout</span>
     </nav>
 </div>
 
@@ -1669,6 +2108,15 @@ document.addEventListener('DOMContentLoaded', function() {
 function renderCheckout() {
     const cart = BPT_Storage.getCart();
     const root = document.getElementById('checkout-root');
+    const breadcrumbBox = document.getElementById('checkout-breadcrumbs');
+
+    if (breadcrumbBox) {
+        breadcrumbBox.innerHTML = `
+            <a href="index.html" class="crumb-link"><i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span></a>
+            <span class="crumb-separator">/</span>
+            <span class="crumb-current" data-i18n="crumb_tour_payment">Tour Order Checkout</span>
+        `;
+    }
 
     if (cart.length === 0) {
         root.innerHTML = `
@@ -1684,151 +2132,361 @@ function renderCheckout() {
     let itemsRows = '';
     cart.forEach(item => {
         itemsRows += `
-            <tr>
-                <td style="padding: 0.75rem 0; color: #1e293b;">\${item.title} &times; <strong>\${item.quantity}</strong></td>
-                <td style="padding: 0.75rem 0; text-align: right; font-weight: 700;">\${BPT_Storage.formatCurrency(item.price * item.quantity)}</td>
+            <tr class="cart_item">
+                <td class="product-name" style="padding: 0.85rem 0; color: #1e293b;">
+                    \${item.title}&nbsp;<strong class="product-quantity">&times;&nbsp;\${item.quantity}</strong>
+                </td>
+                <td class="product-total" style="padding: 0.85rem 0; text-align: right; font-weight: 700; color: #0f172a;">
+                    <span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(item.price * item.quantity)}</span>
+                </td>
             </tr>`;
     });
 
     root.innerHTML = `
         <form class="woocommerce-checkout" id="static-checkout-form" onsubmit="handleStaticCheckout(event)">
-            <div>
+            <div id="customer_details" class="col2-set">
                 <div class="woocommerce-billing-fields">
-                    <h3>Customer Information</h3>
+                    <h3>Billing Details</h3>
                     <div class="woocommerce-billing-fields__field-wrapper">
-                        <div class="form-row">
-                            <label for="billing_name" data-i18n="form_fullname_lbl">FULL NAME <span style="color:red;">*</span></label>
-                            <input type="text" class="input-text" id="billing_name" required placeholder="e.g. John Smith" data-i18n-placeholder="form_fullname_ph">
-                        </div>
-                        <div class="form-row">
-                            <label for="billing_phone" data-i18n="form_phone_lbl">PHONE / WHATSAPP <span style="color:red;">*</span></label>
-                            <input type="tel" class="input-text" id="billing_phone" required placeholder="e.g. +84 567 599 998" data-i18n-placeholder="form_phone_ph">
-                        </div>
-                        <div class="form-row">
-                            <label for="billing_email" data-i18n="form_email_lbl">EMAIL ADDRESS <span style="color:red;">*</span></label>
-                            <input type="email" class="input-text" id="billing_email" required placeholder="e.g. john@example.com" data-i18n-placeholder="form_email_ph">
-                        </div>
-                        <div class="form-row">
-                            <label for="billing_notes" data-i18n="form_notes_lbl">SPECIAL REQUESTS / DATES</label>
-                            <textarea class="input-text" id="billing_notes" rows="3" placeholder="Hotel pickup address or flight arrival details..." data-i18n-placeholder="form_notes_ph"></textarea>
-                        </div>
+                        <p class="form-row form-row-first" id="billing_first_name_field">
+                            <label for="billing_first_name">FIRST NAME <span style="color:red;">*</span></label>
+                            <input type="text" class="input-text" id="billing_first_name" required placeholder="First name">
+                        </p>
+                        <p class="form-row form-row-last" id="billing_last_name_field">
+                            <label for="billing_last_name">LAST NAME <span style="color:red;">*</span></label>
+                            <input type="text" class="input-text" id="billing_last_name" required placeholder="Last name">
+                        </p>
+                        <p class="form-row form-row-wide" id="billing_country_field">
+                            <label for="billing_country">COUNTRY / REGION <span style="color:red;">*</span></label>
+                            <select id="billing_country" class="input-text" style="height: 48px; border-radius: 12px; padding: 0 1rem; font-weight: 600; cursor: pointer;">
+                                <option value="VN" selected>Vietnam</option>
+                                <option value="US">United States (US)</option>
+                                <option value="GB">United Kingdom (UK)</option>
+                                <option value="AU">Australia</option>
+                                <option value="FR">France</option>
+                                <option value="DE">Germany</option>
+                                <option value="JP">Japan</option>
+                                <option value="KR">South Korea</option>
+                                <option value="SG">Singapore</option>
+                                <option value="MY">Malaysia</option>
+                                <option value="TH">Thailand</option>
+                                <option value="CA">Canada</option>
+                                <option value="OTHER">Other Country</option>
+                            </select>
+                        </p>
+                        <p class="form-row form-row-wide" id="billing_address_1_field">
+                            <label for="billing_address_1">STREET ADDRESS <span style="color:red;">*</span></label>
+                            <input type="text" class="input-text" id="billing_address_1" required placeholder="House number and street name">
+                            <input type="text" class="input-text" id="billing_address_2" style="margin-top: 0.65rem;" placeholder="Apartment, suite, unit, etc. (optional)">
+                        </p>
+                        <p class="form-row form-row-wide" id="billing_postcode_field">
+                            <label for="billing_postcode">POSTCODE / ZIP (OPTIONAL)</label>
+                            <input type="text" class="input-text" id="billing_postcode" placeholder="Postcode / ZIP">
+                        </p>
+                        <p class="form-row form-row-wide" id="billing_city_field">
+                            <label for="billing_city">TOWN / CITY <span style="color:red;">*</span></label>
+                            <input type="text" class="input-text" id="billing_city" required placeholder="Town / City">
+                        </p>
+                        <p class="form-row form-row-first" id="billing_phone_field">
+                            <label for="billing_phone">PHONE <span style="color:red;">*</span></label>
+                            <input type="tel" class="input-text" id="billing_phone" required placeholder="Phone number">
+                        </p>
+                        <p class="form-row form-row-last" id="billing_email_field">
+                            <label for="billing_email">EMAIL ADDRESS <span style="color:red;">*</span></label>
+                            <input type="email" class="input-text" id="billing_email" required placeholder="Email address">
+                        </p>
+                        <p class="form-row form-row-wide" id="order_comments_field">
+                            <label for="order_comments">ORDER NOTES (OPTIONAL)</label>
+                            <textarea class="input-text" id="order_comments" rows="3" placeholder="Notes about your order, e.g. special requests, flight details or pickup location."></textarea>
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <div class="woocommerce-checkout-review-order">
-                <h3 id="order_review_heading">Your Tour Order</h3>
+            <div class="woocommerce-checkout-review-order" id="order_review">
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.5px;">YOUR TOUR ORDER</h3>
                 <table class="shop_table woocommerce-checkout-review-order-table">
+                    <thead>
+                        <tr>
+                            <th class="product-name" style="text-align: left; padding-bottom: 0.75rem; font-size: 0.85rem; font-weight: 800; color: #0f172a; border-bottom: 1px solid #e2e8f0;">PRODUCT</th>
+                            <th class="product-total" style="text-align: right; padding-bottom: 0.75rem; font-size: 0.85rem; font-weight: 800; color: #0f172a; border-bottom: 1px solid #e2e8f0;">SUBTOTAL</th>
+                        </tr>
+                    </thead>
                     <tbody>\${itemsRows}</tbody>
                     <tfoot>
+                        <tr class="cart-subtotal">
+                            <th style="padding: 1rem 0; font-weight: 700; color: #1e293b; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">Subtotal</th>
+                            <td style="padding: 1rem 0; text-align: right; font-weight: 700; color: #0f172a; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+                                <span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(cartTotal)}</span>
+                            </td>
+                        </tr>
                         <tr class="order-total">
-                            <th>Total:</th>
-                            <td>\${BPT_Storage.formatCurrency(cartTotal)}</td>
+                            <th style="padding: 1.25rem 0; font-size: 1.15rem; font-weight: 800; color: #0f172a;">Total</th>
+                            <td style="padding: 1.25rem 0; text-align: right; font-size: 1.35rem; font-weight: 800; color: #f97316;">
+                                <strong><span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(cartTotal)}</span></strong>
+                            </td>
                         </tr>
                     </tfoot>
                 </table>
 
-                <div style="background: #ffffff; padding: 1.25rem; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 1.25rem;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-weight: 800; color: #0284c7;">
-                        <i class="fa-solid fa-qrcode"></i> Instant VietQR Bank Transfer
+                <div id="payment" class="woocommerce-checkout-payment">
+                    <ul class="wc_payment_methods payment_methods methods">
+                        <li class="wc_payment_method payment_method_vietqr">
+                            <label for="payment_method_vietqr" style="display: block; margin-bottom: 0.75rem; cursor: pointer;">
+                                <img src="https://vietqr.net/portal-service/resources/images/logo-vietqr.svg" alt="VietQR" onerror="this.onerror=null; this.src='assets/images/vietqr.png';" style="height: 28px; vertical-align: middle; object-fit: contain;">
+                            </label>
+                            <div class="payment_box payment_method_vietqr">
+                                <div style="width: 100%; box-sizing: border-box;">
+                                    <div class="vietqr-row">
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/ICB.png" alt="VietinBank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/VCB.png" alt="Vietcombank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/BIDV.png" alt="BIDV"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/VBA.png" alt="Agribank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/OCB.png" alt="OCB"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/MB.png" alt="MBBank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/TCB.png" alt="Techcombank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/ACB.png" alt="ACB"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/VPB.png" alt="VPBank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/TPB.png" alt="TPBank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/STB.png" alt="Sacombank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/HDB.png" alt="HDBank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/VCCB.png" alt="BVBank"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/SCB.png" alt="SCB"></div></div>
+                                        <div class="list-bank"><div class="list-bank-box"><img src="https://api.vietqr.io/img/VIB.png" alt="VIB"></div></div>
+                                        <div style="grid-column: 1 / -1; text-align: center; font-size: 0.85rem; color: #64748b; font-weight: 500; padding: 6px 0 2px 0;">
+                                            và hơn 40+ ngân hàng & ví điện tử khác
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="form-row place-order" style="margin-top: 1.25rem;">
+                        <button type="submit" class="button alt btn-checkout-place-order" id="place_order">
+                            <i class="fa-solid fa-lock"></i> PLACE ORDER
+                        </button>
                     </div>
-                    <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Napas247 instant QR code will be generated immediately after clicking place order.</p>
                 </div>
-
-                <button type="submit" class="btn-checkout-place-order">
-                    <i class="fa-solid fa-lock"></i> CONFIRM & GENERATE VIETQR
-                </button>
             </div>
         </form>`;
 }
 
 function handleStaticCheckout(e) {
     e.preventDefault();
-    const name = document.getElementById('billing_name').value.trim();
+    const firstName = document.getElementById('billing_first_name').value.trim();
+    const lastName = document.getElementById('billing_last_name').value.trim();
+    const fullName = (firstName + ' ' + lastName).trim() || 'Customer';
+    const country = document.getElementById('billing_country').value;
+    const address1 = document.getElementById('billing_address_1').value.trim();
+    const address2 = document.getElementById('billing_address_2') ? document.getElementById('billing_address_2').value.trim() : '';
+    const city = document.getElementById('billing_city').value.trim();
+    const postcode = document.getElementById('billing_postcode') ? document.getElementById('billing_postcode').value.trim() : '';
     const phone = document.getElementById('billing_phone').value.trim();
     const email = document.getElementById('billing_email').value.trim();
-    const notes = document.getElementById('billing_notes').value.trim();
+    const notes = document.getElementById('order_comments') ? document.getElementById('order_comments').value.trim() : '';
 
     const cartTotal = BPT_Storage.getCartTotal();
     const cartItems = BPT_Storage.getCart();
-    const res = BPT_Storage.placeOrder({ name, phone, email, notes });
+    const res = BPT_Storage.placeOrder({ 
+        name: fullName, 
+        first_name: firstName, 
+        last_name: lastName, 
+        phone, 
+        email, 
+        country, 
+        address: address1 + (address2 ? ', ' + address2 : ''), 
+        city, 
+        postcode, 
+        notes 
+    });
 
     if (res.success) {
-        const qrUrl = 'https://img.vietqr.io/image/970436-9782794280-compact.jpg?amount=' + cartTotal + '&addInfo=' + encodeURIComponent(res.order_code) + '&accountName=' + encodeURIComponent('NGUYEN VAN KIEN');
-        
+        // Update breadcrumb to Match dynamic thankyou page
+        const breadcrumbBox = document.getElementById('checkout-breadcrumbs');
+        if (breadcrumbBox) {
+            breadcrumbBox.innerHTML = `
+                <a href="index.html" class="crumb-link"><i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span></a>
+                <span class="crumb-separator">/</span>
+                <a href="checkout.html" class="crumb-link"><span data-i18n="crumb_checkout">Checkout</span></a>
+                <span class="crumb-separator">/</span>
+                <span class="crumb-current" data-i18n="crumb_order_received">Ticket Confirmation & VietQR</span>
+            `;
+        }
+
+        const now = new Date();
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const orderDateFormatted = now.getDate() + " " + months[now.getMonth()] + ", " + now.getFullYear();
+
+        const qrUrl = 'https://img.vietqr.io/image/970436-9782794280-compact.jpg?amount=' + cartTotal + '&addInfo=' + encodeURIComponent(res.order_code) + '&accountName=' + encodeURIComponent('BUDDY PRIVATE TOUR');
+
         let orderItemsRows = '';
         cartItems.forEach(it => {
             orderItemsRows += `
-                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f1f5f9;">
-                    <span>\${it.title} &times; <strong>\${it.quantity}</strong></span>
-                    <span style="font-weight: 700;">\${BPT_Storage.formatCurrency(it.price * it.quantity)}</span>
-                </div>`;
+                <tr class="woocommerce-table__line-item order_item">
+                    <td class="woocommerce-table__product-name product-name" style="padding: 12px 16px; border-bottom: 1px solid #e2e8f0; color: #1e293b;">
+                        \${it.title}&nbsp;<strong class="product-quantity">&times;&nbsp;\${it.quantity}</strong>
+                    </td>
+                    <td class="woocommerce-table__product-total product-total" style="padding: 12px 16px; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 700; color: #0f172a;">
+                        <span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(it.price * it.quantity)}</span>
+                    </td>
+                </tr>`;
         });
 
         document.getElementById('checkout-root').innerHTML = `
-            <div class="e-ticket-voucher-card">
-                <div class="e-ticket-badge-header">
-                    <div class="e-ticket-logo-brand"><i class="fa-solid fa-ticket"></i> E-TICKET VOUCHER</div>
-                    <div class="e-ticket-status-pill"><i class="fa-solid fa-circle-check"></i> ORDER CREATED SUCCESSFULLY</div>
-                </div>
+            <div class="woocommerce-order">
+                <!-- 1. Green Success Notice -->
+                <p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received" style="background: #dcfce7; border: 1px solid #86efac; color: #15803d; font-size: 1.05rem; font-weight: 600; padding: 1.25rem 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+                    Thank you. Your order has been received.
+                </p>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; background: #f8fafc; padding: 1.5rem; border-radius: 12px;">
-                    <div><span style="font-size: 0.78rem; color: #64748b; text-transform: uppercase;">Order Code:</span><br><strong style="font-size: 1.15rem; color: #0284c7;">\${res.order_code}</strong></div>
-                    <div><span style="font-size: 0.78rem; color: #64748b; text-transform: uppercase;">Customer:</span><br><strong style="font-size: 1.05rem;">\${name}</strong></div>
-                    <div><span style="font-size: 0.78rem; color: #64748b; text-transform: uppercase;">Phone:</span><br><strong style="font-size: 1.05rem;">\${phone}</strong></div>
-                    <div><span style="font-size: 0.78rem; color: #64748b; text-transform: uppercase;">Total Amount:</span><br><strong style="font-size: 1.25rem; color: #f97316;">\${BPT_Storage.formatCurrency(cartTotal)}</strong></div>
-                </div>
+                <!-- 2. 4-Column Order Details Overview -->
+                <ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; background: #f8fafc; padding: 1.5rem 2rem; border-radius: 14px; border: 1px solid #e2e8f0; list-style: none; margin: 0 0 2.5rem 0;">
+                    <li class="woocommerce-order-overview__order order" style="margin: 0; padding: 0; border: none; font-size: 0.8rem; color: #64748b; text-transform: uppercase;">
+                        ORDER NUMBER:
+                        <strong style="display: block; font-size: 1.15rem; color: #0f172a; margin-top: 0.25rem; font-weight: 800; text-transform: none;">\${res.order_num}</strong>
+                    </li>
+                    <li class="woocommerce-order-overview__date date" style="margin: 0; padding: 0; border: none; font-size: 0.8rem; color: #64748b; text-transform: uppercase;">
+                        DATE:
+                        <strong style="display: block; font-size: 1.15rem; color: #0f172a; margin-top: 0.25rem; font-weight: 700; text-transform: none;">\${orderDateFormatted}</strong>
+                    </li>
+                    <li class="woocommerce-order-overview__email email" style="margin: 0; padding: 0; border: none; font-size: 0.8rem; color: #64748b; text-transform: uppercase;">
+                        EMAIL:
+                        <strong style="display: block; font-size: 1.15rem; color: #0f172a; margin-top: 0.25rem; font-weight: 700; text-transform: none; word-break: break-all;">\${email}</strong>
+                    </li>
+                    <li class="woocommerce-order-overview__total total" style="margin: 0; padding: 0; border: none; font-size: 0.8rem; color: #64748b; text-transform: uppercase;">
+                        TOTAL:
+                        <strong style="display: block; font-size: 1.25rem; color: #f97316; margin-top: 0.25rem; font-weight: 800; text-transform: none;"><span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(cartTotal)}</span></strong>
+                    </li>
+                </ul>
 
-                <!-- VietQR Hero Scan Box -->
-                <div class="vietqr-scan-hero-box">
-                    <h3 class="vietqr-scan-title">Scan VietQR Code With Your Banking App</h3>
-                    <p class="vietqr-scan-subtitle">Open any banking or e-wallet application and scan the code below for instant zero-fee transfer.</p>
-                    
-                    <div class="vietqr-image-wrapper">
-                        <img src="\${qrUrl}" alt="VietQR Payment Code">
+                <!-- 3. Bank Transfer QR Code Section -->
+                <section class="woocommerce-vietqr-qr-scan" style="text-align: center; margin-bottom: 2rem;">
+                    <h2 class="wc-vietqr-bank-details-heading" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin-bottom: 1.25rem;">Bank transfer QR code</h2>
+                    <div style="display: inline-block; background: #ffffff; padding: 12px; border-radius: 16px; border: 2.5px solid #0284c7; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.12);">
+                        <img src="\${qrUrl}" alt="VietQR" style="width: 260px; height: 260px; object-fit: contain; display: block; border-radius: 8px;">
                     </div>
+                </section>
 
-                    <!-- Bank Transfer Details Table with 1-Click Copy Buttons -->
-                    <div class="bank-transfer-details-box">
-                        <div class="bank-detail-row">
-                            <span class="bank-detail-label">Beneficiary Bank:</span>
-                            <span class="bank-detail-val">Vietcombank (Joint Stock Commercial Bank for Foreign Trade of Vietnam)</span>
-                        </div>
-                        <div class="bank-detail-row">
-                            <span class="bank-detail-label">Account Number:</span>
-                            <span class="bank-detail-val">
-                                <span>9782794280</span>
-                                <button type="button" class="bank-copy-btn" onclick="copyToClipboard('9782794280', 'Account number copied!')"><i class="fa-regular fa-copy"></i> Copy</button>
-                            </span>
-                        </div>
-                        <div class="bank-detail-row">
-                            <span class="bank-detail-label">Account Holder:</span>
-                            <span class="bank-detail-val">NGUYEN VAN KIEN</span>
-                        </div>
-                        <div class="bank-detail-row">
-                            <span class="bank-detail-label">Amount:</span>
-                            <span class="bank-detail-val amount-highlight">
-                                <span>\${BPT_Storage.formatCurrency(cartTotal)}</span>
-                                <button type="button" class="bank-copy-btn" onclick="copyToClipboard('\${cartTotal}', 'Amount copied!')"><i class="fa-regular fa-copy"></i> Copy</button>
-                            </span>
-                        </div>
-                        <div class="bank-detail-row">
-                            <span class="bank-detail-label">Transfer Description:</span>
-                            <span class="bank-detail-val">
-                                <span style="color: #0284c7;">\${res.order_code}</span>
-                                <button type="button" class="bank-copy-btn" onclick="copyToClipboard('\${res.order_code}', 'Transfer description copied!')"><i class="fa-regular fa-copy"></i> Copy</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <!-- 4. Our Bank Transfer Details Section -->
+                <section class="woocommerce-vietqr-bank-details" style="text-align: center; margin-bottom: 2.5rem;">
+                    <h2 class="wc-vietqr-bank-details-heading" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">Our Bank Transfer Details</h2>
+                    <h4 style="color: red; text-align: center; margin-bottom: 1.5rem; font-size: 0.95rem; font-weight: 600;">
+                        Please include the exact payment reference <strong style="color: red;">\${res.order_code}</strong> for instant
+                    </h4>
+                    <table class="table table-bordered wc-vietqr-details-table" style="font-size: 15px; max-width: 650px; margin: 0 auto; width: 100%; border-collapse: collapse; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; background: #ffffff;">
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td style="text-align: right; width: 38%; padding: 12px 18px; border: 1px solid #dee2e6; font-weight: 700; color: #0f172a; background: #fbfbfb;">Account Name:</td>
+                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a; font-weight: 700;">NGUYEN VAN KIEN</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td style="text-align: right; width: 38%; padding: 12px 18px; border: 1px solid #dee2e6; font-weight: 700; color: #0f172a; background: #fbfbfb;">Account Number:</td>
+                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a; font-weight: 700;">9782794280</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td style="text-align: right; width: 38%; padding: 12px 18px; border: 1px solid #dee2e6; font-weight: 700; color: #0f172a; background: #fbfbfb;">Bank Name:</td>
+                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a;">Ngân hàng TMCP Ngoại Thương Việt Nam</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; width: 38%; padding: 12px 18px; border: 1px solid #dee2e6; font-weight: 700; color: #0f172a; background: #fbfbfb;">Total Amount:</td>
+                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a; font-weight: 800;">\${BPT_Storage.formatCurrency(cartTotal)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- 5. Order details Section -->
+                <section class="woocommerce-order-details" style="margin-bottom: 2.5rem;">
+                    <h2 class="woocommerce-order-details__title" style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem;">Order details</h2>
+                    <table class="woocommerce-table woocommerce-table--order-details shop_table order_details" style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                        <thead>
+                            <tr>
+                                <th class="woocommerce-table__product-name product-name" style="text-align: left; padding: 12px 16px; border-bottom: 1px solid #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.95rem;">Product</th>
+                                <th class="woocommerce-table__product-table product-total" style="text-align: right; padding: 12px 16px; border-bottom: 1px solid #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.95rem;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            \${orderItemsRows}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th scope="row" style="text-align: left; padding: 12px 16px; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a;">Subtotal:</th>
+                                <td style="text-align: right; padding: 12px 16px; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a;">\${BPT_Storage.formatCurrency(cartTotal)}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="text-align: left; padding: 12px 16px; border-bottom: none; font-weight: 800; color: #0f172a;">Total:</th>
+                                <td style="text-align: right; padding: 12px 16px; border-bottom: none; font-weight: 800; color: #0f172a;">\${BPT_Storage.formatCurrency(cartTotal)}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </section>
+
+                <!-- 6. Billing address Section -->
+                <section class="woocommerce-customer-details" style="margin-bottom: 2.5rem;">
+                    <h2 class="woocommerce-column__title" style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem;">Billing address</h2>
+                    <address style="font-style: normal; line-height: 1.7; padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; color: #1e293b;">
+                        <div style="font-weight: 700; color: #0f172a; font-size: 1.05rem; margin-bottom: 0.25rem;">\${fullName}</div>
+                        <div>\${address1}</div>
+                        \${address2 ? '<div>' + address2 + '</div>' : ''}
+                        <div>\${city}</div>
+                        <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.5rem; color: #334155;"><i class="fa-solid fa-phone" style="font-size: 0.85rem; color: #64748b;"></i> \${phone}</div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; color: #334155;"><i class="fa-solid fa-envelope" style="font-size: 0.85rem; color: #64748b;"></i> \${email}</div>
+                    </address>
+                </section>
 
                 <div style="text-align: center; margin-top: 2rem;">
-                    <a href="index.html" class="tour-card-cta-btn" style="display: inline-flex; padding: 0.85rem 2rem;">
+                    <a href="index.html" class="tour-card-cta-btn" style="display: inline-flex; padding: 0.85rem 2rem; border-radius: 9999px;">
                         <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Back to Home</span>
                     </a>
                 </div>
             </div>`;
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+}
+
+window.copyToClipboard = function(text, msg) {
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function() {
+            showCopyToast(msg || 'Copied to clipboard!');
+        }).catch(function() {
+            fallbackCopy(text, msg);
+        });
+    } else {
+        fallbackCopy(text, msg);
+    }
+};
+
+function fallbackCopy(text, msg) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    el.style.position = 'fixed';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.focus();
+    el.select();
+    try {
+        document.execCommand('copy');
+        showCopyToast(msg || 'Copied to clipboard!');
+    } catch (e) {}
+    document.body.removeChild(el);
+}
+
+function showCopyToast(msg) {
+    let t = document.getElementById('bpt-toast');
+    if (!t) {
+        t = document.createElement('div');
+        t.id = 'bpt-toast';
+        t.style.cssText = 'position: fixed; bottom: 30px; right: 30px; background: #0f172a; color: #ffffff; padding: 12px 24px; border-radius: 10px; font-size: 0.9rem; font-weight: 700; z-index: 999999; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: opacity 0.3s ease, transform 0.3s ease; display: flex; align-items: center; gap: 8px;';
+        document.body.appendChild(t);
+    }
+    t.innerHTML = '<i class="fa-solid fa-circle-check" style="color: #22c55e;"></i> ' + msg;
+    t.style.opacity = '1';
+    t.style.transform = 'translateY(0)';
+    setTimeout(function() {
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(10px)';
+    }, 2500);
 }
 </script>
 {$footer}
@@ -1837,3 +2495,4 @@ HTML;
 }
 
 BPT_ExportController::init();
+
