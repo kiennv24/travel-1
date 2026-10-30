@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Buddy Private Tour</title>
+    <title>Buddy Private Tour - Modern Luxury Private Journeys</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/tour-detail.css">
@@ -15,128 +15,136 @@
     <link rel="stylesheet" href="assets/css/checkout.css">
     <link rel="stylesheet" href="assets/css/other-services.css">
     <link rel="stylesheet" href="assets/css/pages.css">
+    <link rel="stylesheet" href="assets/css/feedback.css">
+    <link rel="stylesheet" href="assets/css/wptripadvisor_all.css">
+    <script src="assets/js/translations.js"></script>
     <script src="assets/js/app-localstorage.js"></script>
     <script src="assets/js/main.js" defer></script>
 </head>
 <body>
 
+<!-- Top Announcement Ticker Bar -->
+<div class="header-top-ticker">
+    <div class="container">
+        <span><span data-i18n="ticker_welcome">✨ Welcome to BUDDY PRIVATE TOUR – 24/7 Hotline / WhatsApp Support:</span> <a href="tel:+84567599998">+84 567 599 998</a></span>
+    </div>
+</div>
+
+<!-- Main Sticky Glassmorphism Header -->
 <header class="site-header">
     <div class="header-main-wrap">
-        <!-- Desktop Header Row -->
         <div class="header-top-row desktop-header-row">
-            <a href="index.html" class="brand-logo">
+            <a href="index.html" class="brand-logo" title="BUDDY PRIVATE TOUR">
                 <img src="assets/images/logo.png" alt="BUDDY PRIVATE TOUR" class="site-logo-img">
             </a>
+
             <div class="header-nav-column">
                 <nav class="main-navigation">
                     <ul class="nav-menu">
-                        <li class="menu-item-home"><a href="index.html">HOME</a></li>
-                        <li><a href="about-us.html">ABOUT US</a></li>
-                        <li class="menu-item-has-children">
-                            <a href="tour.html">TOUR</a>
+                        <li class="active"><a href="index.html"><i class="fa-solid fa-house" style="font-size: 0.8rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                        <li class=""><a href="about-us.html"><span data-i18n="nav_about">ABOUT US</span></a></li>
+                        <li class="menu-item-has-children ">
+                            <a href="tour.html"><span data-i18n="nav_tour">TOURS</span></a>
                             <ul class="sub-menu">
-                                <li><a href="tour.html?category=northern-vietnam-tours">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a></li>
-                                <li><a href="tour.html?category=central-vietnam-tours">DANANG AND NEARBY TOURS (CENTRAL VIETNAM TOURS)</a></li>
-                                <li><a href="tour.html?category=southern-vietnam-tours">HO CHI MINH CITY AND NEARBY TOURS (SOUTHERN VIETNAM TOURS)</a></li>
+                                <li><a href="tour.html?category=northern-vietnam-tours"><i class="fa-solid fa-mountain-sun" style="color: #0284c7;"></i> <span data-i18n="nav_north">HANOI & NORTH VIETNAM</span></a></li>
+                                <li><a href="tour.html?category=central-vietnam-tours"><i class="fa-solid fa-umbrella-beach" style="color: #0ea5e9;"></i> <span data-i18n="nav_central">DA NANG & CENTRAL VIETNAM</span></a></li>
+                                <li><a href="tour.html?category=southern-vietnam-tours"><i class="fa-solid fa-city" style="color: #f97316;"></i> <span data-i18n="nav_south">HO CHI MINH CITY & SOUTH</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="other-services.html">OTHER SERVICES</a></li>
-                        <li><a href="tour.html#diary">TOUR DIARY</a></li>
-                        <li><a href="videos.html">VIDEOS</a></li>
-                        <li><a href="contact.html">CONTACT</a></li>
-                        <li>
-                            <a href="cart.html" class="nav-cart-btn" title="Cart">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                <span class="cart-badge">0</span>
-                            </a>
-                        </li>
+                        <li class=""><a href="other-services.html"><span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
+                        <li class=""><a href="videos.html"><span data-i18n="nav_videos">VIDEOS</span></a></li>
+                        <li class=""><a href="feedback.html"><span data-i18n="nav_feedback">FEEDBACK</span></a></li>
+                        <li class=""><a href="contact.html"><span data-i18n="nav_contact">CONTACT</span></a></li>
                     </ul>
                 </nav>
-                <div class="nav-marquee-wrapper">
-                    <div class="nav-marquee-content">
-                        <span>Chào mừng quý khách đến với BUDDY PRIVATE TOUR – Hotline: +84567599998</span>
-                    </div>
+
+                <div class="header-right-actions">
+                    <a href="cart.html" class="nav-cart-btn" title="Your Cart" data-i18n-title="nav_cart">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-badge">0</span>
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Header Layout (Matching exact user screenshot) -->
+        <!-- Mobile Header Layout -->
         <div class="mobile-header-wrapper">
-            <!-- Centered Logo -->
-            <div class="mobile-logo-wrap">
+            <div class="mobile-header-bar">
                 <a href="index.html" class="mobile-brand-logo">
                     <img src="assets/images/logo.png" alt="BUDDY PRIVATE TOUR" class="mobile-site-logo">
                 </a>
+
+                <div class="mobile-header-right">
+                    <a href="cart.html" class="nav-cart-btn" title="Cart" style="width: 38px; height: 38px; font-size: 1rem;">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-badge">0</span>
+                    </a>
+                    
+                    <button type="button" class="mobile-menu-toggle-btn" id="mobileMenuToggleBtn" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
             </div>
 
-            <!-- Mobile MENU Bar -->
-            <div class="mobile-menu-box">
-                <div class="mobile-menu-bar" id="mobileMenuBar">
-                    <span class="mobile-menu-text">MENU</span>
-                    <div class="mobile-menu-right-actions">
-                        <a href="cart.html" class="mobile-menu-cart-icon-btn" title="Cart" onclick="event.stopPropagation();">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                            <span class="cart-badge">0</span>
-                        </a>
-                        <span class="mobile-menu-icon"><i class="fa-solid fa-bars"></i></span>
-                    </div>
-                </div>
-
-                <!-- Dropdown Menu List -->
-                <div class="mobile-menu-dropdown" id="mobileMenuDropdown">
-                    <ul class="mobile-menu-list">
-                        <li class="mobile-menu-item-home"><a href="index.html">HOME</a></li>
-                        <li><a href="about-us.html">ABOUT US</a></li>
-                        <li class="mobile-menu-has-sub">
-                            <div class="mobile-menu-sub-head">
-                                <a href="tour.html">TOUR</a>
-                                <span class="mobile-sub-chevron"><i class="fa-solid fa-chevron-down"></i></span>
-                            </div>
-                            <ul class="mobile-menu-sub-list">
-                                <li><a href="tour.html?category=northern-vietnam-tours">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a></li>
-                                <li><a href="tour.html?category=central-vietnam-tours">DANANG AND NEARBY TOURS (CENTRAL VIETNAM TOURS)</a></li>
-                                <li><a href="tour.html?category=southern-vietnam-tours">HO CHI MINH CITY AND NEARBY TOURS (SOUTHERN VIETNAM TOURS)</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="other-services.html">OTHER SERVICES</a></li>
-                        <li><a href="tour.html#diary">TOUR DIARY</a></li>
-                        <li><a href="videos.html">VIDEOS</a></li>
-                        <li><a href="contact.html">CONTACT</a></li>
-                        <li>
-                            <a href="cart.html" class="mobile-menu-cart-link">
-                                CART
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+                <ul class="mobile-menu-list">
+                    <li class="active"><a href="index.html"><i class="fa-solid fa-house"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                    <li class=""><a href="about-us.html"><i class="fa-solid fa-circle-info"></i> <span data-i18n="nav_about">ABOUT US</span></a></li>
+                    <li class="mobile-menu-has-sub ">
+                        <div class="mobile-sub-head">
+                            <a href="tour.html"><i class="fa-solid fa-compass"></i> <span data-i18n="nav_tour">TOURS</span></a>
+                            <span class="mobile-sub-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="mobile-sub-list">
+                            <li><a href="tour.html?category=northern-vietnam-tours" data-i18n="nav_north">Hanoi & North Vietnam</a></li>
+                            <li><a href="tour.html?category=central-vietnam-tours" data-i18n="nav_central">Da Nang & Central Vietnam</a></li>
+                            <li><a href="tour.html?category=southern-vietnam-tours" data-i18n="nav_south">Ho Chi Minh City & South</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a href="other-services.html"><i class="fa-solid fa-car"></i> <span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
+                    <li class=""><a href="videos.html"><i class="fa-solid fa-video"></i> <span data-i18n="nav_videos">VIDEOS</span></a></li>
+                    <li class=""><a href="feedback.html"><i class="fa-solid fa-star"></i> <span data-i18n="nav_feedback">FEEDBACK</span></a></li>
+                    <li class=""><a href="contact.html"><i class="fa-solid fa-headset"></i> <span data-i18n="nav_contact">CONTACT</span></a></li>
+                </ul>
             </div>
         </div>
     </div>
 </header>
-<!-- Hero Slider Section matching 3 banner designs -->
+<!-- Hero Slider Section -->
 <section class="hero-slider" id="hero-slider">
     <div class="slider-wrapper">
-        <!-- Slide 1: Buddy Private Tour Overview (in Hanoi, Da nang, Nha trang, Da lat, Ho chi minh, Phu quoc) -->
+        <!-- Slide 1 -->
         <div class="slide-item active">
-            <a href="#catalog" class="slide-link">
-                <img src="https://buddyprivatetour.com/wp-content/uploads/2019/12/bn3.jpg" alt="Buddy Private Tour - in Hanoi, Da nang, Nha trang, Da lat, Ho chi minh, Phu quoc" class="slide-img" />
-            </a>
+            <img src="assets/images/bn3.jpg" alt="Buddy Private Tour - Exclusive Journeys" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-crown"></i> <span data-i18n="hero_tagline_1">Exclusive Private Tour Services</span></span>
+                <h1 class="hero-title" data-i18n="hero_title_1">Explore Vietnam In Your Own Unique Way</h1>
+                <p class="hero-subtitle" data-i18n="hero_sub_1">Tailor-made private journeys for families & friends featuring modern private cars and licensed local tour guides.</p>
+            </div>
         </div>
-        <!-- Slide 2: Stimulate tourism with Buddy Private Tour - Discount up to 50% -->
+
+        <!-- Slide 2 -->
         <div class="slide-item">
-            <a href="#catalog" class="slide-link">
-                <img src="https://buddyprivatetour.com/wp-content/uploads/2019/12/bn2.jpg" alt="Stimulate tourism with Buddy Private Tour - Discount up to 50%" class="slide-img" />
-            </a>
+            <img src="assets/images/bn2.jpg" alt="Stimulate tourism with Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-percent"></i> <span data-i18n="hero_tagline_2">Seasonal Tour Offers</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_2">Cherish Every Unforgettable Moment</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_2">Indulge in 5-star standard private services with complete itinerary flexibility.</p>
+            </div>
         </div>
-        <!-- Slide 3: Roaming Everywhere Together - BUDDY PRIVATE TOUR - Travel Phu Quoc Island -->
+
+        <!-- Slide 3 -->
         <div class="slide-item">
-            <a href="#catalog" class="slide-link">
-                <img src="https://buddyprivatetour.com/wp-content/uploads/2019/12/bn1.jpg" alt="Roaming Everywhere Together - BUDDY PRIVATE TOUR - Travel Phu Quoc Island" class="slide-img" />
-            </a>
+            <img src="assets/images/bn1.jpg" alt="Roaming Everywhere Together - Travel Vietnam" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-gem"></i> <span data-i18n="hero_tagline_3">Distinctive Travel Experiences</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_3">Hanoi • Da Nang • Phu Quoc • Saigon</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_3">Easy online booking, instant payment via VietQR, and immediate electronic voucher delivery.</p>
+            </div>
         </div>
     </div>
 
-    <!-- Bullets -->
+    <!-- Bullets Navigation -->
     <div class="slider-bullets">
         <span class="bullet active" onclick="setSlide(0)" aria-label="Slide 1"></span>
         <span class="bullet" onclick="setSlide(1)" aria-label="Slide 2"></span>
@@ -152,255 +160,917 @@
     </button>
 </section>
 
-<!-- Editable Content Area for Homepage (Elementor / Gutenberg) -->
-<div class="homepage-editable-content container" style="margin-top: 3rem; margin-bottom: 2rem;">
-    
-</div>
 
-<div id="catalog" class="section-padding">
+
+<!-- Product Catalog -->
+<div id="products-catalog" class="section-padding">
     <div class="container">
-        <div id="static-catalog-container">
-                        <div id="northern-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
-            <div id="northern-tours" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
+        <div id="northern-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div><div id="ha-noi-and-nearby-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
+            <div id="northern-tours" style="margin-bottom: 4.5rem; scroll-margin-top: 100px;">
+                <!-- Modern Category Section Header -->
                 <div class="cat-header-wrap">
-                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-                    <h2 class="category-section-title">Hà Nội &amp; Miền Bắc (Northern Tours)</h2>
-                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
+                    <span class="category-sub-badge"><i class="fa-solid fa-sparkles"></i> <span data-i18n="cat_badge_selected">Hand-Picked Itineraries</span></span>
+                    <h2 class="category-section-title" data-i18n="cat_north_title">Hà Nội &amp;amp; Miền Bắc (Northern Tours)</h2>
+                    <p class="category-section-desc" data-i18n="cat_desc_common">Experience luxury private journeys with modern vehicles and fully customizable itineraries.</p>
                 </div>
+
                 <div class="tours-grid">
-                                    <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-1.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/image_processing20190823-4-i0mb5h.webp" alt="Hanoi Ninh Binh Tour" loading="lazy">
-                        </a>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-1.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/image_processing20190823-4-i0mb5h.webp" alt="Hanoi Ninh Binh Tour" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 2 Ngày 1 Đêm
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Hà Nội &amp;amp; Miền Bắc (Northern Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-1.html">Hanoi Ninh Binh Tour</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">2.500.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-1.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-1.html">Hanoi Ninh Binh Tour</a></h4>
-                        <a href="products/product-1.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-2.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/van-16473202453091404052526.webp" alt="HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 4 Ngày 3 Đêm
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Hà Nội &amp;amp; Miền Bắc (Northern Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-2.html">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">5.800.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-2.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-2.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/van-16473202453091404052526.webp" alt="HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)" loading="lazy">
-                        </a>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-16.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/ha-long-2.webp" alt="TOURISM HANOI – NINH BINH – HA LONG" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> Full Day
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Hà Nội &amp;amp; Miền Bắc (Northern Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-16.html">TOURISM HANOI – NINH BINH – HA LONG</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">2.500.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-16.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-2.html">HA NOI AND NEARBY TOURS (NORTHERN VIETNAM TOURS)</a></h4>
-                        <a href="products/product-2.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-16.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/ha-long-2.webp" alt="TOURISM HANOI – NINH BINH – HA LONG" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-16.html">TOURISM HANOI – NINH BINH – HA LONG</a></h4>
-                        <a href="products/product-16.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>
-                </div>
-            </div>                <div class="middle-banner-section">
-                    <img src="https://buddyprivatetour.com/wp-content/uploads/2022/10/WCQB.jpg" alt="Quang Binh Banner">
-                </div>            <div id="central-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
-            <div id="central-tours" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-                <div class="cat-header-wrap">
-                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-                    <h2 class="category-section-title">Đà Nẵng &amp; Miền Trung (Central Tours)</h2>
-                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-                </div>
-                <div class="tours-grid">
-                                    <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-4.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hoianecotour.jpg" alt="HOI AN ECO-TOUR" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-4.html">HOI AN ECO-TOUR</a></h4>
-                        <a href="products/product-4.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-5.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/culao5.webp" alt="Cu Lao Cham Island" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-5.html">Cu Lao Cham Island</a></h4>
-                        <a href="products/product-5.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-6.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/mysonsantour.jpg" alt="MY SON SANCTUARY" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-6.html">MY SON SANCTUARY</a></h4>
-                        <a href="products/product-6.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-7.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hueprivate.jpg" alt="Hue private tour" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-7.html">Hue private tour</a></h4>
-                        <a href="products/product-7.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-8.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/bana.webp" alt="Ba Na Hill tour" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-8.html">Ba Na Hill tour</a></h4>
-                        <a href="products/product-8.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-11.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/danang.jpg" alt="Da Nang city tour" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-11.html">Da Nang city tour</a></h4>
-                        <a href="products/product-11.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-12.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hoian.jpg" alt="HOI AN PRIVATE TOUR" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-12.html">HOI AN PRIVATE TOUR</a></h4>
-                        <a href="products/product-12.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-15.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/phongnha.webp" alt="Phong Nha Ke Bang national park and paradise cave" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-15.html">Phong Nha Ke Bang national park and paradise cave</a></h4>
-                        <a href="products/product-15.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-14.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/quangtri.webp" alt="The DMZ veteran tour in Quang Tri province" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-14.html">The DMZ veteran tour in Quang Tri province</a></h4>
-                        <a href="products/product-14.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>
-                </div>
-            </div>            <div id="southern-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
-            <div id="southern-tours" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-                <div class="cat-header-wrap">
-                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-                    <h2 class="category-section-title">TP.HCM &amp; Miền Nam (Southern Tours)</h2>
-                    <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-                </div>
-                <div class="tours-grid">
-                                    <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-3.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/mekongdeltas.jpeg" alt="MEKONG DELTA TOURS" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-3.html">MEKONG DELTA TOURS</a></h4>
-                        <a href="products/product-3.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-9.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hochiminh.webp" alt="HO CHI MINH CITY TOUR" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-9.html">HO CHI MINH CITY TOUR</a></h4>
-                        <a href="products/product-9.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-10.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/anh-bia-cu-chi.webp" alt="CU CHI TUNNELS" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-10.html">CU CHI TUNNELS</a></h4>
-                        <a href="products/product-10.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-13.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/phuquoc.webp" alt="Phu Quoc Island" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-13.html">Phu Quoc Island</a></h4>
-                        <a href="products/product-13.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>
                 </div>
             </div>
-        </div>
+                <!-- Quảng Bình middle banner -->
+                <div class="middle-banner-section">
+                    <img src="assets/images/quangbinh-banner.jpg" alt="Quang Binh Banner">
+                </div><div id="central-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div><div id="danang-and-nearby-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
+            <div id="central-tours" style="margin-bottom: 4.5rem; scroll-margin-top: 100px;">
+                <!-- Modern Category Section Header -->
+                <div class="cat-header-wrap">
+                    <span class="category-sub-badge"><i class="fa-solid fa-sparkles"></i> <span data-i18n="cat_badge_selected">Hand-Picked Itineraries</span></span>
+                    <h2 class="category-section-title" data-i18n="cat_central_title">Đà Nẵng &amp;amp; Miền Trung (Central Tours)</h2>
+                    <p class="category-section-desc" data-i18n="cat_desc_common">Experience luxury private journeys with modern vehicles and fully customizable itineraries.</p>
+                </div>
+
+                <div class="tours-grid">
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-4.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hoianecotour.jpg" alt="HOI AN ECO-TOUR" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 1 Ngày
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-4.html">HOI AN ECO-TOUR</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">850.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-4.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-5.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/culao5.webp" alt="Cu Lao Cham Island" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 1 Ngày
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-5.html">Cu Lao Cham Island</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">950.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-5.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-6.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/mysonsantour.jpg" alt="MY SON SANCTUARY" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 2 Ngày 1 Đêm
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-6.html">MY SON SANCTUARY</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">2.900.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-6.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-7.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hueprivate.jpg" alt="Hue private tour" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 1 Ngày
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-7.html">Hue private tour</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">1.200.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-7.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-8.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/bana.webp" alt="Ba Na Hill tour" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 1 Ngày
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-8.html">Ba Na Hill tour</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">1.450.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-8.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-11.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/danang.jpg" alt="Da Nang city tour" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> Tùy chọn
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-11.html">Da Nang city tour</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">1.500.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-11.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-12.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hoian.jpg" alt="HOI AN PRIVATE TOUR" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> Tùy chọn
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-12.html">HOI AN PRIVATE TOUR</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">1.200.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-12.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-15.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/phongnha.webp" alt="Phong Nha Ke Bang national park and paradise cave" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> Full Day
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-15.html">Phong Nha Ke Bang national park and paradise cave</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">5.800.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-15.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-14.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/quangtri.webp" alt="The DMZ veteran tour in Quang Tri province" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> Full Day
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> Đà Nẵng &amp;amp; Miền Trung (Central Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-14.html">The DMZ veteran tour in Quang Tri province</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">950.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-14.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><div id="southern-vietnam-tours" style="position:relative; top:-90px; visibility:hidden;"></div><div id="ho-chi-minh-city-and-nearby-tours" style="position:relative; top:-90px; visibility:hidden;"></div>
+            <div id="southern-tours" style="margin-bottom: 4.5rem; scroll-margin-top: 100px;">
+                <!-- Modern Category Section Header -->
+                <div class="cat-header-wrap">
+                    <span class="category-sub-badge"><i class="fa-solid fa-sparkles"></i> <span data-i18n="cat_badge_selected">Hand-Picked Itineraries</span></span>
+                    <h2 class="category-section-title" data-i18n="cat_south_title">TP.HCM &amp;amp; Miền Nam (Southern Tours)</h2>
+                    <p class="category-section-desc" data-i18n="cat_desc_common">Experience luxury private journeys with modern vehicles and fully customizable itineraries.</p>
+                </div>
+
+                <div class="tours-grid">
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-3.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/mekongdeltas.jpeg" alt="MEKONG DELTA TOURS" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 3 Ngày 2 Đêm
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> TP.HCM &amp;amp; Miền Nam (Southern Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-3.html">MEKONG DELTA TOURS</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">3.900.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-3.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-9.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hochiminh.webp" alt="HO CHI MINH CITY TOUR" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> 3 Ngày 2 Đêm
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> TP.HCM &amp;amp; Miền Nam (Southern Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-9.html">HO CHI MINH CITY TOUR</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">4.500.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-9.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-10.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/anh-bia-cu-chi.webp" alt="CU CHI TUNNELS" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> Nửa Ngày
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> TP.HCM &amp;amp; Miền Nam (Southern Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-10.html">CU CHI TUNNELS</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">750.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-10.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <!-- Image Top Container -->
+                        <div class="tour-card-image">
+                            <a href="products/product-13.html">
+                                <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/phuquoc.webp" alt="Phu Quoc Island" loading="lazy">
+                            </a>
+                            
+                            <span class="tour-badge-private">
+                                <i class="fa-solid fa-gem"></i> <span data-i18n="card_badge_private">Private Tour</span>
+                            </span>
+                            
+                            <span class="tour-badge-duration">
+                                <i class="fa-regular fa-clock"></i> Full Day
+                            </span>
+
+                            <button type="button" class="tour-wishlist-btn" title="Save to wishlist">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Card Body -->
+                        <div class="tour-card-body">
+                            <div class="tour-card-meta">
+                                <span class="tour-location-tag">
+                                    <i class="fa-solid fa-location-dot"></i> TP.HCM &amp;amp; Miền Nam (Southern Tours)
+                                </span>
+                                <div class="tour-rating-stars">
+                                    <i class="fa-solid fa-star"></i> 4.9 <span style="color: #64748b; font-weight: normal;" data-i18n="card_reviews_suffix">(86 reviews)</span>
+                                </div>
+                            </div>
+
+                            <h3 class="tour-card-title">
+                                <a href="products/product-13.html">Phu Quoc Island</a>
+                            </h3>
+
+                            <div class="tour-card-perks">
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_car">Private car</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_guide">Expert guide</span></span>
+                                <span class="tour-card-perk-item"><i class="fa-solid fa-check"></i> <span data-i18n="card_perk_ticket">Entry tickets</span></span>
+                            </div>
+                            
+                            <div class="tour-card-footer">
+                                <div class="tour-price-wrap">
+                                    <span class="tour-price-label" data-i18n="card_price_from">From</span>
+                                    <span class="tour-price-value">1.200.000 VNĐ</span>
+                                </div>
+
+                                <a href="products/product-13.html" class="tour-card-cta-btn">
+                                    <span data-i18n="card_btn_view">View Tour</span> <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <!-- Home Featured Videos Section -->
         <div class="home-videos-section">
+            <div class="cat-header-wrap" style="margin-bottom: 2rem;">
+                <span class="category-sub-badge"><i class="fa-solid fa-video"></i> <span data-i18n="sec_videos_badge">Real Journey Clips</span></span>
+                <h2 class="category-section-title" data-i18n="sec_videos_title">JOURNEYS WITH BUDDY PRIVATE TOUR</h2>
+            </div>
+
             <div class="home-videos-grid">
                 <!-- Video 1 -->
                 <div class="home-video-card">
                     <div class="home-video-wrapper">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AAeb7JPwJfw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AAeb7JPwJfw?si=w0Z43dropCnsjNTq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
 
                 <!-- Video 2 -->
                 <div class="home-video-card">
                     <div class="home-video-wrapper">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/STt213h-_hM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/STt213h-_hM?si=FOz-tYlcH1LChGxP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -408,90 +1078,42 @@
     </div>
 </div>
 
-<!-- Full-width Middle Banner (bn3.jpg) stretched 100% across the screen -->
-<div class="middle-banner-fullwidth" style="width: 100%; margin-top: 2rem; margin-bottom: 3.5rem; overflow: hidden; line-height: 0;">
-    <img src="assets/images/bn3.jpg" alt="Buddy Private Tour Banner" style="width: 100%; height: auto; display: block; object-fit: cover;">
-</div>
-
-<div class="section-padding" style="padding-top: 0; background: #fff;">
-    <div class="container">
-        <!-- Other Services Section below tours and videos -->
-        <div id="other-services" class="other-services-home-section" style="margin-bottom: 4rem;">
-            <div class="cat-header-wrap">
-                <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-                <h2 class="category-section-title">OTHER SERVICES</h2>
-                <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-            </div>
-
-            <div class="tours-grid">
-                                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="other-services-detail-car-rental.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/dkt-transport-cung-cap-dich-vu-cho-thue-xe-7-cho-tai-ha-noi.webp" alt="CAR RENTAL FROM 4-45">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="other-services-detail-car-rental.html">CAR RENTAL FROM 4-45</a></h4>
-                        <a href="other-services-detail-car-rental.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="other-services-detail-hotel.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/hotel.webp" alt="HOTEL">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="other-services-detail-hotel.html">HOTEL</a></h4>
-                        <a href="other-services-detail-hotel.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="other-services-detail-airline-tickets.html">
-                            <img src="https://pub-2487a20a0c6f4a658cc699f285f4c0a8.r2.dev/wp-content/uploads/2026/08/ve-7546-1571044895.webp" alt="CHEAP AIRLINE TICKETS">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="other-services-detail-airline-tickets.html">CHEAP AIRLINE TICKETS</a></h4>
-                        <a href="other-services-detail-airline-tickets.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Full-width Middle Banner -->
+<div class="middle-banner-fullwidth">
+    <img src="assets/images/bn3.jpg" alt="Buddy Private Tour Banner">
 </div>
 
 <!-- Consultation form section (Glassmorphism layout) -->
-<section id="consultation" class="consultation-section" style="background-image: url('https://buddyprivatetour.com/wp-content/uploads/2022/10/post_vinh-ha-long-054559201019.jpg');">
+<section id="consultation" class="consultation-section" style="background-image: url('assets/images/halong-bg.jpg');">
     <div class="container">
         <div class="glass-form-box">
-            <h3 class="glass-form-title">TOUR CONSULTATION & QUICK BOOKING</h3>
-            <form action="#" method="POST" onsubmit="alert('Thank you! Your inquiry has been sent successfully.'); return false;">
+            <h3 class="glass-form-title" data-i18n="form_title">CUSTOMIZE YOUR PRIVATE TOUR</h3>
+            <p class="glass-form-subtitle" data-i18n="form_subtitle">Leave your contact details and our travel experts will respond within 15 minutes</p>
+            
+            <form action="#" method="POST" onsubmit="alert('Thank you! Your inquiry has been submitted. Our travel expert will contact you shortly.'); return false;">
                 <div class="glass-form-group">
-                    <label for="cust_name">Your Name:</label>
-                    <input type="text" id="cust_name" class="glass-form-control" required placeholder="Full Name">
+                    <label for="cust_name" data-i18n="form_fullname_lbl">FULL NAME *</label>
+                    <input type="text" id="cust_name" class="glass-form-control" required placeholder="e.g. John Smith" data-i18n-placeholder="form_fullname_ph">
                 </div>
                 <div class="glass-form-group">
-                    <label for="cust_phone">Your Phone:</label>
-                    <input type="tel" id="cust_phone" class="glass-form-control" required placeholder="Phone Number / WhatsApp">
+                    <label for="cust_phone" data-i18n="form_phone_lbl">PHONE / WHATSAPP *</label>
+                    <input type="tel" id="cust_phone" class="glass-form-control" required placeholder="e.g. +84 567 599 998" data-i18n-placeholder="form_phone_ph">
                 </div>
                 <div class="glass-form-group">
-                    <label for="cust_msg">Your Message:</label>
-                    <textarea id="cust_msg" class="glass-form-control" rows="4" placeholder="Your travel dates, number of persons, or special requests..."></textarea>
+                    <label for="cust_msg" data-i18n="form_notes_lbl">SPECIAL REQUESTS / DATES</label>
+                    <textarea id="cust_msg" class="glass-form-control" rows="3" placeholder="Tell us about your preferred schedule, number of travelers, hotel preferences..." data-i18n-placeholder="form_notes_ph"></textarea>
                 </div>
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <button type="submit" class="glass-btn-submit">SEND INQUIRY</button>
+                <div style="text-align: center; margin-top: 1.75rem;">
+                    <button type="submit" class="glass-btn-submit">
+                        <i class="fa-solid fa-paper-plane" style="margin-right: 0.4rem;"></i> <span data-i18n="form_btn_submit">SEND REQUEST NOW</span>
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </section>
 
+<!-- Slider & Storage Script -->
 <script>
 const seedProducts = [];
 const seedCategories = [];
@@ -500,167 +1122,198 @@ const seedOrders = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     BPT_Storage.init(seedProducts, seedCategories, seedCart, seedOrders);
-    renderCatalog();
 });
 
-function renderCatalog() {
-    const categories = BPT_Storage.getCategories();
-    const products = BPT_Storage.getProducts();
-    const container = document.getElementById('static-catalog-container');
-    let html = '';
+(function() {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slider .slide-item');
+    const bullets = document.querySelectorAll('.hero-slider .bullet');
+    let slideInterval = null;
 
-    const getOrder = (cat) => {
-        const s = ((cat.slug || '') + ' ' + (cat.name || '')).toLowerCase();
-        if (s.includes('north') || s.includes('bac') || s.includes('hà nội') || s.includes('ha noi')) return 1;
-        if (s.includes('central') || s.includes('trung') || s.includes('đà nẵng') || s.includes('da nang')) return 2;
-        if (s.includes('south') || s.includes('nam') || s.includes('hồ chí minh') || s.includes('hcm')) return 3;
-        if (s.includes('other') || s.includes('xe') || s.includes('service')) return 4;
-        return 99;
+    function showSlide(index) {
+        if (!slides || slides.length === 0) return;
+        slides.forEach(s => s.classList.remove('active'));
+        bullets.forEach(b => b.classList.remove('active'));
+
+        currentSlide = (index + slides.length) % slides.length;
+        if (slides[currentSlide]) {
+            slides[currentSlide].classList.add('active');
+        }
+        if (bullets[currentSlide]) {
+            bullets[currentSlide].classList.add('active');
+        }
+    }
+
+    window.setSlide = function(index) {
+        showSlide(index);
+        resetTimer();
     };
 
-    const sortedCategories = [...categories].sort((a, b) => getOrder(a) - getOrder(b));
+    window.changeSlide = function(direction) {
+        showSlide(currentSlide + direction);
+        resetTimer();
+    };
 
-    sortedCategories.forEach(cat => {
-        if (cat.slug === 'other-services' || cat.id == 4 || cat.id == 21) return;
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
 
-        const s = ((cat.slug || '') + ' ' + (cat.name || '')).toLowerCase();
-        const isCentral = s.includes('central') || s.includes('trung') || cat.id == 2 || cat.id == 19;
+    function resetTimer() {
+        if (slideInterval) clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5500);
+    }
 
-        if (isCentral) {
-            html += `
-            <div class="middle-banner-section">
-                <img src="https://buddyprivatetour.com/wp-content/uploads/2022/10/WCQB.jpg" alt="Quang Binh Banner">
-            </div>`;
+    document.addEventListener('DOMContentLoaded', function() {
+        resetTimer();
+        const slider = document.getElementById('hero-slider');
+        if (slider) {
+            slider.addEventListener('mouseenter', function() {
+                if (slideInterval) clearInterval(slideInterval);
+            });
+            slider.addEventListener('mouseleave', function() {
+                resetTimer();
+            });
+
+            // Touch swipe support for mobile devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+            slider.addEventListener('touchstart', function(e) {
+                if (e.changedTouches && e.changedTouches[0]) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }
+                if (slideInterval) clearInterval(slideInterval);
+            }, {passive: true});
+
+            slider.addEventListener('touchend', function(e) {
+                if (e.changedTouches && e.changedTouches[0]) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    if (touchStartX - touchEndX > 35) {
+                        changeSlide(1);
+                    } else if (touchEndX - touchStartX > 35) {
+                        changeSlide(-1);
+                    }
+                }
+                resetTimer();
+            }, {passive: true});
         }
-
-        const catProducts = products.filter(p => p.category_id == cat.id);
-        if (catProducts.length === 0) return;
-
-        let anchorAlias = '';
-        if (s.includes('north') || s.includes('bac')) anchorAlias = 'northern-vietnam-tours';
-        else if (s.includes('central') || s.includes('trung')) anchorAlias = 'central-vietnam-tours';
-        else if (s.includes('south') || s.includes('nam')) anchorAlias = 'southern-vietnam-tours';
-
-        html += `
-        ${anchorAlias ? \`<div id="${anchorAlias}" style="position:relative; top:-90px; visibility:hidden;"></div>\` : ''}
-        <div id="${cat.slug}" style="margin-bottom: 4rem; scroll-margin-top: 100px;">
-            <div class="cat-header-wrap">
-                <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-                <h2 class="category-section-title">${cat.name}</h2>
-                <img src="assets/images/new-badge.png" class="new-badge-icon" alt="New Badge">
-            </div>
-            <div class="tours-grid">`;
-
-        catProducts.forEach(p => {
-            const imgSrc = BPT_Storage.fixImagePath(p.image);
-            html += `
-                <div class="tour-card">
-                    <div class="tour-card-image">
-                        <a href="products/product-${p.id}.html">
-                            <img src="${imgSrc}" alt="${p.title}">
-                        </a>
-                    </div>
-                    <div class="tour-card-body">
-                        <h4 class="tour-card-title"><a href="products/product-${p.id}.html">${p.title}</a></h4>
-                        <a href="products/product-${p.id}.html" class="card-readmore-btn">
-                            <i class="fa-regular fa-circle-right"></i> Read more
-                        </a>
-                    </div>
-                </div>`;
-        });
-
-        html += `</div></div>`;
     });
-
-    container.innerHTML = html;
-}
-
-// Hero Slider Script
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide-item');
-const bullets = document.querySelectorAll('.bullet');
-let slideInterval = setInterval(nextSlide, 4500);
-
-function showSlide(index) {
-    if (slides.length === 0) return;
-    slides.forEach(s => s.classList.remove('active'));
-    bullets.forEach(b => b.classList.remove('active'));
-
-    currentSlide = (index + slides.length) % slides.length;
-    slides[currentSlide].classList.add('active');
-    bullets[currentSlide].classList.add('active');
-}
-
-function setSlide(index) {
-    showSlide(index);
-    resetTimer();
-}
-
-function changeSlide(direction) {
-    showSlide(currentSlide + direction);
-    resetTimer();
-}
-
-function nextSlide() {
-    showSlide(currentSlide + 1);
-}
-
-function resetTimer() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, 4500);
-}
+})();
 </script>
-<!-- Contact Information section -->
-<footer id="contact" class="contact-info-section">
+<!-- Luxury Dark Footer Section (#0f172a) -->
+<footer id="contact" class="site-footer">
     <div class="container">
-        <h3 class="contact-info-title">CONTACT INFOMATION</h3>
-        <h4 class="contact-info-brand">BUDDY PRIVATE TOUR</h4>
-        
-        <div class="contact-info-details">
-            <p><strong>Address:</strong> 24/9 Nguyen Luong Bang street, Hoa Khanh Bac, Lien Chieu, Da Nang.</p>
-            <p><strong>Zalo / WhatsApp:</strong> +84567599998 – <strong>Hotline:</strong> +84567599998</p>
-            <p><strong>Email:</strong> buddyprivatetour@gmail.com</p>
-        </div>
+        <div class="footer-grid">
+            <!-- Col 1: Brand & License Information -->
+            <div class="footer-col">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <img src="assets/images/logo.png" alt="BUDDY PRIVATE TOUR" style="height: 48px; width: auto; filter: brightness(0) invert(1);">
+                </div>
+                <p class="footer-brand-desc" data-i18n="footer_brand_desc">
+                    Specialist in organizing premium, personalized private travel experiences in Vietnam. Accompanied by knowledgeable local guides and modern private vehicles.
+                </p>
+                <div style="font-size: 0.85rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1rem;">
+                    <strong><span data-i18n="footer_license_lbl">Tour Operator License:</span></strong> 48-0284/2024/TCDL-GP LHQT<br>
+                    <strong><span data-i18n="footer_tax_lbl">Enterprise Reg Code:</span></strong> 0402198998
+                </div>
+                <img src="assets/images/dathongbao.png" class="footer-mit-badge" alt="Đã Thông Báo Bộ Công Thương">
+            </div>
 
-        <img src="assets/images/dathongbao.png" class="mit-badge" alt="Đã Thông Báo Bộ Công Thương">
+            <!-- Col 2: Quick Links -->
+            <div class="footer-col">
+                <h4 data-i18n="footer_col_nav">QUICK LINKS</h4>
+                <ul class="footer-links-list">
+                    <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_home">Home</span></a></li>
+                    <li><a href="about-us.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_about">About Us</span></a></li>
+                    <li><a href="tour.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_tour">Tours</span></a></li>
+                    <li><a href="other-services.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_other_services">Car Rental & Hotels</span></a></li>
+                    <li><a href="videos.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_videos">Journey Videos</span></a></li>
+                    <li><a href="feedback.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_feedback">Feedback</span></a></li>
+                    <li><a href="contact.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_contact">Contact Us</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Popular Destinations -->
+            <div class="footer-col">
+                <h4 data-i18n="footer_col_dest">POPULAR DESTINATIONS</h4>
+                <ul class="footer-links-list">
+                    <li><a href="tour.html?category=northern-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_hanoi">Hanoi & Old Quarter</span></a></li>
+                    <li><a href="tour.html?category=northern-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_halong">Halong Bay & Ninh Binh</span></a></li>
+                    <li><a href="tour.html?category=central-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_danang">Da Nang & Ba Na Hills</span></a></li>
+                    <li><a href="tour.html?category=central-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_hoian">Hoi An Ancient Town & Hue</span></a></li>
+                    <li><a href="tour.html?category=southern-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_saigon">Ho Chi Minh City & Cu Chi</span></a></li>
+                    <li><a href="tour.html?category=southern-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_phuquoc">Phu Quoc Island</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Support & Contact -->
+            <div class="footer-col">
+                <h4 data-i18n="footer_col_support">CUSTOMER SUPPORT</h4>
+                <div class="footer-contact-info">
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span data-i18n="footer_address">No. 24, Hoa Minh 15 Street, Hoa Minh Ward, Lien Chieu District, Da Nang City, Vietnam</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-phone-volume"></i>
+                        <span>Hotline / WhatsApp: <a href="tel:+84567599998" style="color: #f97316; font-weight: 800;">+84 567 599 998</a></span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span><a href="mailto:booking@buddyprivatetour.com" style="color: inherit; text-decoration: none;">booking@buddyprivatetour.com</a></span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span data-i18n="footer_247_support">24/7 Online Customer Support</span>
+                    </div>
+                </div>
+
+                <div class="footer-social-links">
+                    <a href="https://zalo.me/84567599998" target="_blank" class="footer-social-btn" title="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
+                    <a href="mailto:booking@buddyprivatetour.com" class="footer-social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="#" class="footer-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="footer-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="footer-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="footer-social-btn" title="TripAdvisor"><i class="fa-solid fa-plane"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Bottom Bar and Social Media Links -->
-    <div class="bottom-bar">
-        <div class="container">
-            <div class="bottom-bar-socials">
-                <a href="mailto:buddyprivatetour@gmail.com" class="social-icon-link" title="Email"><img src="assets/images/icon-email.png" alt="Email"></a>
-                <a href="#" class="social-icon-link" title="TikTok"><img src="assets/images/icon-tiktok.png" alt="TikTok"></a>
-                <a href="#" class="social-icon-link" title="YouTube"><img src="assets/images/icon-youtube.png" alt="YouTube"></a>
-                <a href="#" class="social-icon-link" title="Facebook"><img src="assets/images/icon-facebook.png" alt="Facebook"></a>
-                <a href="#" class="social-icon-link" title="Viber"><img src="assets/images/icon-viber.png" alt="Viber"></a>
-                <a href="#" class="social-icon-link" title="WeChat"><img src="assets/images/icon-wechat.png" alt="WeChat"></a>
-                <a href="https://zalo.me/84567599998" target="_blank" class="social-icon-link" title="Zalo"><img src="assets/images/icon-zalo.png" alt="Zalo"></a>
-                <a href="#" class="social-icon-link" title="TripAdvisor"><img src="assets/images/icon-tripadvisor.png" alt="TripAdvisor"></a>
+    <!-- Bottom Bar -->
+    <div class="footer-bottom-bar">
+        <div class="container footer-bottom-flex">
+            <div>
+                © 2026 <strong>BUDDY PRIVATE TOUR</strong>. <span data-i18n="footer_copyright">All Rights Reserved. Crafted with Passion for Travel Excellence.</span>
+            </div>
+            <div class="footer-payment-icons">
+                <span class="footer-payment-tag"><i class="fa-solid fa-qrcode" style="color: #0284c7;"></i> VietQR</span>
+                <span class="footer-payment-tag"><i class="fa-brands fa-cc-visa"></i> Visa</span>
+                <span class="footer-payment-tag"><i class="fa-brands fa-cc-mastercard"></i> Mastercard</span>
+                <span class="footer-payment-tag"><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> SSL Secure</span>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- Floating actions in bottom-left corner exactly like screenshots -->
+<!-- Floating Actions in Bottom-Left Corner -->
 <div class="floating-left-actions">
-    <a href="tel:+84567599998" class="bpt-hotline-pill" title="Call Hotline: +84567599998">
+    <a href="tel:+84567599998" class="bpt-hotline-pill" title="Gọi Hotline: +84567599998">
         <div class="bpt-hotline-circle">
             <div class="bpt-hotline-red">
                 <i class="fa-solid fa-phone"></i>
             </div>
         </div>
-        <span class="bpt-hotline-number">+84567599998</span>
+        <span class="bpt-hotline-number">+84 567 599 998</span>
     </a>
-    <a href="https://zalo.me/84567599998" target="_blank" rel="noopener noreferrer" class="bpt-zalo-bubble" title="Chat Zalo / WhatsApp: +84567599998">
+    <a href="https://zalo.me/84567599998" target="_blank" rel="noopener noreferrer" class="bpt-zalo-bubble" title="Chat Zalo: +84567599998">
         <div class="bpt-zalo-inner">
             <span class="bpt-zalo-text">Zalo</span>
         </div>
     </a>
 </div>
 
-<!-- Floating Back to Top Button on bottom right -->
-<a href="#" class="floating-back-to-top" title="Back to Top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+<!-- Floating Back to Top Button -->
+<a href="#" class="floating-back-to-top" title="Lên đầu trang" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
     <i class="fa-solid fa-arrow-up"></i>
 </a>
 

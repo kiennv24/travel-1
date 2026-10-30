@@ -37,6 +37,15 @@ class BPT_AJAXController {
                     $product_id = $prod ? intval($prod['id']) : $raw_id;
                     
                     // Check if already in cart
+                    // Save booking metadata
+                    $bDate = isset($req['date']) && !empty($req['date']) ? sanitize_text_field($req['date']) : date('Y-m-d');
+                    $bAdults = isset($req['adults']) && intval($req['adults']) > 0 ? intval($req['adults']) : 1;
+                    $bYouths = isset($req['youths']) ? intval($req['youths']) : 0;
+                    $bChildren = isset($req['children']) ? intval($req['children']) : 0;
+                    $bInfants = isset($req['infants']) ? intval($req['infants']) : 0;
+                    $uPrice = $prod ? floatval($prod['price']) : 0;
+                    $bTotalPrice = ($bAdults * $uPrice * 1.0) + ($bYouths * $uPrice * 0.85) + ($bChildren * $uPrice * 0.5);
+
                     $existing = $wpdb->get_row($wpdb->prepare(
                         "SELECT * FROM cart WHERE session_id = %s AND (product_id = %d OR product_id = %d)",
                         $session_id, $product_id, $raw_id
@@ -45,19 +54,46 @@ class BPT_AJAXController {
                     if ($existing) {
                         $wpdb->update(
                             'cart',
-                            ['quantity' => $existing->quantity + $qty, 'product_id' => $product_id],
+                            [
+                                'quantity'       => $qty,
+                                'product_id'     => $product_id,
+                                'departure_date' => $bDate,
+                                'adults'         => $bAdults,
+                                'youths'         => $bYouths,
+                                'children'       => $bChildren,
+                                'infants'        => $bInfants,
+                                'total_price'    => $bTotalPrice
+                            ],
                             ['id' => $existing->id]
                         );
                     } else {
                         $wpdb->insert(
                             'cart',
                             [
-                                'session_id' => $session_id,
-                                'product_id' => $product_id,
-                                'quantity'   => $qty
+                                'session_id'     => $session_id,
+                                'product_id'     => $product_id,
+                                'quantity'       => $qty,
+                                'departure_date' => $bDate,
+                                'adults'         => $bAdults,
+                                'youths'         => $bYouths,
+                                'children'       => $bChildren,
+                                'infants'        => $bInfants,
+                                'total_price'    => $bTotalPrice
                             ]
                         );
                     }
+
+                    if (!isset($_SESSION['bpt_cart_meta'])) {
+                        $_SESSION['bpt_cart_meta'] = [];
+                    }
+                    $_SESSION['bpt_cart_meta'][$product_id] = [
+                        'departure_date' => $bDate,
+                        'adults'         => $bAdults,
+                        'youths'         => $bYouths,
+                        'children'       => $bChildren,
+                        'infants'        => $bInfants,
+                        'total_price'    => $bTotalPrice
+                    ];
 
                     // Sync to WooCommerce Cart
                     if (function_exists('WC') && WC()->cart) {
@@ -69,7 +105,15 @@ class BPT_AJAXController {
                             $wc_prod_id = $product_id;
                         }
                         if (wc_get_product($wc_prod_id)) {
-                            WC()->cart->add_to_cart($wc_prod_id, $qty);
+                            $cart_item_data = [
+                                'departure_date'  => $bDate,
+                                'adults'          => $bAdults,
+                                'youths'          => $bYouths,
+                                'children'        => $bChildren,
+                                'infants'         => $bInfants,
+                                'bpt_total_price' => $bTotalPrice,
+                            ];
+                            WC()->cart->add_to_cart($wc_prod_id, $qty, 0, [], $cart_item_data);
                         }
                     }
 
@@ -203,7 +247,7 @@ class BPT_AJAXController {
                 // Generate VietQR URL if vietqr
                 $vietqr_url = '';
                 if ($payment_method === 'vietqr') {
-                    $vietqr_url = 'https://img.vietqr.io/image/970436-9782794280-compact2.png?amount=' . (int)round($total_amount) . '&addInfo=' . urlencode($order_code) . '&accountName=' . urlencode('NGUYEN VAN KIEN');
+                    $vietqr_url = 'https://img.vietqr.io/image/970407-998499993-compact2.png?amount=' . (int)round($total_amount) . '&addInfo=' . urlencode($order_code) . '&accountName=' . urlencode('CONG TY TNHH BUDDY PRIVATE TOUR');
                 }
 
                 wp_send_json_success([
@@ -212,9 +256,9 @@ class BPT_AJAXController {
                     'total_formatted' => number_format($total_amount, 0, ',', '.') . ' VNĐ',
                     'payment_method' => $payment_method,
                     'vietqr_url' => $vietqr_url,
-                    'account_name' => 'NGUYEN VAN KIEN',
-                    'account_number' => '9782794280',
-                    'bank_name' => 'Vietcombank'
+                    'account_name' => 'CONG TY TNHH BUDDY PRIVATE TOUR',
+                    'account_number' => '998499993',
+                    'bank_name' => 'TECHCOMBANK'
                 ]);
                 exit;
             }

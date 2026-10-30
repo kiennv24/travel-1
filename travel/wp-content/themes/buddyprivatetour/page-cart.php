@@ -31,7 +31,11 @@ $cart_total = 0;
 $total_qty = 0;
 
 foreach ($cart_items as $it) {
-    $cart_total += $it['price'] * $it['quantity'];
+    if (isset($it['total_price']) && floatval($it['total_price']) > 0) {
+        $cart_total += floatval($it['total_price']);
+    } else {
+        $cart_total += $it['price'] * $it['quantity'];
+    }
     $total_qty += $it['quantity'];
 }
 ?>
@@ -49,12 +53,6 @@ foreach ($cart_items as $it) {
     </div>
 
     <div class="container">
-        <!-- Title Section -->
-        <div class="cart-title-section">
-            <h1 class="cart-page-heading" data-i18n="cart_page_heading">YOUR SHOPPING CART</h1>
-            <p class="cart-page-desc" data-i18n="cart_page_desc">Review your selected private tour packages before proceeding to checkout and generating your VietQR electronic voucher.</p>
-        </div>
-
         <?php if (empty($cart_items)) : ?>
             <!-- Empty Cart Screen -->
             <div class="cart-empty-wrapper">
@@ -86,16 +84,21 @@ foreach ($cart_items as $it) {
                     <table class="cart-modern-table">
                         <thead>
                             <tr>
-                                <th style="width: 48%;" data-i18n="cart_th_info">Tour Details</th>
-                                <th style="width: 22%; text-align: center;" data-i18n="cart_th_price">Unit Price</th>
-                                <th style="width: 20%; text-align: center;" data-i18n="cart_th_qty">Guests</th>
-                                <th style="width: 10%; text-align: center;"></th>
+                                <th style="width: 44%;" data-i18n="cart_th_info">Tour Details</th>
+                                <th style="width: 20%; text-align: center;" data-i18n="cart_th_price">Unit Price</th>
+                                <th style="width: 28%; text-align: center;" data-i18n="cart_th_departure_guests">Departure & Guests</th>
+                                <th style="width: 8%; text-align: center;"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($cart_items as $item) : 
                                 $img_url = !empty($item['image']) ? bpt_resolve_image_url($item['image']) : '';
                                 $tour_url = site_url('?pagename=tour-detail&id=' . $item['id']);
+                                $guest_parts = [];
+                                $guest_parts[] = intval($item['adults'] ?? $item['quantity']) . ' Adults';
+                                if (!empty($item['youths'])) $guest_parts[] = intval($item['youths']) . ' Youths';
+                                if (!empty($item['children'])) $guest_parts[] = intval($item['children']) . ' Children';
+                                if (!empty($item['infants'])) $guest_parts[] = intval($item['infants']) . ' Infants';
                             ?>
                                 <tr>
                                     <td class="cart-col-details">
@@ -113,17 +116,23 @@ foreach ($cart_items as $it) {
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="text-align: center;">
+                                    <td class="cart-col-price">
+                                        <span class="cart-mobile-label" data-i18n="cart_th_price">Unit Price</span>
                                         <span class="cart-unit-price"><?php echo esc_html(format_currency($item['price'])); ?></span>
                                     </td>
-                                    <td style="text-align: center;">
-                                        <div class="cart-stepper">
-                                            <button type="button" class="cart-stepper-btn" onclick="adjustCartQty(<?php echo $item['id']; ?>, -1)">−</button>
-                                            <input type="number" id="qty-input-<?php echo $item['id']; ?>" value="<?php echo esc_attr($item['quantity']); ?>" min="1" max="50" class="cart-stepper-input" onchange="updateDbCartQty(<?php echo $item['id']; ?>, this.value)">
-                                            <button type="button" class="cart-stepper-btn" onclick="adjustCartQty(<?php echo $item['id']; ?>, 1)">+</button>
+                                    <td class="cart-col-meta">
+                                        <div class="cart-item-booking-meta">
+                                            <span>
+                                                <i class="fa-regular fa-calendar-days"></i>
+                                                <span><strong>Departure:</strong> <?php echo esc_html($item['departure_date'] ?? date('Y-m-d')); ?></span>
+                                            </span>
+                                            <span>
+                                                <i class="fa-solid fa-users"></i>
+                                                <span><strong>Guests:</strong> <?php echo esc_html(implode(', ', $guest_parts)); ?></span>
+                                            </span>
                                         </div>
                                     </td>
-                                    <td style="text-align: center;">
+                                    <td class="cart-col-action">
                                         <a href="<?php echo esc_url(site_url('?pagename=cart&action=remove&product_id=' . $item['id'])); ?>" onclick="return confirm('Are you sure you want to remove this tour?')" class="cart-delete-action" title="Remove tour">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>

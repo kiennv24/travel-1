@@ -21,6 +21,18 @@
     </div>
 </div>
 
+<?php
+$current_page = 'home';
+if (isset($_GET['pagename'])) {
+    $current_page = sanitize_key($_GET['pagename']);
+} elseif (is_page()) {
+    $current_page = get_post_field('post_name', get_post());
+} elseif (function_exists('is_product') && (is_product() || is_shop() || is_product_taxonomy())) {
+    $current_page = 'tour';
+} elseif (!is_front_page() && is_home()) {
+    $current_page = 'home';
+}
+?>
 <!-- Main Sticky Glassmorphism Header -->
 <header class="site-header">
     <div class="header-main-wrap">
@@ -35,9 +47,13 @@
             <div class="header-nav-column">
                 <nav class="main-navigation">
                     <ul class="nav-menu">
-                        <li class="menu-item-home"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa-solid fa-house" style="font-size: 0.8rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=about-us' ) ); ?>" data-i18n="nav_about">ABOUT US</a></li>
-                        <li class="menu-item-has-children">
+                        <li class="<?php echo ($current_page === 'home') ? 'active' : ''; ?>">
+                            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa-solid fa-house" style="font-size: 0.8rem;"></i> <span data-i18n="nav_home">HOME</span></a>
+                        </li>
+                        <li class="<?php echo ($current_page === 'about-us') ? 'active' : ''; ?>">
+                            <a href="<?php echo esc_url( site_url( '?pagename=about-us' ) ); ?>" data-i18n="nav_about">ABOUT US</a>
+                        </li>
+                        <li class="menu-item-has-children <?php echo in_array($current_page, ['tour', 'tour-detail']) ? 'active' : ''; ?>">
                             <a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>"><span data-i18n="nav_tour">TOURS</span></a>
                             <ul class="sub-menu">
                                 <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=northern-vietnam-tours' ) ); ?>"><i class="fa-solid fa-mountain-sun" style="color: #0284c7;"></i> <span data-i18n="nav_north">HANOI & NORTH VIETNAM</span></a></li>
@@ -45,9 +61,18 @@
                                 <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=southern-vietnam-tours' ) ); ?>"><i class="fa-solid fa-city" style="color: #f97316;"></i> <span data-i18n="nav_south">HO CHI MINH CITY & SOUTH</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>" data-i18n="nav_other_services">CAR RENTAL & HOTELS</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=videos' ) ); ?>" data-i18n="nav_videos">VIDEOS</a></li>
-                        <li><a href="<?php echo esc_url( site_url( '?pagename=contact' ) ); ?>" data-i18n="nav_contact">CONTACT</a></li>
+                        <li class="<?php echo in_array($current_page, ['other-services', 'other-services-detail']) ? 'active' : ''; ?>">
+                            <a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>" data-i18n="nav_other_services">CAR RENTAL & HOTELS</a>
+                        </li>
+                        <li class="<?php echo ($current_page === 'videos') ? 'active' : ''; ?>">
+                            <a href="<?php echo esc_url( site_url( '?pagename=videos' ) ); ?>" data-i18n="nav_videos">VIDEOS</a>
+                        </li>
+                        <li class="<?php echo ($current_page === 'feedback') ? 'active' : ''; ?>">
+                            <a href="<?php echo esc_url( site_url( '?pagename=feedback' ) ); ?>" data-i18n="nav_feedback">FEEDBACK</a>
+                        </li>
+                        <li class="<?php echo ($current_page === 'contact') ? 'active' : ''; ?>">
+                            <a href="<?php echo esc_url( site_url( '?pagename=contact' ) ); ?>" data-i18n="nav_contact">CONTACT</a>
+                        </li>
                     </ul>
                 </nav>
 
@@ -83,11 +108,11 @@
             <!-- Mobile Dropdown Drawer -->
             <div class="mobile-menu-drawer" id="mobileMenuDrawer">
                 <ul class="mobile-menu-list">
-                    <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa-solid fa-house" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
-                    <li><a href="<?php echo esc_url( site_url( '?pagename=about-us' ) ); ?>"><i class="fa-solid fa-circle-info" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_about">ABOUT US</span></a></li>
-                    <li class="mobile-menu-has-sub">
+                    <li class="<?php echo ($current_page === 'home') ? 'active' : ''; ?>"><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa-solid fa-house"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                    <li class="<?php echo ($current_page === 'about-us') ? 'active' : ''; ?>"><a href="<?php echo esc_url( site_url( '?pagename=about-us' ) ); ?>"><i class="fa-solid fa-circle-info"></i> <span data-i18n="nav_about">ABOUT US</span></a></li>
+                    <li class="mobile-menu-has-sub <?php echo in_array($current_page, ['tour', 'tour-detail']) ? 'active' : ''; ?>">
                         <div class="mobile-sub-head">
-                            <a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>"><i class="fa-solid fa-compass" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_tour">TOURS</span></a>
+                            <a href="<?php echo esc_url( site_url( '?pagename=tour' ) ); ?>"><i class="fa-solid fa-compass"></i> <span data-i18n="nav_tour">TOURS</span></a>
                             <span class="mobile-sub-toggle"><i class="fa-solid fa-chevron-down"></i></span>
                         </div>
                         <ul class="mobile-sub-list">
@@ -96,9 +121,10 @@
                             <li><a href="<?php echo esc_url( site_url( '?pagename=tour&category=southern-vietnam-tours' ) ); ?>" data-i18n="nav_south">Ho Chi Minh City & South</a></li>
                         </ul>
                     </li>
-                    <li><a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>"><i class="fa-solid fa-car" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
-                    <li><a href="<?php echo esc_url( site_url( '?pagename=videos' ) ); ?>"><i class="fa-solid fa-video" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_videos">VIDEOS</span></a></li>
-                    <li><a href="<?php echo esc_url( site_url( '?pagename=contact' ) ); ?>"><i class="fa-solid fa-headset" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_contact">CONTACT</span></a></li>
+                    <li class="<?php echo in_array($current_page, ['other-services', 'other-services-detail']) ? 'active' : ''; ?>"><a href="<?php echo esc_url( site_url( '?pagename=other-services' ) ); ?>"><i class="fa-solid fa-car"></i> <span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
+                    <li class="<?php echo ($current_page === 'videos') ? 'active' : ''; ?>"><a href="<?php echo esc_url( site_url( '?pagename=videos' ) ); ?>"><i class="fa-solid fa-video"></i> <span data-i18n="nav_videos">VIDEOS</span></a></li>
+                    <li class="<?php echo ($current_page === 'feedback') ? 'active' : ''; ?>"><a href="<?php echo esc_url( site_url( '?pagename=feedback' ) ); ?>"><i class="fa-solid fa-star"></i> <span data-i18n="nav_feedback">FEEDBACK</span></a></li>
+                    <li class="<?php echo ($current_page === 'contact') ? 'active' : ''; ?>"><a href="<?php echo esc_url( site_url( '?pagename=contact' ) ); ?>"><i class="fa-solid fa-headset"></i> <span data-i18n="nav_contact">CONTACT</span></a></li>
                 </ul>
             </div>
         </div>

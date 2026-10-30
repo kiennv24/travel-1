@@ -208,43 +208,6 @@ $unitPrice = floatval($product['price']);
                     </div>
                 </div>
 
-                <!-- Included & Excluded Section -->
-                <div class="tour-inclusions-grid">
-                    <!-- Included -->
-                    <div class="inclusions-card included">
-                        <h4 class="inclusions-card-title"><i class="fa-solid fa-circle-check"></i> <span data-i18n="sec_included_title">INCLUDED IN TOUR</span></h4>
-                        <ul class="inclusions-list">
-                            <?php if (!empty($included)) : ?>
-                                <?php foreach ($included as $inc) : ?>
-                                    <li><i class="fa-solid fa-check"></i> <span><?php echo esc_html($inc); ?></span></li>
-                                <?php endforeach; ?>
-                            <?php else : ?>
-                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_1">Modern air-conditioned private vehicle throughout</span></li>
-                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_2">Professional English / Vietnamese speaking private guide</span></li>
-                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_3">All entrance fees and sightseeing tickets</span></li>
-                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_4">Complimentary bottled water and cold towels</span></li>
-                                <li><i class="fa-solid fa-check"></i> <span data-i18n="inc_item_5">Full-coverage travel insurance</span></li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-
-                    <!-- Excluded -->
-                    <div class="inclusions-card excluded">
-                        <h4 class="inclusions-card-title"><i class="fa-solid fa-circle-xmark"></i> <span data-i18n="sec_excluded_title">EXCLUDED FROM TOUR</span></h4>
-                        <ul class="inclusions-list">
-                            <?php if (!empty($excluded)) : ?>
-                                <?php foreach ($excluded as $exc) : ?>
-                                    <li><i class="fa-solid fa-xmark"></i> <span><?php echo esc_html($exc); ?></span></li>
-                                <?php endforeach; ?>
-                            <?php else : ?>
-                                <li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_1">Personal expenses outside program (shopping, laundry)</span></li>
-                                <li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_2">Gratuities & tips for driver and tour guide</span></li>
-                                <li><i class="fa-solid fa-xmark"></i> <span data-i18n="exc_item_3">VAT invoice (if tax receipt requested)</span></li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                </div>
-
                 <!-- Rich Description & Notes -->
                 <div>
                     <h3 class="tour-section-heading"><i class="fa-solid fa-circle-info" style="color: #0284c7;"></i> <span data-i18n="sec_overview_title">ABOUT THIS TRIP</span></h3>
@@ -262,7 +225,7 @@ $unitPrice = floatval($product['price']);
 
             <!-- RIGHT COLUMN: STICKY BOOKING BOX (35%) -->
             <div class="tour-sidebar-col">
-                <div class="sticky-booking-card">
+                <div class="sticky-booking-card" id="tour-booking-card">
                     <!-- Price Header -->
                     <div class="booking-card-header">
                         <div class="booking-price-wrap">
@@ -277,27 +240,178 @@ $unitPrice = floatval($product['price']);
                         </span>
                     </div>
 
-                    <!-- Date Selection -->
-                    <div class="booking-form-group">
-                        <label class="booking-input-label" for="detail-tour-date"><i class="fa-regular fa-calendar"></i> <span data-i18n="booking_date_lbl">Select Departure Date:</span></label>
-                        <input type="date" id="detail-tour-date" class="booking-input-control" value="<?php echo date('Y-m-d'); ?>">
-                    </div>
+                    <!-- 1. PARTICIPANTS (SCREENSHOT 1) -->
+                    <div class="booking-participants-section">
+                        <div class="booking-section-header">
+                            <h4 class="booking-section-title" data-i18n="booking_participants_title">Participants</h4>
+                            <span class="booking-blue-bar"></span>
+                        </div>
 
-                    <!-- Guest Counter Stepper -->
-                    <div class="booking-form-group">
-                        <label class="booking-input-label"><i class="fa-solid fa-user-group"></i> <span data-i18n="booking_guests_lbl">Number of Guests:</span></label>
-                        <div class="booking-guest-stepper">
-                            <button type="button" class="guest-stepper-btn" onclick="updateTourDetailGuests(-1, <?php echo $unitPrice; ?>)">−</button>
-                            <input type="number" id="detail-guest-count" class="guest-stepper-input" value="2" min="1" max="50" readonly>
-                            <button type="button" class="guest-stepper-btn" onclick="updateTourDetailGuests(1, <?php echo $unitPrice; ?>)">+</button>
+                        <div class="booking-participants-list">
+                            <!-- Adult -->
+                            <div class="booking-participant-row" data-type="adult">
+                                <div class="participant-info">
+                                    <span class="participant-name" data-i18n="participant_adult">Adult</span>
+                                    <span class="participant-age" data-i18n="participant_adult_age">Age 15 - 85</span>
+                                </div>
+                                <div class="participant-stepper">
+                                    <button type="button" class="participant-btn btn-minus disabled" onclick="changeParticipantQty('adult', -1)" aria-label="Decrease Adult">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="participant-qty" id="qty-adult">1</span>
+                                    <button type="button" class="participant-btn btn-plus" onclick="changeParticipantQty('adult', 1)" aria-label="Increase Adult">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Youth -->
+                            <div class="booking-participant-row" data-type="youth">
+                                <div class="participant-info">
+                                    <span class="participant-name" data-i18n="participant_youth">Youth</span>
+                                    <span class="participant-age" data-i18n="participant_youth_age">Age 10 - 14</span>
+                                </div>
+                                <div class="participant-stepper">
+                                    <button type="button" class="participant-btn btn-minus disabled" onclick="changeParticipantQty('youth', -1)" aria-label="Decrease Youth">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="participant-qty" id="qty-youth">0</span>
+                                    <button type="button" class="participant-btn btn-plus" onclick="changeParticipantQty('youth', 1)" aria-label="Increase Youth">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Child -->
+                            <div class="booking-participant-row" data-type="child">
+                                <div class="participant-info">
+                                    <span class="participant-name" data-i18n="participant_child">Child</span>
+                                    <span class="participant-age" data-i18n="participant_child_age">Age 4 - 9</span>
+                                </div>
+                                <div class="participant-stepper">
+                                    <button type="button" class="participant-btn btn-minus disabled" onclick="changeParticipantQty('child', -1)" aria-label="Decrease Child">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="participant-qty" id="qty-child">0</span>
+                                    <button type="button" class="participant-btn btn-plus" onclick="changeParticipantQty('child', 1)" aria-label="Increase Child">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Infant -->
+                            <div class="booking-participant-row" data-type="infant">
+                                <div class="participant-info">
+                                    <span class="participant-name" data-i18n="participant_infant">Infant</span>
+                                    <span class="participant-age" data-i18n="participant_infant_age">Age 0 - 3</span>
+                                </div>
+                                <div class="participant-stepper">
+                                    <button type="button" class="participant-btn btn-minus disabled" onclick="changeParticipantQty('infant', -1)" aria-label="Decrease Infant">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="participant-qty" id="qty-infant">0</span>
+                                    <button type="button" class="participant-btn btn-plus" onclick="changeParticipantQty('infant', 1)" aria-label="Increase Infant">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Price Subtotal Breakdown -->
+                    <!-- 2. CHOOSE A DATE (SCREENSHOT 2) -->
+                    <?php
+                    $today_ts = current_time('timestamp');
+                    $today_date = date('Y-m-d', $today_ts);
+                    $today_year = intval(date('Y', $today_ts));
+                    $today_month = intval(date('n', $today_ts));
+                    $today_day = intval(date('j', $today_ts));
+                    $today_formatted = date('D, M j, Y', $today_ts);
+                    $month_label = date('F Y', $today_ts);
+
+                    $first_day_ts = strtotime("$today_year-$today_month-01");
+                    $start_weekday = intval(date('N', $first_day_ts)) - 1; // 0=Mon, ..., 6=Sun
+                    $days_in_current_month = intval(date('t', $first_day_ts));
+                    ?>
+                    <div class="booking-date-section">
+                        <div class="booking-section-header">
+                            <h4 class="booking-section-title" data-i18n="booking_date_title">Choose a date</h4>
+                            <span class="booking-blue-bar"></span>
+                        </div>
+
+                        <div class="custom-calendar-card" id="bpt-calendar">
+                            <div class="calendar-nav-header">
+                                <button type="button" class="cal-nav-btn disabled" id="cal-prev-month" onclick="changeCalendarMonth(-1)" aria-label="Previous Month">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                
+                                <div class="cal-month-display" id="cal-month-display" onclick="toggleMonthPicker()">
+                                    <span id="cal-month-label"><?php echo esc_html($month_label); ?></span>
+                                    <i class="fa-solid fa-chevron-down cal-month-chevron"></i>
+                                </div>
+                                
+                                <button type="button" class="cal-nav-btn" id="cal-next-month" onclick="changeCalendarMonth(1)" aria-label="Next Month">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+
+                                <div class="cal-month-dropdown" id="cal-month-dropdown" style="display: none;"></div>
+                            </div>
+
+                            <div class="calendar-weekdays">
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+                                <span>Sun</span>
+                            </div>
+
+                            <div class="calendar-days-grid" id="cal-days-grid">
+                                <?php for ($i = 0; $i < $start_weekday; $i++) : ?>
+                                    <div class="cal-day-cell empty"></div>
+                                <?php endfor; ?>
+                                <?php for ($d = 1; $d <= $days_in_current_month; $d++) : 
+                                    $is_past = $d < $today_day;
+                                    $is_today = $d === $today_day;
+                                    $classes = ['cal-day-cell'];
+                                    if ($is_past) $classes[] = 'past';
+                                    if ($is_today) {
+                                        $classes[] = 'today';
+                                        $classes[] = 'selected';
+                                    }
+                                    $onclick = $is_past ? '' : " onclick=\"selectCalendarDate({$today_year}, " . ($today_month - 1) . ", {$d})\"";
+                                ?>
+                                    <div class="<?php echo implode(' ', $classes); ?>"<?php echo $onclick; ?>><?php echo $d; ?></div>
+                                <?php endfor; ?>
+                            </div>
+
+                            <div class="cal-selected-badge" id="selected-date-badge">
+                                <i class="fa-regular fa-calendar-check"></i>
+                                <span><span data-i18n="selected_date_label">Selected Date:</span> <strong id="selected-date-text"><?php echo esc_html($today_formatted); ?></strong></span>
+                            </div>
+
+                            <input type="hidden" id="detail-tour-date" name="departure_date" value="<?php echo esc_attr($today_date); ?>">
+                            <input type="hidden" id="detail-guest-count" name="quantity" value="1">
+                        </div>
+                    </div>
+
+                    <!-- 3. DETAILED PRICE BREAKDOWN -->
                     <div class="booking-calc-summary">
-                        <div class="booking-calc-row">
-                            <span><span data-i18n="booking_calc_label">Tour price x</span> <strong id="calc-guest-display">2</strong> <span data-i18n="booking_calc_guest_unit">guests:</span></span>
-                            <span class="val" id="calc-subtotal-display"><?php echo format_currency($unitPrice * 2); ?></span>
+                        <div class="booking-calc-row" id="row-calc-adult">
+                            <span><span data-i18n="booking_calc_adults">Adults</span> (<span id="calc-adult-count">1</span> &times; 100%):</span>
+                            <span class="val" id="calc-adult-total"><?php echo esc_html(format_currency($unitPrice)); ?></span>
+                        </div>
+                        <div class="booking-calc-row" id="row-calc-youth" style="display: none;">
+                            <span><span data-i18n="booking_calc_youths">Youths</span> (<span id="calc-youth-count">0</span> &times; 85%):</span>
+                            <span class="val" id="calc-youth-total"><?php echo esc_html(format_currency(0)); ?></span>
+                        </div>
+                        <div class="booking-calc-row" id="row-calc-child" style="display: none;">
+                            <span><span data-i18n="booking_calc_children">Children</span> (<span id="calc-child-count">0</span> &times; 50%):</span>
+                            <span class="val" id="calc-child-total"><?php echo esc_html(format_currency(0)); ?></span>
+                        </div>
+                        <div class="booking-calc-row" id="row-calc-infant" style="display: none;">
+                            <span><span data-i18n="booking_calc_infants">Infants</span> (<span id="calc-infant-count">0</span>):</span>
+                            <span class="free-tag" data-i18n="booking_calc_free">Free</span>
                         </div>
                         <div class="booking-calc-row">
                             <span data-i18n="booking_calc_service_lbl">Private guide & service fees:</span>
@@ -305,7 +419,7 @@ $unitPrice = floatval($product['price']);
                         </div>
                         <div class="booking-calc-total">
                             <span data-i18n="booking_calc_subtotal_lbl">Subtotal:</span>
-                            <span class="val" id="calc-grand-total"><?php echo format_currency($unitPrice * 2); ?></span>
+                            <span class="val" id="calc-grand-total"><?php echo esc_html(format_currency($unitPrice)); ?></span>
                         </div>
                     </div>
 
@@ -368,24 +482,21 @@ $unitPrice = floatval($product['price']);
     </div>
 </div>
 
-<!-- Mobile Sticky Bottom Booking Bar -->
-<div class="mobile-bottom-booking-bar">
-    <div class="mobile-bottom-bar-price">
-        <span class="label" data-i18n="mobile_price_label">From</span>
-        <span class="val"><?php echo esc_html(format_currency($unitPrice)); ?></span>
-    </div>
-    <button type="button" onclick="submitTourBooking(<?php echo $product['id']; ?>)" class="mobile-bottom-bar-cta">
-        <i class="fa-solid fa-cart-shopping"></i> <span data-i18n="mobile_btn_book">Book Now</span>
-    </button>
-</div>
-
-<!-- JavaScript Logic for Cart Addition -->
+<!-- JavaScript Logic for Cart Addition & Booking State -->
 <script>
-function submitTourBooking(id) {
-    const qty = parseInt(document.getElementById('detail-guest-count').value) || 1;
-    const baseUrl = '<?php echo esc_url(site_url('/')); ?>';
-    window.location.href = baseUrl + '?bpt_action=add_to_cart&product_id=' + id + '&qty=' + qty;
+window.tourPrice = <?php echo floatval($unitPrice); ?>;
+window.BPT_BASE_URL = '<?php echo esc_url(site_url('/')); ?>';
+function tryInitBptBooking() {
+    if (typeof window.initBptTourBooking === 'function') {
+        window.initBptTourBooking(<?php echo floatval($unitPrice); ?>);
+    }
 }
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryInitBptBooking);
+} else {
+    tryInitBptBooking();
+}
+window.addEventListener('load', tryInitBptBooking);
 </script>
 
 <?php get_footer(); ?>

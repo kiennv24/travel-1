@@ -60,7 +60,7 @@ get_header();
                             <div class="contact-item-icon"><i class="fa-solid fa-location-dot"></i></div>
                             <div class="contact-item-text">
                                 <strong>Headquarters</strong>
-                                24/9 Nguyen Luong Bang street, Hoa Khanh Bac, Lien Chieu, Da Nang, Vietnam.
+                                <span data-i18n="footer_address">No. 24, Hoa Minh 15 Street, Hoa Minh Ward, Lien Chieu District, Da Nang City, Vietnam</span>
                             </div>
                         </div>
 
@@ -76,7 +76,7 @@ get_header();
                             <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
                             <div class="contact-item-text">
                                 <strong>Official Email</strong>
-                                <a href="mailto:buddyprivatetour@gmail.com" style="color: #0284c7;">buddyprivatetour@gmail.com</a>
+                                <a href="mailto:booking@buddyprivatetour.com" style="color: #0284c7;">booking@buddyprivatetour.com</a>
                             </div>
                         </div>
 

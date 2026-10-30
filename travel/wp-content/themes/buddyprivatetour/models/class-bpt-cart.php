@@ -30,6 +30,7 @@ class BPT_CartModel {
         }
 
         $items = [];
+        $meta_data = isset($_SESSION['bpt_cart_meta']) ? $_SESSION['bpt_cart_meta'] : [];
         foreach ($cart_rows as $row) {
             $product = BPT_ProductModel::findById($row['product_id']);
             if ($product) {
@@ -37,6 +38,15 @@ class BPT_CartModel {
                 $item['quantity'] = intval($row['quantity']);
                 $item['cart_row_id'] = $row['id'];
                 $item['cart_product_id'] = $row['product_id'];
+
+                $pMeta = isset($meta_data[$product['id']]) ? $meta_data[$product['id']] : [];
+                $item['departure_date'] = !empty($row['departure_date']) ? $row['departure_date'] : ($pMeta['departure_date'] ?? date('Y-m-d'));
+                $item['adults'] = isset($row['adults']) && intval($row['adults']) > 0 ? intval($row['adults']) : ($pMeta['adults'] ?? intval($row['quantity']));
+                $item['youths'] = isset($row['youths']) ? intval($row['youths']) : ($pMeta['youths'] ?? 0);
+                $item['children'] = isset($row['children']) ? intval($row['children']) : ($pMeta['children'] ?? 0);
+                $item['infants'] = isset($row['infants']) ? intval($row['infants']) : ($pMeta['infants'] ?? 0);
+                $item['total_price'] = isset($row['total_price']) && floatval($row['total_price']) > 0 ? floatval($row['total_price']) : ($pMeta['total_price'] ?? (floatval($product['price']) * intval($row['quantity'])));
+
                 $items[] = $item;
             }
         }

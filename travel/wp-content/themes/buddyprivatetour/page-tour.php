@@ -94,13 +94,6 @@ function bpt_tour_image_url($image_path) {
             </nav>
         </div>
 
-        <div class="tour-page-header-wrap">
-            <h1 class="tour-page-heading">
-                <?php echo esc_html($current_cat_name); ?>
-            </h1>
-            <p class="tour-page-desc" data-i18n="tour_page_desc">All premium private tour packages include private guide, hotel pickup/drop-off, and 5-star standard care.</p>
-        </div>
-
         <!-- Regional Filter Category Pills -->
         <div class="tour-category-pills-bar">
             <a href="<?php echo esc_url(site_url('?pagename=tour')); ?>" class="cat-pill-btn <?php echo empty($filter_key) ? 'active' : ''; ?>">

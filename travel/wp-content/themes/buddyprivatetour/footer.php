@@ -26,6 +26,7 @@
                     <li><a href="<?php echo esc_url(site_url('?pagename=tour')); ?>"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_tour">Tours</span></a></li>
                     <li><a href="<?php echo esc_url(site_url('?pagename=other-services')); ?>"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_other_services">Car Rental & Hotels</span></a></li>
                     <li><a href="<?php echo esc_url(site_url('?pagename=videos')); ?>"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_videos">Journey Videos</span></a></li>
+                    <li><a href="<?php echo esc_url(site_url('?pagename=feedback')); ?>"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_feedback">Feedback</span></a></li>
                     <li><a href="<?php echo esc_url(site_url('?pagename=contact')); ?>"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_contact">Contact Us</span></a></li>
                 </ul>
             </div>
@@ -49,7 +50,7 @@
                 <div class="footer-contact-info">
                     <div class="footer-contact-item">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span>24/9 Nguyen Luong Bang, Lien Chieu, Da Nang, Vietnam</span>
+                        <span data-i18n="footer_address">No. 24, Hoa Minh 15 Street, Hoa Minh Ward, Lien Chieu District, Da Nang City, Vietnam</span>
                     </div>
                     <div class="footer-contact-item">
                         <i class="fa-solid fa-phone-volume"></i>
@@ -57,7 +58,7 @@
                     </div>
                     <div class="footer-contact-item">
                         <i class="fa-solid fa-envelope"></i>
-                        <span>buddyprivatetour@gmail.com</span>
+                        <span><a href="mailto:booking@buddyprivatetour.com" style="color: inherit; text-decoration: none;">booking@buddyprivatetour.com</a></span>
                     </div>
                     <div class="footer-contact-item">
                         <i class="fa-solid fa-clock"></i>
@@ -66,9 +67,10 @@
                 </div>
 
                 <!-- Social Icons -->
+                 
                 <div class="footer-social-links">
                     <a href="https://zalo.me/84567599998" target="_blank" class="footer-social-btn" title="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
-                    <a href="mailto:buddyprivatetour@gmail.com" class="footer-social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="mailto:booking@buddyprivatetour.com" class="footer-social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
                     <a href="#" class="footer-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#" class="footer-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
                     <a href="#" class="footer-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
@@ -109,6 +111,12 @@
             <span class="bpt-zalo-text">Zalo</span>
         </div>
     </a>
+    <?php if (is_singular('product') || (isset($_GET['pagename']) && $_GET['pagename'] === 'tour-detail')) : ?>
+        <button type="button" class="bpt-floating-book-pill" onclick="scrollToTourBooking()" title="Book Tour">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span class="bpt-floating-book-text" data-i18n="floating_btn_book">Book Tour</span>
+        </button>
+    <?php endif; ?>
 </div>
 
 <!-- Floating Back to Top Button -->

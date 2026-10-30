@@ -18,10 +18,10 @@ class BPT_VietQR {
         
         $primary_account = !empty($accounts) && is_array($accounts) ? $accounts[0] : [];
         
-        $bank_id = $primary_account['bank_id'] ?? '970436'; // Default Vietcombank
-        $bank_name = $primary_account['bank_name'] ?? 'Vietcombank';
-        $account_number = $primary_account['account_number'] ?? '9782794280';
-        $account_name = $primary_account['account_name'] ?? 'NGUYEN VAN KIEN';
+        $bank_id = $primary_account['bank_id'] ?? '970407'; // Techcombank
+        $bank_name = $primary_account['bank_name'] ?? 'TECHCOMBANK';
+        $account_number = $primary_account['account_number'] ?? '998499993';
+        $account_name = $primary_account['account_name'] ?? 'CONG TY TNHH BUDDY PRIVATE TOUR';
         $prefix = $settings['prefix'] ?? 'BPT';
 
         return [

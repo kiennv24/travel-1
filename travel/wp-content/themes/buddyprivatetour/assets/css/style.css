@@ -274,10 +274,6 @@ textarea {
 .nav-menu>li.active>a {
   color: var(--primary-color);
   background: var(--primary-light);
-}
-
-.nav-menu>li.menu-item-home>a {
-  color: var(--primary-color);
   font-weight: 700;
 }
 
@@ -1477,6 +1473,51 @@ textarea {
   font-weight: 900;
 }
 
+/* Floating Book Tour Pill Button (Tour Detail) */
+.bpt-floating-book-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 20px;
+  border-radius: var(--radius-pill, 9999px);
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff !important;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.45);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  animation: bptFloatingBookPulse 2.5s infinite;
+}
+
+.bpt-floating-book-pill:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.65);
+  background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%);
+}
+
+.bpt-floating-book-pill i {
+  font-size: 1.05rem;
+}
+
+@keyframes bptFloatingBookPulse {
+  0% {
+    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 22px rgba(249, 115, 22, 0.7), 0 0 0 4px rgba(249, 115, 22, 0.25);
+  }
+  100% {
+    box-shadow: 0 4px 16px rgba(249, 115, 22, 0.4);
+  }
+}
+
 .floating-back-to-top {
   position: fixed;
   bottom: 24px;
@@ -1580,15 +1621,15 @@ textarea {
   }
 
   .mobile-menu-toggle-btn {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: var(--radius-sm);
     background: var(--bg-body);
     border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.15rem;
+    font-size: 1rem;
     color: var(--dark-800);
     cursor: pointer;
     transition: var(--transition-fast);
@@ -1603,13 +1644,13 @@ textarea {
     display: none;
     background: #ffffff;
     border-bottom: 1px solid var(--border-color);
-    border-radius: 0 0 16px 16px;
-    padding: 0.75rem 1.25rem 1.5rem;
-    max-height: 80vh;
+    border-radius: 0 0 14px 14px;
+    padding: 0.4rem 0.75rem 0.85rem;
+    max-height: 75vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    animation: bptFadeSlideDown 0.25s ease forwards;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.1);
+    animation: bptFadeSlideDown 0.2s ease forwards;
   }
 
   .mobile-menu-drawer.active {
@@ -1623,7 +1664,7 @@ textarea {
   }
 
   .mobile-menu-list li {
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.7);
   }
 
   .mobile-menu-list li:last-child {
@@ -1633,19 +1674,39 @@ textarea {
   .mobile-menu-list li a {
     display: flex;
     align-items: center;
-    padding: 0.85rem 0.5rem;
-    font-weight: 700;
-    font-size: 0.95rem;
+    padding: 0.48rem 0.65rem;
+    font-weight: 600;
+    font-size: 0.84rem;
     color: var(--dark-800);
     text-transform: uppercase;
-    min-height: 44px;
+    min-height: 36px;
+    border-radius: 6px;
+    letter-spacing: 0.2px;
     transition: var(--transition-fast);
   }
 
+  .mobile-menu-list li a i {
+    color: #64748b;
+    margin-right: 0.55rem;
+    font-size: 0.85rem;
+    width: 16px;
+    text-align: center;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-menu-list li.active>a,
+  .mobile-menu-list li.active>.mobile-sub-head>a,
+  .mobile-menu-list li>a:hover,
   .mobile-menu-list li a:active {
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
     background: var(--primary-light);
-    border-radius: 8px;
+    font-weight: 700;
+  }
+
+  .mobile-menu-list li.active>a i,
+  .mobile-menu-list li.active>.mobile-sub-head>a i,
+  .mobile-menu-list li>a:hover i {
+    color: var(--primary-color) !important;
   }
 
   .mobile-menu-has-sub .mobile-sub-head {
@@ -1655,10 +1716,10 @@ textarea {
   }
 
   .mobile-sub-toggle {
-    padding: 0.85rem 1rem;
+    padding: 0.48rem 0.65rem;
     color: var(--text-muted);
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     transition: transform 0.2s ease;
   }
 
@@ -1668,11 +1729,11 @@ textarea {
 
   .mobile-sub-list {
     list-style: none;
-    padding: 0.35rem 0 0.5rem 1rem;
+    padding: 0.25rem 0 0.35rem 0.75rem;
     display: none;
     background: var(--bg-body);
     border-radius: var(--radius-sm);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
   }
 
   .mobile-menu-has-sub.open .mobile-sub-list {
@@ -1680,10 +1741,11 @@ textarea {
   }
 
   .mobile-sub-list li a {
-    font-size: 0.88rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--dark-700);
-    padding: 0.5rem 0.5rem;
+    padding: 0.35rem 0.5rem;
+    min-height: 30px;
     text-transform: none;
   }
 
@@ -1751,42 +1813,214 @@ textarea {
     padding: 0 1rem !important;
   }
 
+  /* Hero Banner Slider - Mobile Full Proportional Display */
   .hero-slider {
-    min-height: 480px;
-    padding: 3rem 0;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    width: 100% !important;
+    background: #0f172a !important;
   }
 
-  .hero-slide-content {
-    text-align: center;
-    align-items: center;
-    max-width: 100%;
+  .slider-wrapper {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1628 / 572 !important;
+    min-height: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
   }
 
-  .hero-title {
-    font-size: clamp(1.6rem, 6.5vw, 2.2rem) !important;
-    line-height: 1.25 !important;
+  .slide-item {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
   }
 
-  .hero-subtitle {
-    font-size: 0.92rem !important;
-    margin-bottom: 1.25rem !important;
+  .slide-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
   }
 
+  .hero-overlay {
+    display: none !important;
+  }
+
+  .slider-bullets {
+    bottom: 8px !important;
+    gap: 0.35rem !important;
+    z-index: 10 !important;
+  }
+
+  .bullet {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .bullet.active {
+    width: 18px !important;
+  }
+
+  .slider-nav {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.75rem !important;
+    background: rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    z-index: 10 !important;
+  }
+
+  .slider-nav.prev {
+    left: 6px !important;
+  }
+
+  .slider-nav.next {
+    right: 6px !important;
+  }
+
+  /* Section Spacings & Typography on Mobile */
+  .section-padding {
+    padding: 1.75rem 0 !important;
+  }
+
+  .section-heading-wrap,
+  .category-section-header {
+    margin-bottom: 1.15rem !important;
+    text-align: center !important;
+  }
+
+  .section-tag {
+    font-size: 0.72rem !important;
+    padding: 0.22rem 0.65rem !important;
+    margin-bottom: 0.35rem !important;
+    letter-spacing: 0.3px !important;
+  }
+
+  .section-title,
+  .category-section-title {
+    font-size: 1.25rem !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0.2px !important;
+    margin-bottom: 0.35rem !important;
+    font-weight: 800 !important;
+  }
+
+  .category-section-title::after {
+    width: 35px !important;
+    height: 3px !important;
+    margin: 0.35rem auto 0 !important;
+  }
+
+  .section-subtitle,
+  .category-section-desc {
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
+    max-width: 92% !important;
+    margin: 0 auto 0.75rem !important;
+  }
+
+  /* Tour Cards Grid & Card Size on Mobile */
   .tours-grid {
     grid-template-columns: 1fr !important;
-    gap: 1.25rem !important;
+    gap: 1.1rem !important;
   }
 
   .tour-card {
-    border-radius: 16px !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06) !important;
   }
 
+  .tour-card-image,
   .tour-thumb-wrapper {
-    height: 200px !important;
+    height: 170px !important;
+  }
+
+  .tour-badge-private {
+    top: 8px !important;
+    left: 8px !important;
+    padding: 0.2rem 0.55rem !important;
+    font-size: 0.68rem !important;
+    border-radius: 9999px !important;
+  }
+
+  .tour-badge-duration {
+    bottom: 8px !important;
+    left: 8px !important;
+    padding: 0.2rem 0.55rem !important;
+    font-size: 0.68rem !important;
+    border-radius: 9999px !important;
+  }
+
+  .tour-wishlist-btn {
+    top: 8px !important;
+    right: 8px !important;
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.75rem !important;
   }
 
   .tour-card-body {
-    padding: 1.15rem !important;
+    padding: 0.85rem 0.95rem !important;
+  }
+
+  .tour-card-meta {
+    margin-bottom: 0.35rem !important;
+  }
+
+  .tour-location-tag {
+    font-size: 0.72rem !important;
+  }
+
+  .tour-rating-stars {
+    font-size: 0.74rem !important;
+  }
+
+  .tour-card-title {
+    font-size: 1.02rem !important;
+    line-height: 1.35 !important;
+    height: auto !important;
+    min-height: unset !important;
+    margin-bottom: 0.4rem !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .tour-card-perks {
+    gap: 0.25rem 0.6rem !important;
+    margin-bottom: 0.65rem !important;
+    font-size: 0.72rem !important;
+  }
+
+  .tour-card-perk-item i {
+    font-size: 0.68rem !important;
+  }
+
+  .tour-card-footer {
+    padding-top: 0.65rem !important;
+    margin-top: 0.35rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .tour-price-label {
+    font-size: 0.65rem !important;
+  }
+
+  .tour-price-value {
+    font-size: 1.05rem !important;
+  }
+
+  .tour-card-cta-btn {
+    padding: 0.45rem 0.95rem !important;
+    font-size: 0.78rem !important;
+    border-radius: 9999px !important;
   }
 
   .quangbinh-banner-section,
@@ -1872,6 +2106,17 @@ textarea {
     font-size: 0.75rem !important;
   }
 
+  .bpt-floating-book-pill {
+    height: 44px !important;
+    padding: 0 14px !important;
+    font-size: 0.85rem !important;
+    gap: 6px !important;
+  }
+
+  .bpt-floating-book-pill i {
+    font-size: 0.95rem !important;
+  }
+
   .floating-back-to-top {
     bottom: 16px !important;
     right: 12px !important;
@@ -1881,49 +2126,8 @@ textarea {
     z-index: 9990 !important;
   }
 
-  /* Mobile Sticky Bottom Bar */
   .mobile-bottom-booking-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #ffffff;
-    border-top: 1px solid var(--border-color);
-    box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.08);
-    padding: 0.75rem 1.25rem;
-    z-index: 9998;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .mobile-bottom-bar-price {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .mobile-bottom-bar-price .label {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
-
-  .mobile-bottom-bar-price .val {
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: var(--accent-color);
-  }
-
-  .mobile-bottom-bar-cta {
-    background: var(--accent-gradient);
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 0.9rem;
-    padding: 0.65rem 1.5rem;
-    border-radius: var(--radius-pill);
-    border: none;
-    cursor: pointer;
-    box-shadow: var(--shadow-cta);
+    display: none !important;
   }
 }
 

@@ -50,6 +50,56 @@ if (!function_exists('bpt_get_main_image_url')) {
                 <p class="hero-subtitle" data-i18n="hero_sub_3">Easy online booking, instant payment via VietQR, and immediate electronic voucher delivery.</p>
             </div>
         </div>
+
+        <!-- Slide 4 -->
+        <div class="slide-item">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn4.jpg'); ?>" alt="Exclusive Group & VIP Tours - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-users"></i> <span data-i18n="hero_tagline_4">Exclusive Group & VIP Tours</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_4">Memorable Group Vacations</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_4">Private VIP modern fleet, licensed tour guides, and 100% customized corporate & family reunion packages in Da Nang - Ba Na Hills.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide-item">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn5.jpg'); ?>" alt="Family Vacation Packages - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-heart"></i> <span data-i18n="hero_tagline_5">Family Vacation Packages</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_5">Cherish Every Family Moment</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_5">Sun World Ba Na Hills, Golden Bridge, all-inclusive cable car, and senior & child-friendly private itineraries.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide-item">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn6.jpg'); ?>" alt="Tropical Island Escapes - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-water"></i> <span data-i18n="hero_tagline_6">Tropical Island Escapes</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_6">Discover Coastal Paradise</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_6">Phu Quoc & island speedboat expeditions, coral reef snorkeling, SUP, and pristine white sandy beaches.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide-item">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn7.jpg'); ?>" alt="Northern Vietnam Highlights - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-mountain"></i> <span data-i18n="hero_tagline_7">Northern Vietnam Highlights</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_7">Conquer The Roof of Indochina</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_7">Sapa Fansipan Legend 3,143m, Sun World VIP cable car, Muong Hoa mountain train, and majestic mountain peaks.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide-item">
+            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/bn8.jpg'); ?>" alt="Authentic Cultural Experiences - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-compass"></i> <span data-i18n="hero_tagline_8">Authentic Cultural Experiences</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_8">Travel Like A Local With A Friend</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_8">Hoi An ancient town heritage, licensed English-speaking local guides, lantern boat rides, and authentic street food.</p>
+            </div>
+        </div>
     </div>
 
     <!-- Bullets Navigation -->
@@ -57,6 +107,11 @@ if (!function_exists('bpt_get_main_image_url')) {
         <span class="bullet active" onclick="setSlide(0)" aria-label="Slide 1"></span>
         <span class="bullet" onclick="setSlide(1)" aria-label="Slide 2"></span>
         <span class="bullet" onclick="setSlide(2)" aria-label="Slide 3"></span>
+        <span class="bullet" onclick="setSlide(3)" aria-label="Slide 4"></span>
+        <span class="bullet" onclick="setSlide(4)" aria-label="Slide 5"></span>
+        <span class="bullet" onclick="setSlide(5)" aria-label="Slide 6"></span>
+        <span class="bullet" onclick="setSlide(6)" aria-label="Slide 7"></span>
+        <span class="bullet" onclick="setSlide(7)" aria-label="Slide 8"></span>
     </div>
 
     <!-- Navigation Arrows -->
@@ -68,46 +123,7 @@ if (!function_exists('bpt_get_main_image_url')) {
     </button>
 </section>
 
-<!-- Floating Interactive Search Pill (Airbnb & Klook Style) -->
-<div class="floating-search-pill-wrap">
-    <form id="heroSearchForm" class="floating-search-pill" action="<?php echo esc_url(site_url('?pagename=tour')); ?>" method="GET">
-        <input type="hidden" name="pagename" value="tour">
-        
-        <!-- Field 1: Destination -->
-        <div class="search-field-block">
-            <span class="search-field-label"><i class="fa-solid fa-location-dot"></i> <span data-i18n="search_dest_label">Destination</span></span>
-            <select name="category" id="searchDestination" class="search-field-select">
-                <option value="" data-i18n="search_dest_placeholder">All Destinations</option>
-                <option value="northern-vietnam-tours" data-i18n="search_dest_north">Hanoi & North Vietnam (Halong Bay, Ninh Binh)</option>
-                <option value="central-vietnam-tours" data-i18n="search_dest_central">Da Nang & Central Vietnam (Hoi An, Hue, Ba Na)</option>
-                <option value="southern-vietnam-tours" data-i18n="search_dest_south">Ho Chi Minh City & South (Mekong Delta, Phu Quoc)</option>
-            </select>
-        </div>
 
-        <!-- Field 2: Travel Date -->
-        <div class="search-field-block">
-            <span class="search-field-label"><i class="fa-regular fa-calendar-days"></i> <span data-i18n="search_date_label">Departure Date</span></span>
-            <input type="date" name="travel_date" id="searchDate" class="search-field-input" value="<?php echo date('Y-m-d'); ?>">
-        </div>
-
-        <!-- Field 3: Guests -->
-        <div class="search-field-block">
-            <span class="search-field-label"><i class="fa-solid fa-user-group"></i> <span data-i18n="search_guest_label">Number of Guests</span></span>
-            <select name="guests" id="searchGuests" class="search-field-select">
-                <option value="1" data-i18n="search_guest_1">1 Guest (Solo Private)</option>
-                <option value="2" selected data-i18n="search_guest_2">2 Guests (Couples / Friends)</option>
-                <option value="4" data-i18n="search_guest_4">3 - 5 Guests (Family)</option>
-                <option value="8" data-i18n="search_guest_8">6+ Guests (Private Group)</option>
-            </select>
-        </div>
-
-        <!-- CTA Search Button -->
-        <button type="submit" class="search-cta-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <span data-i18n="btn_search">Search Tours</span>
-        </button>
-    </form>
-</div>
 
 <!-- Editable Content Area for Homepage (Elementor / Gutenberg) -->
 <?php if ( have_posts() ) : ?>
@@ -340,6 +356,28 @@ if (!function_exists('bpt_get_main_image_url')) {
             slider.addEventListener('mouseleave', function() {
                 resetTimer();
             });
+
+            // Touch swipe support for mobile devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+            slider.addEventListener('touchstart', function(e) {
+                if (e.changedTouches && e.changedTouches[0]) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }
+                if (slideInterval) clearInterval(slideInterval);
+            }, {passive: true});
+
+            slider.addEventListener('touchend', function(e) {
+                if (e.changedTouches && e.changedTouches[0]) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    if (touchStartX - touchEndX > 35) {
+                        changeSlide(1);
+                    } else if (touchEndX - touchStartX > 35) {
+                        changeSlide(-1);
+                    }
+                }
+                resetTimer();
+            }, {passive: true});
         }
     });
 })();

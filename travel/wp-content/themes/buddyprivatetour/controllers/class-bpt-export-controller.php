@@ -94,6 +94,53 @@ class BPT_ExportController {
                     @copy($cssFile, $exportDir . '/assets/css/' . basename($cssFile));
                 }
             }
+            $tiCss = WP_CONTENT_DIR . '/uploads/trustindex-tripadvisor-widget.css';
+            if (file_exists($tiCss)) {
+                @copy($tiCss, $exportDir . '/assets/css/trustindex-tripadvisor-widget.css');
+            }
+
+            // Copy TripAdvisor Review Slider assets if installed
+            $wprevPluginDir = WP_CONTENT_DIR . '/plugins/wp-tripadvisor-review-slider';
+            if (is_dir($wprevPluginDir)) {
+                $wprevCss = $wprevPluginDir . '/public/css/wptripadvisor_all.css';
+                if (file_exists($wprevCss)) {
+                    @copy($wprevCss, $exportDir . '/assets/css/wptripadvisor_all.css');
+                }
+                $wprevJs1 = $wprevPluginDir . '/public/js/wprs-unslider-swipe.js';
+                if (file_exists($wprevJs1)) {
+                    @copy($wprevJs1, $exportDir . '/assets/js/wprs-unslider-swipe.js');
+                }
+                $wprevJs2 = $wprevPluginDir . '/public/js/wprev-public.js';
+                if (file_exists($wprevJs2)) {
+                    @copy($wprevJs2, $exportDir . '/assets/js/wprev-public.js');
+                }
+                $wprevImgDir = $wprevPluginDir . '/public/partials/imgs';
+                if (is_dir($wprevImgDir)) {
+                    if (!is_dir($exportDir . '/assets/images/tripadvisor')) {
+                        @mkdir($exportDir . '/assets/images/tripadvisor', 0777, true);
+                    }
+                    $wprevImgs = glob($wprevImgDir . '/*.*');
+                    if (!empty($wprevImgs)) {
+                        foreach ($wprevImgs as $wImg) {
+                            @copy($wImg, $exportDir . '/assets/images/tripadvisor/' . basename($wImg));
+                        }
+                    }
+                }
+            }
+
+            // Also ensure TripAdvisor assets from theme directory are copied
+            $themeTiImgDir = get_template_directory() . '/assets/images/tripadvisor';
+            if (is_dir($themeTiImgDir)) {
+                if (!is_dir($exportDir . '/assets/images/tripadvisor')) {
+                    @mkdir($exportDir . '/assets/images/tripadvisor', 0777, true);
+                }
+                $tImgs = glob($themeTiImgDir . '/*.*');
+                if (!empty($tImgs)) {
+                    foreach ($tImgs as $tImg) {
+                        @copy($tImg, $exportDir . '/assets/images/tripadvisor/' . basename($tImg));
+                    }
+                }
+            }
 
             $jsFiles = glob(get_template_directory() . '/assets/js/*.js');
             if (!empty($jsFiles)) {
@@ -138,7 +185,13 @@ class BPT_ExportController {
                     'duration' => $item['duration'] ?? 'Full Day',
                     'category_id' => intval($item['category_id'] ?? 0),
                     'category_name' => $item['category_name'] ?? '',
-                    'quantity' => intval($item['quantity'])
+                    'quantity' => intval($item['quantity']),
+                    'departure_date' => $item['departure_date'] ?? date('Y-m-d'),
+                    'adults' => intval($item['adults'] ?? $item['quantity']),
+                    'youths' => intval($item['youths'] ?? 0),
+                    'children' => intval($item['children'] ?? 0),
+                    'infants' => intval($item['infants'] ?? 0),
+                    'total_price' => floatval($item['total_price'] ?? ($item['price'] * $item['quantity']))
                 );
             }
             
@@ -196,6 +249,7 @@ class BPT_ExportController {
                 file_put_contents($exportDir . '/other-services-detail-' . $slug . '.html', self::buildStaticOtherServicesDetail($slug));
             }
             file_put_contents($exportDir . '/videos.html', self::buildStaticVideos());
+            file_put_contents($exportDir . '/feedback.html', self::buildStaticFeedback());
             file_put_contents($exportDir . '/contact.html', self::buildStaticContact());
 
             foreach ($mapped_products as $product) {
@@ -324,8 +378,16 @@ class BPT_ExportController {
         return false;
     }
 
-    private static function getStaticHeader($title = "BUDDY PRIVATE TOUR (Static Site)", $isSubfolder = false) {
+    private static function getStaticHeader($title = "BUDDY PRIVATE TOUR (Static Site)", $activePage = 'home', $isSubfolder = false) {
         $assetPrefix = $isSubfolder ? '../' : '';
+
+        $homeActive = ($activePage === 'home') ? 'active' : '';
+        $aboutActive = ($activePage === 'about-us') ? 'active' : '';
+        $tourActive = in_array($activePage, ['tour', 'tour-detail']) ? 'active' : '';
+        $otherActive = in_array($activePage, ['other-services', 'other-services-detail']) ? 'active' : '';
+        $videosActive = ($activePage === 'videos') ? 'active' : '';
+        $feedbackActive = ($activePage === 'feedback') ? 'active' : '';
+        $contactActive = ($activePage === 'contact') ? 'active' : '';
 
         return <<<HTML
 <!DOCTYPE html>
@@ -345,6 +407,8 @@ class BPT_ExportController {
     <link rel="stylesheet" href="{$assetPrefix}assets/css/checkout.css">
     <link rel="stylesheet" href="{$assetPrefix}assets/css/other-services.css">
     <link rel="stylesheet" href="{$assetPrefix}assets/css/pages.css">
+    <link rel="stylesheet" href="{$assetPrefix}assets/css/feedback.css">
+    <link rel="stylesheet" href="{$assetPrefix}assets/css/wptripadvisor_all.css">
     <script src="{$assetPrefix}assets/js/translations.js"></script>
     <script src="{$assetPrefix}assets/js/app-localstorage.js"></script>
     <script src="{$assetPrefix}assets/js/main.js" defer></script>
@@ -369,9 +433,9 @@ class BPT_ExportController {
             <div class="header-nav-column">
                 <nav class="main-navigation">
                     <ul class="nav-menu">
-                        <li class="menu-item-home"><a href="{$assetPrefix}index.html"><i class="fa-solid fa-house" style="font-size: 0.8rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
-                        <li><a href="{$assetPrefix}about-us.html"><span data-i18n="nav_about">ABOUT US</span></a></li>
-                        <li class="menu-item-has-children">
+                        <li class="{$homeActive}"><a href="{$assetPrefix}index.html"><i class="fa-solid fa-house" style="font-size: 0.8rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                        <li class="{$aboutActive}"><a href="{$assetPrefix}about-us.html"><span data-i18n="nav_about">ABOUT US</span></a></li>
+                        <li class="menu-item-has-children {$tourActive}">
                             <a href="{$assetPrefix}tour.html"><span data-i18n="nav_tour">TOURS</span></a>
                             <ul class="sub-menu">
                                 <li><a href="{$assetPrefix}tour.html?category=northern-vietnam-tours"><i class="fa-solid fa-mountain-sun" style="color: #0284c7;"></i> <span data-i18n="nav_north">HANOI & NORTH VIETNAM</span></a></li>
@@ -379,9 +443,10 @@ class BPT_ExportController {
                                 <li><a href="{$assetPrefix}tour.html?category=southern-vietnam-tours"><i class="fa-solid fa-city" style="color: #f97316;"></i> <span data-i18n="nav_south">HO CHI MINH CITY & SOUTH</span></a></li>
                             </ul>
                         </li>
-                        <li><a href="{$assetPrefix}other-services.html"><span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
-                        <li><a href="{$assetPrefix}videos.html"><span data-i18n="nav_videos">VIDEOS</span></a></li>
-                        <li><a href="{$assetPrefix}contact.html"><span data-i18n="nav_contact">CONTACT</span></a></li>
+                        <li class="{$otherActive}"><a href="{$assetPrefix}other-services.html"><span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
+                        <li class="{$videosActive}"><a href="{$assetPrefix}videos.html"><span data-i18n="nav_videos">VIDEOS</span></a></li>
+                        <li class="{$feedbackActive}"><a href="{$assetPrefix}feedback.html"><span data-i18n="nav_feedback">FEEDBACK</span></a></li>
+                        <li class="{$contactActive}"><a href="{$assetPrefix}contact.html"><span data-i18n="nav_contact">CONTACT</span></a></li>
                     </ul>
                 </nav>
 
@@ -415,11 +480,11 @@ class BPT_ExportController {
 
             <div class="mobile-menu-drawer" id="mobileMenuDrawer">
                 <ul class="mobile-menu-list">
-                    <li><a href="{$assetPrefix}index.html"><i class="fa-solid fa-house" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
-                    <li><a href="{$assetPrefix}about-us.html"><i class="fa-solid fa-circle-info" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_about">ABOUT US</span></a></li>
-                    <li class="mobile-menu-has-sub">
+                    <li class="{$homeActive}"><a href="{$assetPrefix}index.html"><i class="fa-solid fa-house"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                    <li class="{$aboutActive}"><a href="{$assetPrefix}about-us.html"><i class="fa-solid fa-circle-info"></i> <span data-i18n="nav_about">ABOUT US</span></a></li>
+                    <li class="mobile-menu-has-sub {$tourActive}">
                         <div class="mobile-sub-head">
-                            <a href="{$assetPrefix}tour.html"><i class="fa-solid fa-compass" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_tour">TOURS</span></a>
+                            <a href="{$assetPrefix}tour.html"><i class="fa-solid fa-compass"></i> <span data-i18n="nav_tour">TOURS</span></a>
                             <span class="mobile-sub-toggle"><i class="fa-solid fa-chevron-down"></i></span>
                         </div>
                         <ul class="mobile-sub-list">
@@ -428,9 +493,10 @@ class BPT_ExportController {
                             <li><a href="{$assetPrefix}tour.html?category=southern-vietnam-tours" data-i18n="nav_south">Ho Chi Minh City & South</a></li>
                         </ul>
                     </li>
-                    <li><a href="{$assetPrefix}other-services.html"><i class="fa-solid fa-car" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
-                    <li><a href="{$assetPrefix}videos.html"><i class="fa-solid fa-video" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_videos">VIDEOS</span></a></li>
-                    <li><a href="{$assetPrefix}contact.html"><i class="fa-solid fa-headset" style="color: #0284c7; margin-right: 0.5rem;"></i> <span data-i18n="nav_contact">CONTACT</span></a></li>
+                    <li class="{$otherActive}"><a href="{$assetPrefix}other-services.html"><i class="fa-solid fa-car"></i> <span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
+                    <li class="{$videosActive}"><a href="{$assetPrefix}videos.html"><i class="fa-solid fa-video"></i> <span data-i18n="nav_videos">VIDEOS</span></a></li>
+                    <li class="{$feedbackActive}"><a href="{$assetPrefix}feedback.html"><i class="fa-solid fa-star"></i> <span data-i18n="nav_feedback">FEEDBACK</span></a></li>
+                    <li class="{$contactActive}"><a href="{$assetPrefix}contact.html"><i class="fa-solid fa-headset"></i> <span data-i18n="nav_contact">CONTACT</span></a></li>
                 </ul>
             </div>
         </div>
@@ -439,9 +505,10 @@ class BPT_ExportController {
 HTML;
     }
 
-    private static function getStaticFooter($isSubfolder = false) {
+    private static function getStaticFooter($isSubfolder = false, $isProductPage = false) {
         $assetPrefix = $isSubfolder ? '../' : '';
         $currentYear = date('Y');
+        $bookButtonHtml = $isProductPage ? '<button type="button" class="bpt-floating-book-pill" onclick="scrollToTourBooking()" title="Book Tour"><i class="fa-solid fa-calendar-check"></i> <span class="bpt-floating-book-text" data-i18n="floating_btn_book">Book Tour</span></button>' : '';
 
         return <<<HTML
 <!-- Luxury Dark Footer Section (#0f172a) -->
@@ -472,6 +539,7 @@ HTML;
                     <li><a href="{$assetPrefix}tour.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_tour">Tours</span></a></li>
                     <li><a href="{$assetPrefix}other-services.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_other_services">Car Rental & Hotels</span></a></li>
                     <li><a href="{$assetPrefix}videos.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_videos">Journey Videos</span></a></li>
+                    <li><a href="{$assetPrefix}feedback.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_feedback">Feedback</span></a></li>
                     <li><a href="{$assetPrefix}contact.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_contact">Contact Us</span></a></li>
                 </ul>
             </div>
@@ -495,7 +563,7 @@ HTML;
                 <div class="footer-contact-info">
                     <div class="footer-contact-item">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span>24/9 Nguyen Luong Bang, Lien Chieu, Da Nang, Vietnam</span>
+                        <span data-i18n="footer_address">No. 24, Hoa Minh 15 Street, Hoa Minh Ward, Lien Chieu District, Da Nang City, Vietnam</span>
                     </div>
                     <div class="footer-contact-item">
                         <i class="fa-solid fa-phone-volume"></i>
@@ -503,7 +571,7 @@ HTML;
                     </div>
                     <div class="footer-contact-item">
                         <i class="fa-solid fa-envelope"></i>
-                        <span>buddyprivatetour@gmail.com</span>
+                        <span><a href="mailto:booking@buddyprivatetour.com" style="color: inherit; text-decoration: none;">booking@buddyprivatetour.com</a></span>
                     </div>
                     <div class="footer-contact-item">
                         <i class="fa-solid fa-clock"></i>
@@ -513,7 +581,7 @@ HTML;
 
                 <div class="footer-social-links">
                     <a href="https://zalo.me/84567599998" target="_blank" class="footer-social-btn" title="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
-                    <a href="mailto:buddyprivatetour@gmail.com" class="footer-social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="mailto:booking@buddyprivatetour.com" class="footer-social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
                     <a href="#" class="footer-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#" class="footer-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
                     <a href="#" class="footer-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
@@ -554,6 +622,7 @@ HTML;
             <span class="bpt-zalo-text">Zalo</span>
         </div>
     </a>
+    {$bookButtonHtml}
 </div>
 
 <!-- Floating Back to Top Button -->
@@ -567,7 +636,7 @@ HTML;
     }
 
     private static function buildStaticAboutUs() {
-        $header = self::getStaticHeader("About Us - Buddy Private Tour");
+        $header = self::getStaticHeader("About Us - Buddy Private Tour", 'about-us');
         $footer = self::getStaticFooter();
         
         $page = get_page_by_path('about-us');
@@ -604,7 +673,7 @@ HTML;
     }
 
     private static function buildStaticTour($products, $seedProductsJson, $seedCategoriesJson, $seedCartJson, $seedOrdersJson) {
-        $header = self::getStaticHeader("Tour Packages - Buddy Private Tour");
+        $header = self::getStaticHeader("Tour Packages - Buddy Private Tour", 'tour');
         $footer = self::getStaticFooter();
 
         $toursGridHtml = '';
@@ -665,13 +734,6 @@ HTML;
                 <span class="crumb-separator">/</span>
                 <span id="static-crumb-trail"><span class="crumb-current" data-i18n="crumb_tour">Tours</span></span>
             </nav>
-        </div>
-
-        <div class="tour-page-header-wrap">
-            <h1 class="tour-page-heading" id="static-tour-heading">
-                ALL PRIVATE TOURS
-            </h1>
-            <p class="tour-page-desc" data-i18n="tour_page_desc">All premium private tour packages include private guide, hotel pickup/drop-off, and 5-star standard care.</p>
         </div>
 
         <!-- Regional Category Filter Pills -->
@@ -740,7 +802,7 @@ function renderAllTours() {
         if (t) t.classList.add('active');
     }
 
-    heading.textContent = currentCatName;
+    if (heading) heading.textContent = currentCatName;
     document.title = (currentCatName !== 'ALL PRIVATE TOURS' ? currentCatName + ' - ' : '') + 'Buddy Private Tour';
 
     if (filterKey) {
@@ -829,7 +891,7 @@ HTML;
     }
 
     private static function buildStaticOtherServices() {
-        $header = self::getStaticHeader("Car Rental & Hotels - Buddy Private Tour");
+        $header = self::getStaticHeader("Car Rental & Hotels - Buddy Private Tour", 'other-services');
         $footer = self::getStaticFooter();
         
         return <<<HTML
@@ -909,7 +971,7 @@ HTML;
         $service = BPT_ServiceModel::getBySlug($service_slug);
         if (!$service) return '';
         
-        $header = self::getStaticHeader($service['title'] . " - Buddy Private Tour");
+        $header = self::getStaticHeader($service['title'] . " - Buddy Private Tour", 'other-services');
         $footer = self::getStaticFooter();
         
         $imagesHtml = '';
@@ -1070,7 +1132,7 @@ HTML;
     }
 
     private static function buildStaticVideos() {
-        $header = self::getStaticHeader("Videos - Buddy Private Tour");
+        $header = self::getStaticHeader("Videos - Buddy Private Tour", 'videos');
         $footer = self::getStaticFooter();
         
         return <<<HTML
@@ -1086,8 +1148,6 @@ HTML;
                 <span class="crumb-current" data-i18n="nav_videos">Videos</span>
             </nav>
         </div>
-
-        <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2.5rem; text-transform: uppercase;" data-i18n="nav_videos">JOURNEY VIDEOS</h1>
 
         <div class="home-videos-section">
             <div class="home-videos-grid">
@@ -1110,8 +1170,122 @@ HTML;
 HTML;
     }
 
+    public static function buildStaticFeedback() {
+        $header = self::getStaticHeader("Customer Feedback - Buddy Private Tour", 'feedback');
+        $footer = self::getStaticFooter();
+
+        $reviewsWidget = '';
+        ob_start();
+        do_action( 'wprev_tripadvisor_plugin_action', 1 );
+        $reviewsWidget = ob_get_clean();
+
+        if (!empty($reviewsWidget)) {
+            // Clean any inline <style> tags output by the plugin so feedback.css has 100% clean control
+            $reviewsWidget = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $reviewsWidget);
+            // Replace absolute plugin image URLs with relative static paths
+            $reviewsWidget = preg_replace('#https?://[^/]+/wp-content/plugins/wp-tripadvisor-review-slider/public/partials/imgs/#i', 'assets/images/tripadvisor/', $reviewsWidget);
+        }
+
+        $extraScripts = <<<HTML
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="assets/js/wprs-unslider-swipe.js"></script>
+<script src="assets/js/wprev-public.js"></script>
+HTML;
+
+        return <<<HTML
+{$header}
+<div class="feedback-page-wrapper">
+    <div class="container">
+        <!-- Breadcrumb Navigation -->
+        <div class="site-breadcrumb-wrap feedback-breadcrumb-wrap">
+            <nav class="site-breadcrumb-box">
+                <a href="index.html" class="crumb-link">
+                    <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
+                </a>
+                <span class="crumb-separator">/</span>
+                <span class="crumb-current" data-i18n="nav_feedback">Feedback</span>
+            </nav>
+        </div>
+
+        <!-- Top Header: Reviews & Action Links -->
+        <div class="feedback-top-header">
+            <h1 class="feedback-heading-title" data-i18n="reviews_heading">Reviews</h1>
+            <div class="feedback-header-actions">
+        
+                <a href="https://www.tripadvisor.com/UserReview-g298085-d17546791-Buddy_Private_Tour-Da_Nang.html" target="_blank" rel="noopener noreferrer" class="write-review-btn">
+                    <i class="fa-solid fa-pen"></i>
+                    <span data-i18n="reviews_write_btn">Write a review</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 5-Star Rating Breakdown Card -->
+        <div class="rating-summary-card">
+            <div class="rating-score-box">
+                <div class="rating-score-value">5.0</div>
+                <div class="rating-score-label" data-i18n="reviews_label_excellent">Excellent</div>
+                <div class="ta-bubbles-row">
+                    <span class="ta-dot"></span>
+                    <span class="ta-dot"></span>
+                    <span class="ta-dot"></span>
+                    <span class="ta-dot"></span>
+                    <span class="ta-dot"></span>
+                    <span class="rating-total-count">(233)</span>
+                </div>
+            </div>
+
+            <div class="rating-breakdown-list">
+                <div class="rating-row">
+                    <span class="rating-label" data-i18n="reviews_label_excellent">Excellent</span>
+                    <div class="rating-bar-track">
+                        <div class="rating-bar-fill fill-100"></div>
+                    </div>
+                    <span class="rating-count">233</span>
+                </div>
+                <div class="rating-row">
+                    <span class="rating-label" data-i18n="reviews_label_good">Good</span>
+                    <div class="rating-bar-track">
+                        <div class="rating-bar-fill fill-0"></div>
+                    </div>
+                    <span class="rating-count">0</span>
+                </div>
+                <div class="rating-row">
+                    <span class="rating-label" data-i18n="reviews_label_average">Average</span>
+                    <div class="rating-bar-track">
+                        <div class="rating-bar-fill fill-0"></div>
+                    </div>
+                    <span class="rating-count">0</span>
+                </div>
+                <div class="rating-row">
+                    <span class="rating-label" data-i18n="reviews_label_poor">Poor</span>
+                    <div class="rating-bar-track">
+                        <div class="rating-bar-fill fill-0"></div>
+                    </div>
+                    <span class="rating-count">0</span>
+                </div>
+                <div class="rating-row">
+                    <span class="rating-label" data-i18n="reviews_label_terrible">Terrible</span>
+                    <div class="rating-bar-track">
+                        <div class="rating-bar-fill fill-0"></div>
+                    </div>
+                    <span class="rating-count">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Widget Section -->
+        <div class="feedback-content-card">
+            {$reviewsWidget}
+        </div>
+    </div>
+</div>
+{$extraScripts}
+{$footer}
+HTML;
+    }
+
     private static function buildStaticContact() {
-        $header = self::getStaticHeader("Contact - Buddy Private Tour");
+        $header = self::getStaticHeader("Contact - Buddy Private Tour", 'contact');
         $footer = self::getStaticFooter();
         
         return <<<HTML
@@ -1169,7 +1343,7 @@ HTML;
                             <div class="contact-item-icon"><i class="fa-solid fa-location-dot"></i></div>
                             <div class="contact-item-text">
                                 <strong>Headquarters</strong>
-                                24/9 Nguyen Luong Bang street, Hoa Khanh Bac, Lien Chieu, Da Nang, Vietnam.
+                                <span data-i18n="footer_address">No. 24, Hoa Minh 15 Street, Hoa Minh Ward, Lien Chieu District, Da Nang City, Vietnam</span>
                             </div>
                         </div>
 
@@ -1185,7 +1359,7 @@ HTML;
                             <div class="contact-item-icon"><i class="fa-solid fa-envelope"></i></div>
                             <div class="contact-item-text">
                                 <strong>Official Email</strong>
-                                <a href="mailto:buddyprivatetour@gmail.com" style="color: #0284c7;">buddyprivatetour@gmail.com</a>
+                                <a href="mailto:booking@buddyprivatetour.com" style="color: #0284c7;">booking@buddyprivatetour.com</a>
                             </div>
                         </div>
 
@@ -1207,7 +1381,7 @@ HTML;
     }
 
     private static function buildStaticIndex($categories, $products, $seedProductsJson, $seedCategoriesJson, $seedCartJson, $seedOrdersJson) {
-        $header = self::getStaticHeader("Buddy Private Tour - Modern Luxury Private Journeys");
+        $header = self::getStaticHeader("Buddy Private Tour - Modern Luxury Private Journeys", 'home');
         $footer = self::getStaticFooter();
         $currentDate = date('Y-m-d');
 
@@ -1375,6 +1549,56 @@ HTML;
                 <p class="hero-subtitle" data-i18n="hero_sub_3">Easy online booking, instant payment via VietQR, and immediate electronic voucher delivery.</p>
             </div>
         </div>
+
+        <!-- Slide 4 -->
+        <div class="slide-item">
+            <img src="assets/images/bn4.jpg" alt="Exclusive Group & VIP Tours - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-users"></i> <span data-i18n="hero_tagline_4">Exclusive Group & VIP Tours</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_4">Memorable Group Vacations</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_4">Private VIP modern fleet, licensed tour guides, and 100% customized corporate & family reunion packages in Da Nang - Ba Na Hills.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide-item">
+            <img src="assets/images/bn5.jpg" alt="Family Vacation Packages - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-heart"></i> <span data-i18n="hero_tagline_5">Family Vacation Packages</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_5">Cherish Every Family Moment</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_5">Sun World Ba Na Hills, Golden Bridge, all-inclusive cable car, and senior & child-friendly private itineraries.</p>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide-item">
+            <img src="assets/images/bn6.jpg" alt="Tropical Island Escapes - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-water"></i> <span data-i18n="hero_tagline_6">Tropical Island Escapes</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_6">Discover Coastal Paradise</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_6">Phu Quoc & island speedboat expeditions, coral reef snorkeling, SUP, and pristine white sandy beaches.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide-item">
+            <img src="assets/images/bn7.jpg" alt="Northern Vietnam Highlights - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-mountain"></i> <span data-i18n="hero_tagline_7">Northern Vietnam Highlights</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_7">Conquer The Roof of Indochina</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_7">Sapa Fansipan Legend 3,143m, Sun World VIP cable car, Muong Hoa mountain train, and majestic mountain peaks.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide-item">
+            <img src="assets/images/bn8.jpg" alt="Authentic Cultural Experiences - Buddy Private Tour" class="slide-img" />
+            <div class="hero-overlay">
+                <span class="hero-tagline"><i class="fa-solid fa-compass"></i> <span data-i18n="hero_tagline_8">Authentic Cultural Experiences</span></span>
+                <h2 class="hero-title" style="font-size: 2.85rem; font-weight: 800;" data-i18n="hero_title_8">Travel Like A Local With A Friend</h2>
+                <p class="hero-subtitle" data-i18n="hero_sub_8">Hoi An ancient town heritage, licensed English-speaking local guides, lantern boat rides, and authentic street food.</p>
+            </div>
+        </div>
     </div>
 
     <!-- Bullets Navigation -->
@@ -1382,6 +1606,11 @@ HTML;
         <span class="bullet active" onclick="setSlide(0)" aria-label="Slide 1"></span>
         <span class="bullet" onclick="setSlide(1)" aria-label="Slide 2"></span>
         <span class="bullet" onclick="setSlide(2)" aria-label="Slide 3"></span>
+        <span class="bullet" onclick="setSlide(3)" aria-label="Slide 4"></span>
+        <span class="bullet" onclick="setSlide(4)" aria-label="Slide 5"></span>
+        <span class="bullet" onclick="setSlide(5)" aria-label="Slide 6"></span>
+        <span class="bullet" onclick="setSlide(6)" aria-label="Slide 7"></span>
+        <span class="bullet" onclick="setSlide(7)" aria-label="Slide 8"></span>
     </div>
 
     <!-- Navigation Arrows -->
@@ -1393,44 +1622,7 @@ HTML;
     </button>
 </section>
 
-<!-- Floating Interactive Search Pill (Airbnb & Klook Style) -->
-<div class="floating-search-pill-wrap">
-    <form id="heroSearchForm" class="floating-search-pill" action="tour.html" method="GET">
-        <!-- Field 1: Destination -->
-        <div class="search-field-block">
-            <span class="search-field-label"><i class="fa-solid fa-location-dot"></i> <span data-i18n="search_dest_label">Destination</span></span>
-            <select name="category" id="searchDestination" class="search-field-select">
-                <option value="" data-i18n="search_dest_placeholder">All Destinations</option>
-                <option value="northern-vietnam-tours" data-i18n="search_dest_north">Hanoi & North Vietnam (Halong Bay, Ninh Binh)</option>
-                <option value="central-vietnam-tours" data-i18n="search_dest_central">Da Nang & Central Vietnam (Hoi An, Hue, Ba Na)</option>
-                <option value="southern-vietnam-tours" data-i18n="search_dest_south">Ho Chi Minh City & South (Mekong Delta, Phu Quoc)</option>
-            </select>
-        </div>
 
-        <!-- Field 2: Travel Date -->
-        <div class="search-field-block">
-            <span class="search-field-label"><i class="fa-regular fa-calendar-days"></i> <span data-i18n="search_date_label">Departure Date</span></span>
-            <input type="date" name="travel_date" id="searchDate" class="search-field-input" value="{$currentDate}">
-        </div>
-
-        <!-- Field 3: Guests -->
-        <div class="search-field-block">
-            <span class="search-field-label"><i class="fa-solid fa-user-group"></i> <span data-i18n="search_guest_label">Number of Guests</span></span>
-            <select name="guests" id="searchGuests" class="search-field-select">
-                <option value="1" data-i18n="search_guest_1">1 Guest (Solo Private)</option>
-                <option value="2" selected data-i18n="search_guest_2">2 Guests (Couples / Friends)</option>
-                <option value="4" data-i18n="search_guest_4">3 - 5 Guests (Family)</option>
-                <option value="8" data-i18n="search_guest_8">6+ Guests (Private Group)</option>
-            </select>
-        </div>
-
-        <!-- CTA Search Button -->
-        <button type="submit" class="search-cta-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <span data-i18n="btn_search">Search Tours</span>
-        </button>
-    </form>
-</div>
 
 <!-- Product Catalog -->
 <div id="products-catalog" class="section-padding">
@@ -1558,6 +1750,28 @@ document.addEventListener('DOMContentLoaded', function() {
             slider.addEventListener('mouseleave', function() {
                 resetTimer();
             });
+
+            // Touch swipe support for mobile devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+            slider.addEventListener('touchstart', function(e) {
+                if (e.changedTouches && e.changedTouches[0]) {
+                    touchStartX = e.changedTouches[0].screenX;
+                }
+                if (slideInterval) clearInterval(slideInterval);
+            }, {passive: true});
+
+            slider.addEventListener('touchend', function(e) {
+                if (e.changedTouches && e.changedTouches[0]) {
+                    touchEndX = e.changedTouches[0].screenX;
+                    if (touchStartX - touchEndX > 35) {
+                        changeSlide(1);
+                    } else if (touchEndX - touchStartX > 35) {
+                        changeSlide(-1);
+                    }
+                }
+                resetTimer();
+            }, {passive: true});
         }
     });
 })();
@@ -1568,8 +1782,8 @@ HTML;
 
     private static function buildStaticProduct($product, $allProducts, $seedProductsJson, $seedCategoriesJson, $seedCartJson, $seedOrdersJson) {
         $pTitle = htmlspecialchars($product['title'], ENT_QUOTES, 'UTF-8');
-        $header = self::getStaticHeader($pTitle . " - Buddy Private Tour", true);
-        $footer = self::getStaticFooter(true);
+        $header = self::getStaticHeader($pTitle . " - Buddy Private Tour", 'tour', true);
+        $footer = self::getStaticFooter(true, true);
         
         $gallery_images = json_decode($product['images'] ?? '[]', true) ?: [];
         $highlights = json_decode($product['highlights'] ?? '[]', true) ?: [];
@@ -1599,7 +1813,7 @@ HTML;
 
         $pSummary = htmlspecialchars($product['summary'] ?? '', ENT_QUOTES, 'UTF-8');
         $pDesc = wpautop(wp_kses_post($product['description'] ?? ''));
-        $pCategory = htmlspecialchars($product['category_name'], ENT_QUOTES, 'UTF-8');
+        $pCategory = htmlspecialchars($product['category_name'] ?? '', ENT_QUOTES, 'UTF-8');
         $pCategorySlug = htmlspecialchars($product['category_slug'] ?? 'tour', ENT_QUOTES, 'UTF-8');
         $pPrice = floatval($product['price']);
         $pId = intval($product['id']);
@@ -1795,16 +2009,7 @@ HTML;
                     </div>
                 </div>
 
-                <div class="tour-inclusions-grid">
-                    <div class="inclusions-card included">
-                        <h4 class="inclusions-card-title"><i class="fa-solid fa-circle-check"></i> <span data-i18n="sec_included_title">INCLUDED IN TOUR</span></h4>
-                        <ul class="inclusions-list">{$includedHtml}</ul>
-                    </div>
-                    <div class="inclusions-card excluded">
-                        <h4 class="inclusions-card-title"><i class="fa-solid fa-circle-xmark"></i> <span data-i18n="sec_excluded_title">EXCLUDED FROM TOUR</span></h4>
-                        <ul class="inclusions-list">{$excludedHtml}</ul>
-                    </div>
-                </div>
+
 
                 <div>
                     <h3 class="tour-section-heading"><i class="fa-solid fa-circle-info" style="color: #0284c7;"></i> <span data-i18n="sec_overview_title">ABOUT THIS TRIP</span></h3>
@@ -1817,7 +2022,7 @@ HTML;
 
             <!-- RIGHT STICKY BOOKING CARD -->
             <div class="tour-sidebar-col">
-                <div class="sticky-booking-card">
+                <div class="sticky-booking-card" id="tour-booking-card">
                     <div class="booking-card-header">
                         <div class="booking-price-wrap">
                             <span class="booking-price-label" data-i18n="booking_price_lbl">Special private tour price</span>
@@ -1829,24 +2034,148 @@ HTML;
                         <span style="background: #ffedd5; color: #c2410c; font-size: 0.78rem; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 9999px;" data-i18n="booking_discount_badge">Save 15%</span>
                     </div>
 
-                    <div class="booking-form-group">
-                        <label class="booking-input-label" for="detail-tour-date"><i class="fa-regular fa-calendar"></i> <span data-i18n="booking_date_lbl">Select Departure Date:</span></label>
-                        <input type="date" id="detail-tour-date" class="booking-input-control" value="{$currentDate}">
-                    </div>
+                    <!-- 1. PARTICIPANTS (SCREENSHOT 1) -->
+                    <div class="booking-participants-section">
+                        <div class="booking-section-header">
+                            <h4 class="booking-section-title" data-i18n="booking_participants_title">Participants</h4>
+                            <span class="booking-blue-bar"></span>
+                        </div>
 
-                    <div class="booking-form-group">
-                        <label class="booking-input-label"><i class="fa-solid fa-user-group"></i> <span data-i18n="booking_guests_lbl">Number of Guests:</span></label>
-                        <div class="booking-guest-stepper">
-                            <button type="button" class="guest-stepper-btn" onclick="updateTourDetailGuests(-1, {$pPrice})">−</button>
-                            <input type="number" id="detail-guest-count" class="guest-stepper-input" value="2" min="1" max="50" readonly>
-                            <button type="button" class="guest-stepper-btn" onclick="updateTourDetailGuests(1, {$pPrice})">+</button>
+                        <div class="booking-participants-list">
+                            <!-- Adult -->
+                            <div class="booking-participant-row" data-type="adult">
+                                <div class="participant-info">
+                                    <span class="participant-name" data-i18n="participant_adult">Adult</span>
+                                    <span class="participant-age" data-i18n="participant_adult_age">Age 15 - 85</span>
+                                </div>
+                                <div class="participant-stepper">
+                                    <button type="button" class="participant-btn btn-minus disabled" onclick="changeParticipantQty('adult', -1)" aria-label="Decrease Adult">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="participant-qty" id="qty-adult">1</span>
+                                    <button type="button" class="participant-btn btn-plus" onclick="changeParticipantQty('adult', 1)" aria-label="Increase Adult">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Youth -->
+                            <div class="booking-participant-row" data-type="youth">
+                                <div class="participant-info">
+                                    <span class="participant-name" data-i18n="participant_youth">Youth</span>
+                                    <span class="participant-age" data-i18n="participant_youth_age">Age 10 - 14</span>
+                                </div>
+                                <div class="participant-stepper">
+                                    <button type="button" class="participant-btn btn-minus disabled" onclick="changeParticipantQty('youth', -1)" aria-label="Decrease Youth">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="participant-qty" id="qty-youth">0</span>
+                                    <button type="button" class="participant-btn btn-plus" onclick="changeParticipantQty('youth', 1)" aria-label="Increase Youth">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Child -->
+                            <div class="booking-participant-row" data-type="child">
+                                <div class="participant-info">
+                                    <span class="participant-name" data-i18n="participant_child">Child</span>
+                                    <span class="participant-age" data-i18n="participant_child_age">Age 4 - 9</span>
+                                </div>
+                                <div class="participant-stepper">
+                                    <button type="button" class="participant-btn btn-minus disabled" onclick="changeParticipantQty('child', -1)" aria-label="Decrease Child">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="participant-qty" id="qty-child">0</span>
+                                    <button type="button" class="participant-btn btn-plus" onclick="changeParticipantQty('child', 1)" aria-label="Increase Child">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Infant -->
+                            <div class="booking-participant-row" data-type="infant">
+                                <div class="participant-info">
+                                    <span class="participant-name" data-i18n="participant_infant">Infant</span>
+                                    <span class="participant-age" data-i18n="participant_infant_age">Age 0 - 3</span>
+                                </div>
+                                <div class="participant-stepper">
+                                    <button type="button" class="participant-btn btn-minus disabled" onclick="changeParticipantQty('infant', -1)" aria-label="Decrease Infant">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <span class="participant-qty" id="qty-infant">0</span>
+                                    <button type="button" class="participant-btn btn-plus" onclick="changeParticipantQty('infant', 1)" aria-label="Increase Infant">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- 2. CHOOSE A DATE (SCREENSHOT 2) -->
+                    <div class="booking-date-section">
+                        <div class="booking-section-header">
+                            <h4 class="booking-section-title" data-i18n="booking_date_title">Choose a date</h4>
+                            <span class="booking-blue-bar"></span>
+                        </div>
+
+                        <div class="custom-calendar-card" id="bpt-calendar">
+                            <div class="calendar-nav-header">
+                                <button type="button" class="cal-nav-btn disabled" id="cal-prev-month" onclick="changeCalendarMonth(-1)" aria-label="Previous Month">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                
+                                <div class="cal-month-display" id="cal-month-display" onclick="toggleMonthPicker()">
+                                    <span id="cal-month-label">May 2026</span>
+                                    <i class="fa-solid fa-chevron-down cal-month-chevron"></i>
+                                </div>
+                                
+                                <button type="button" class="cal-nav-btn" id="cal-next-month" onclick="changeCalendarMonth(1)" aria-label="Next Month">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+
+                                <div class="cal-month-dropdown" id="cal-month-dropdown" style="display: none;"></div>
+                            </div>
+
+                            <div class="calendar-weekdays">
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+                                <span>Sun</span>
+                            </div>
+
+                            <div class="calendar-days-grid" id="cal-days-grid"></div>
+
+                            <div class="cal-selected-badge" id="selected-date-badge">
+                                <i class="fa-regular fa-calendar-check"></i>
+                                <span><span data-i18n="selected_date_label">Selected Date:</span> <strong id="selected-date-text">...</strong></span>
+                            </div>
+
+                            <input type="hidden" id="detail-tour-date" name="departure_date" value="{$currentDate}">
+                            <input type="hidden" id="detail-guest-count" name="quantity" value="1">
+                        </div>
+                    </div>
+
+                    <!-- 3. DETAILED PRICE BREAKDOWN -->
                     <div class="booking-calc-summary">
-                        <div class="booking-calc-row">
-                            <span><span data-i18n="booking_calc_label">Tour price x</span> <strong id="calc-guest-display">2</strong> <span data-i18n="booking_calc_guest_unit">guests:</span></span>
-                            <span class="val" id="calc-subtotal-display">...</span>
+                        <div class="booking-calc-row" id="row-calc-adult">
+                            <span><span data-i18n="booking_calc_adults">Adults</span> (<span id="calc-adult-count">1</span> &times; 100%):</span>
+                            <span class="val" id="calc-adult-total">...</span>
+                        </div>
+                        <div class="booking-calc-row" id="row-calc-youth" style="display: none;">
+                            <span><span data-i18n="booking_calc_youths">Youths</span> (<span id="calc-youth-count">0</span> &times; 85%):</span>
+                            <span class="val" id="calc-youth-total">...</span>
+                        </div>
+                        <div class="booking-calc-row" id="row-calc-child" style="display: none;">
+                            <span><span data-i18n="booking_calc_children">Children</span> (<span id="calc-child-count">0</span> &times; 50%):</span>
+                            <span class="val" id="calc-child-total">...</span>
+                        </div>
+                        <div class="booking-calc-row" id="row-calc-infant" style="display: none;">
+                            <span><span data-i18n="booking_calc_infants">Infants</span> (<span id="calc-infant-count">0</span>):</span>
+                            <span class="free-tag" data-i18n="booking_calc_free">Free</span>
                         </div>
                         <div class="booking-calc-row">
                             <span data-i18n="booking_calc_service_lbl">Private guide & service fees:</span>
@@ -1858,7 +2187,7 @@ HTML;
                         </div>
                     </div>
 
-                    <button type="button" onclick="addToCartLocalDetail({$pId})" class="booking-cta-add-cart">
+                    <button type="button" onclick="submitTourBooking({$pId})" class="booking-cta-add-cart">
                         <i class="fa-solid fa-cart-shopping"></i> <span data-i18n="btn_book_now">BOOK THIS TOUR</span>
                     </button>
 
@@ -1875,16 +2204,7 @@ HTML;
     </div>
 </div>
 
-<!-- Mobile Sticky Bottom Booking Bar -->
-<div class="mobile-bottom-booking-bar">
-    <div class="mobile-bottom-bar-price">
-        <span class="label" data-i18n="mobile_price_label">From</span>
-        <span class="val">\${BPT_Storage.formatCurrency(tourPrice)}</span>
-    </div>
-    <button type="button" onclick="addToCartLocalDetail({$pId})" class="mobile-bottom-bar-cta">
-        <i class="fa-solid fa-cart-shopping"></i> <span data-i18n="mobile_btn_book">Book Now</span>
-    </button>
-</div>
+
 
 <script>
 const seedProducts = {$seedProductsJson};
@@ -1896,21 +2216,15 @@ const tourPrice = {$pPrice};
 document.addEventListener('DOMContentLoaded', function() {
     BPT_Storage.init(seedProducts, seedCategories, seedCart, seedOrders);
     document.getElementById('static-price-val').textContent = BPT_Storage.formatCurrency(tourPrice);
-    updateTourDetailGuests(0, tourPrice);
+    initBptTourBooking(tourPrice);
 });
-
-function addToCartLocalDetail(id) {
-    const qty = parseInt(document.getElementById('detail-guest-count').value) || 1;
-    BPT_Storage.addToCart(id, qty);
-    window.location.href = '../cart.html';
-}
 </script>
 {$footer}
 HTML;
     }
 
     private static function buildStaticCart($seedProductsJson, $seedCategoriesJson, $seedCartJson, $seedOrdersJson) {
-        $header = self::getStaticHeader("Shopping Cart - Buddy Private Tour");
+        $header = self::getStaticHeader("Shopping Cart - Buddy Private Tour", 'cart');
         $footer = self::getStaticFooter();
 
         return <<<HTML
@@ -1925,10 +2239,6 @@ HTML;
     </div>
 
     <div class="container">
-        <div class="cart-title-section">
-            <h1 class="cart-page-heading" data-i18n="cart_page_heading">YOUR SHOPPING CART</h1>
-            <p class="cart-page-desc" data-i18n="cart_page_desc">Review your selected private tour packages before proceeding to checkout and generating your VietQR electronic voucher.</p>
-        </div>
 
         <div id="cart-root"></div>
     </div>
@@ -1972,6 +2282,12 @@ function renderCart() {
             if (c) catName = c.name;
         }
 
+        const guestParts = [];
+        guestParts.push((item.adults || item.quantity) + ' Adults');
+        if (item.youths) guestParts.push(item.youths + ' Youths');
+        if (item.children) guestParts.push(item.children + ' Children');
+        if (item.infants) guestParts.push(item.infants + ' Infants');
+
         rowsHtml += `
             <tr>
                 <td class="cart-col-details">
@@ -1985,17 +2301,23 @@ function renderCart() {
                         </div>
                     </div>
                 </td>
-                <td style="text-align: center;">
+                <td class="cart-col-price">
+                    <span class="cart-mobile-label" data-i18n="cart_th_price">Unit Price</span>
                     <span class="cart-unit-price">\${BPT_Storage.formatCurrency(item.price)}</span>
                 </td>
-                <td style="text-align: center;">
-                    <div class="cart-stepper">
-                        <button type="button" class="cart-stepper-btn" onclick="BPT_Storage.updateCartQuantity(\${item.id}, \${item.quantity - 1}); renderCart();">−</button>
-                        <input type="number" id="qty-input-\${item.id}" value="\${item.quantity}" min="1" max="50" class="cart-stepper-input" onchange="BPT_Storage.updateCartQuantity(\${item.id}, this.value); renderCart();">
-                        <button type="button" class="cart-stepper-btn" onclick="BPT_Storage.updateCartQuantity(\${item.id}, \${item.quantity + 1}); renderCart();">+</button>
+                <td class="cart-col-meta">
+                    <div class="cart-item-booking-meta">
+                        <span>
+                            <i class="fa-regular fa-calendar-days"></i>
+                            <span><strong>Departure:</strong> \${item.departure_date || 'Flexible'}</span>
+                        </span>
+                        <span>
+                            <i class="fa-solid fa-users"></i>
+                            <span><strong>Guests:</strong> \${guestParts.join(', ')}</span>
+                        </span>
                     </div>
                 </td>
-                <td style="text-align: center;">
+                <td class="cart-col-action">
                     <button onclick="if(confirm('Are you sure you want to remove this tour from cart?')){BPT_Storage.removeFromCart(\${item.id}); renderCart();}" class="cart-delete-action" title="Remove">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
@@ -2014,10 +2336,10 @@ function renderCart() {
                 <table class="cart-modern-table">
                     <thead>
                         <tr>
-                            <th style="width: 48%;" data-i18n="cart_th_info">Tour Details</th>
-                            <th style="width: 22%; text-align: center;" data-i18n="cart_th_price">Unit Price</th>
-                            <th style="width: 20%; text-align: center;" data-i18n="cart_th_qty">Guests</th>
-                            <th style="width: 10%; text-align: center;"></th>
+                            <th style="width: 44%;" data-i18n="cart_th_info">Tour Details</th>
+                            <th style="width: 20%; text-align: center;" data-i18n="cart_th_price">Unit Price</th>
+                            <th style="width: 28%; text-align: center;" data-i18n="cart_th_departure_guests">Departure & Guests</th>
+                            <th style="width: 8%; text-align: center;"></th>
                         </tr>
                     </thead>
                     <tbody>\${rowsHtml}</tbody>
@@ -2075,7 +2397,7 @@ HTML;
     }
 
     private static function buildStaticCheckout($seedProductsJson, $seedCategoriesJson, $seedCartJson, $seedOrdersJson) {
-        $header = self::getStaticHeader("Checkout & VietQR - Buddy Private Tour");
+        $header = self::getStaticHeader("Checkout & VietQR - Buddy Private Tour", 'checkout');
         $footer = self::getStaticFooter();
 
         return <<<HTML
@@ -2134,10 +2456,14 @@ function renderCheckout() {
         itemsRows += `
             <tr class="cart_item">
                 <td class="product-name" style="padding: 0.85rem 0; color: #1e293b;">
-                    \${item.title}&nbsp;<strong class="product-quantity">&times;&nbsp;\${item.quantity}</strong>
+                    <strong>\${item.title}</strong>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 3px;">
+                        <span>📅 Departure: <strong>\${item.departure_date || 'Flexible'}</strong></span> | 
+                        <span>👥 \${item.adults || item.quantity} Adults\${item.youths ? ', ' + item.youths + ' Youths' : ''}\${item.children ? ', ' + item.children + ' Children' : ''}\${item.infants ? ', ' + item.infants + ' Infants' : ''}</span>
+                    </div>
                 </td>
                 <td class="product-total" style="padding: 0.85rem 0; text-align: right; font-weight: 700; color: #0f172a;">
-                    <span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(item.price * item.quantity)}</span>
+                    <span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(item.total_price || (item.price * item.quantity))}</span>
                 </td>
             </tr>`;
     });
@@ -2317,17 +2643,21 @@ function handleStaticCheckout(e) {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const orderDateFormatted = now.getDate() + " " + months[now.getMonth()] + ", " + now.getFullYear();
 
-        const qrUrl = 'https://img.vietqr.io/image/970436-9782794280-compact.jpg?amount=' + cartTotal + '&addInfo=' + encodeURIComponent(res.order_code) + '&accountName=' + encodeURIComponent('BUDDY PRIVATE TOUR');
+        const qrUrl = 'https://img.vietqr.io/image/970407-998499993-compact.jpg?amount=' + cartTotal + '&addInfo=' + encodeURIComponent(res.order_code) + '&accountName=' + encodeURIComponent('CONG TY TNHH BUDDY PRIVATE TOUR');
 
         let orderItemsRows = '';
         cartItems.forEach(it => {
             orderItemsRows += `
                 <tr class="woocommerce-table__line-item order_item">
                     <td class="woocommerce-table__product-name product-name" style="padding: 12px 16px; border-bottom: 1px solid #e2e8f0; color: #1e293b;">
-                        \${it.title}&nbsp;<strong class="product-quantity">&times;&nbsp;\${it.quantity}</strong>
+                        <strong>\${it.title}</strong>
+                        <div style="font-size: 0.8rem; color: #64748b; margin-top: 3px;">
+                            <span>📅 Departure: <strong>\${it.departure_date || 'Flexible'}</strong></span> | 
+                            <span>👥 \${it.adults || it.quantity} Adults\${it.youths ? ', ' + it.youths + ' Youths' : ''}\${it.children ? ', ' + it.children + ' Children' : ''}\${it.infants ? ', ' + it.infants + ' Infants' : ''}</span>
+                        </div>
                     </td>
                     <td class="woocommerce-table__product-total product-total" style="padding: 12px 16px; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 700; color: #0f172a;">
-                        <span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(it.price * it.quantity)}</span>
+                        <span class="woocommerce-Price-amount amount">\${BPT_Storage.formatCurrency(it.total_price || (it.price * it.quantity))}</span>
                     </td>
                 </tr>`;
         });
@@ -2371,21 +2701,21 @@ function handleStaticCheckout(e) {
                 <section class="woocommerce-vietqr-bank-details" style="text-align: center; margin-bottom: 2.5rem;">
                     <h2 class="wc-vietqr-bank-details-heading" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">Our Bank Transfer Details</h2>
                     <h4 style="color: red; text-align: center; margin-bottom: 1.5rem; font-size: 0.95rem; font-weight: 600;">
-                        Please include the exact payment reference <strong style="color: red;">\${res.order_code}</strong> for instant
+                        Please include the exact payment reference <strong style="color: red;">\${res.order_code}</strong> for instant confirmation
                     </h4>
                     <table class="table table-bordered wc-vietqr-details-table" style="font-size: 15px; max-width: 650px; margin: 0 auto; width: 100%; border-collapse: collapse; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden; background: #ffffff;">
                         <tbody>
                             <tr style="border-bottom: 1px solid #dee2e6;">
                                 <td style="text-align: right; width: 38%; padding: 12px 18px; border: 1px solid #dee2e6; font-weight: 700; color: #0f172a; background: #fbfbfb;">Account Name:</td>
-                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a; font-weight: 700;">NGUYEN VAN KIEN</td>
+                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a; font-weight: 700;">CONG TY TNHH BUDDY PRIVATE TOUR</td>
                             </tr>
                             <tr style="border-bottom: 1px solid #dee2e6;">
                                 <td style="text-align: right; width: 38%; padding: 12px 18px; border: 1px solid #dee2e6; font-weight: 700; color: #0f172a; background: #fbfbfb;">Account Number:</td>
-                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a; font-weight: 700;">9782794280</td>
+                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a; font-weight: 700;">9984 99993</td>
                             </tr>
                             <tr style="border-bottom: 1px solid #dee2e6;">
                                 <td style="text-align: right; width: 38%; padding: 12px 18px; border: 1px solid #dee2e6; font-weight: 700; color: #0f172a; background: #fbfbfb;">Bank Name:</td>
-                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a;">Ngân hàng TMCP Ngoại Thương Việt Nam</td>
+                                <td style="text-align: left; padding: 12px 18px; border: 1px solid #dee2e6; color: #0f172a;">Vietnam Technological and Commercial Joint Stock Bank (TECHCOMBANK)</td>
                             </tr>
                             <tr>
                                 <td style="text-align: right; width: 38%; padding: 12px 18px; border: 1px solid #dee2e6; font-weight: 700; color: #0f172a; background: #fbfbfb;">Total Amount:</td>

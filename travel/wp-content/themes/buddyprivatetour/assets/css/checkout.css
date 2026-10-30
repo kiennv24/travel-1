@@ -403,6 +403,50 @@ form.woocommerce-checkout #order_review,
   color: #0f172a !important;
 }
 
+/* Custom Order Details Metadata (Departure Date & Guest Tickets) */
+.woocommerce-checkout-review-order-table .variation,
+.woocommerce-table--order-details .wc-item-meta,
+.order_item .wc-item-meta,
+.cart_item .variation {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 6px 0 0 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  font-size: 0.83rem !important;
+  color: #64748b !important;
+}
+
+.woocommerce-checkout-review-order-table .variation dt,
+.woocommerce-checkout-review-order-table .variation dd,
+.woocommerce-table--order-details .wc-item-meta li,
+.order_item .wc-item-meta li,
+.cart_item .variation dt,
+.cart_item .variation dd {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+  line-height: 1.4 !important;
+}
+
+.woocommerce-checkout-review-order-table .variation dt,
+.woocommerce-table--order-details .wc-item-meta strong,
+.order_item .wc-item-meta strong {
+  font-weight: 700 !important;
+  color: #334155 !important;
+}
+
+.woocommerce-checkout-review-order-table .variation dd,
+.woocommerce-table--order-details .wc-item-meta p,
+.order_item .wc-item-meta p {
+  display: inline !important;
+  margin: 0 0 0 4px !important;
+  color: #0284c7 !important;
+  font-weight: 600 !important;
+}
+
 .woocommerce-checkout-review-order-table .product-total {
   text-align: right !important;
   font-weight: 700 !important;

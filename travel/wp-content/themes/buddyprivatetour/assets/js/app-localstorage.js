@@ -80,7 +80,7 @@ const BPT_Storage = {
         this.updateBadge();
     },
 
-    addToCart: function (productId, quantity = 1) {
+    addToCart: function (productId, quantity = 1, meta = {}) {
         const product = this.getProductById(productId);
         if (!product) return false;
 
@@ -93,8 +93,23 @@ const BPT_Storage = {
             if (cat) catName = cat.name;
         }
 
+        const departureDate = (meta && meta.date) ? meta.date : new Date().toISOString().split('T')[0];
+        const adults = (meta && meta.adults !== undefined) ? parseInt(meta.adults) : parseInt(quantity);
+        const youths = (meta && meta.youths !== undefined) ? parseInt(meta.youths) : 0;
+        const children = (meta && meta.children !== undefined) ? parseInt(meta.children) : 0;
+        const infants = (meta && meta.infants !== undefined) ? parseInt(meta.infants) : 0;
+        const customPrice = (meta && meta.totalPrice !== undefined && meta.totalPrice > 0) 
+            ? parseFloat(meta.totalPrice) 
+            : (parseFloat(product.price) * parseInt(quantity));
+
         if (existingIndex > -1) {
-            cart[existingIndex].quantity += parseInt(quantity);
+            cart[existingIndex].quantity = parseInt(quantity);
+            cart[existingIndex].departure_date = departureDate;
+            cart[existingIndex].adults = adults;
+            cart[existingIndex].youths = youths;
+            cart[existingIndex].children = children;
+            cart[existingIndex].infants = infants;
+            cart[existingIndex].total_price = customPrice;
         } else {
             cart.push({
                 id: product.id,
@@ -105,7 +120,13 @@ const BPT_Storage = {
                 duration: product.duration,
                 category_id: product.category_id,
                 category_name: catName,
-                quantity: parseInt(quantity)
+                quantity: parseInt(quantity),
+                departure_date: departureDate,
+                adults: adults,
+                youths: youths,
+                children: children,
+                infants: infants,
+                total_price: customPrice
             });
         }
 
@@ -125,7 +146,11 @@ const BPT_Storage = {
             if (quantity <= 0) {
                 cart.splice(index, 1);
             } else {
+                const oldQty = cart[index].quantity || 1;
                 cart[index].quantity = parseInt(quantity);
+                if (cart[index].total_price && oldQty > 0) {
+                    cart[index].total_price = (cart[index].total_price / oldQty) * parseInt(quantity);
+                }
             }
             this.saveCart(cart);
         }
@@ -153,7 +178,12 @@ const BPT_Storage = {
 
     getCartTotal: function () {
         const cart = this.getCart();
-        return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        return cart.reduce((sum, item) => {
+            if (typeof item.total_price === 'number' && item.total_price > 0) {
+                return sum + item.total_price;
+            }
+            return sum + (item.price * item.quantity);
+        }, 0);
     },
 
     updateBadge: function () {

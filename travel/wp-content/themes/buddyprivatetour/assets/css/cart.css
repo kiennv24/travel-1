@@ -9,6 +9,10 @@
   padding-bottom: 5rem;
 }
 
+.cart-page-wrapper .site-breadcrumb-wrap {
+  margin-bottom: 1.5rem;
+}
+
 .cart-title-section {
   margin-top: 1rem;
   margin-bottom: 2.5rem;
@@ -170,6 +174,41 @@
 
 .cart-item-name:hover {
   color: var(--primary-color, #0284c7);
+}
+
+.cart-mobile-label {
+  display: none;
+}
+
+.cart-col-price,
+.cart-col-meta,
+.cart-col-action {
+  text-align: center;
+}
+
+.cart-item-booking-meta {
+  font-size: 0.85rem;
+  color: #475569;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  background: #f8fafc;
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  line-height: 1.4;
+}
+
+.cart-item-booking-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart-item-booking-meta i {
+  color: #0284c7;
+  width: 14px;
 }
 
 .cart-unit-price {
@@ -449,44 +488,212 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .cart-page-heading {
-    font-size: 1.65rem;
+    font-size: 1.45rem;
   }
   
   .cart-page-desc {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
   }
   
   .cart-items-card {
     border-radius: 16px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   
   .cart-card-header {
-    padding: 1.15rem 1.25rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .cart-card-header h2 {
+    font-size: 1.05rem;
+  }
+
+  .cart-count-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
   }
   
-  .cart-modern-table th,
+  /* Modern Responsive Cart: Transforms table into sleek full-width item cards with 0 horizontal scroll */
+  .cart-modern-table {
+    display: block !important;
+    width: 100% !important;
+    border-collapse: separate !important;
+  }
+  
+  .cart-modern-table thead {
+    display: none !important;
+  }
+  
+  .cart-modern-table tbody {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  
+  .cart-modern-table tbody tr {
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    padding: 0.85rem 1rem !important;
+    border-bottom: 1px solid var(--border-light, #f1f5f9) !important;
+    gap: 0.5rem !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    background: #ffffff;
+  }
+  
+  .cart-modern-table tbody tr:last-child {
+    border-bottom: none !important;
+  }
+  
   .cart-modern-table td {
-    padding: 1rem 0.85rem;
+    display: block !important;
+    padding: 0 !important;
+    text-align: left !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+  
+  /* Tour details cell */
+  .cart-modern-table td.cart-col-details {
+    padding-right: 2.2rem !important; /* Space for trash icon */
+  }
+  
+  .cart-product-cell {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
   }
   
   .cart-item-thumb {
-    width: 75px;
-    height: 58px;
-    border-radius: 8px;
+    width: 60px !important;
+    height: 50px !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .cart-item-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    min-width: 0 !important;
+  }
+  
+  .cart-item-cat {
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    color: var(--primary-color, #0284c7) !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   
   .cart-item-name {
-    font-size: 0.95rem;
+    font-size: 0.92rem !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
   
+  /* Delete action: Top-right aligned */
+  .cart-modern-table td.cart-col-action {
+    position: absolute !important;
+    top: 0.85rem !important;
+    right: 0.85rem !important;
+    width: auto !important;
+    padding: 0 !important;
+  }
+  
+  .cart-delete-action {
+    width: 32px !important;
+    height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
+    font-size: 0.92rem !important;
+    background: #fef2f2 !important;
+    color: #ef4444 !important;
+  }
+  
+  /* Booking metadata: Departure date & Guests */
+  .cart-modern-table td.cart-col-meta {
+    order: 2 !important;
+    width: 100% !important;
+  }
+  
+  .cart-item-booking-meta {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: #f8fafc !important;
+    padding: 0.45rem 0.65rem !important;
+    border-radius: 8px !important;
+    border: 1px solid #e2e8f0 !important;
+    font-size: 0.78rem !important;
+    gap: 0.3rem 0.6rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .cart-item-booking-meta span {
+    font-size: 0.78rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+  }
+  
+  /* Unit Price row */
+  .cart-modern-table td.cart-col-price {
+    order: 3 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0.4rem 0.65rem !important;
+    background: #fff7ed !important;
+    border: 1px solid #fed7aa !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+  
+  .cart-mobile-label {
+    display: inline-block !important;
+    font-size: 0.78rem !important;
+    color: #9a3412 !important;
+    font-weight: 700 !important;
+  }
+  
+  .cart-unit-price {
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #ea580c !important;
+  }
+  
+  /* Footer */
   .cart-card-footer {
-    padding: 1rem 1.25rem;
-    flex-direction: column;
-    gap: 0.85rem;
+    padding: 0.85rem 1rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.6rem !important;
+  }
+  
+  .cart-continue-link {
+    font-size: 0.85rem !important;
   }
   
   .btn-cart-continue, 
@@ -495,13 +702,22 @@
     justify-content: center;
   }
   
-  .cart-summary-card {
-    border-radius: 16px;
-    padding: 1.5rem 1.25rem;
+  .cart-summary-card,
+  .cart-summary-box {
+    border-radius: 16px !important;
+    padding: 1.25rem 1rem !important;
+  }
+  
+  .cart-summary-title {
+    font-size: 1.1rem !important;
+  }
+  
+  .cart-grand-total-row .amount {
+    font-size: 1.35rem !important;
   }
   
   .btn-cart-checkout {
-    padding: 0.9rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.85rem 1.25rem !important;
+    font-size: 0.95rem !important;
   }
 }

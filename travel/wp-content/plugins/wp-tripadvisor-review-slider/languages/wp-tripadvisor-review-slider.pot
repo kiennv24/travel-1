@@ -1,0 +1,332 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-tripadvisor-reviews\n"
+"POT-Creation-Date: 2021-08-06 13:03-0500\n"
+"PO-Revision-Date: 2019-08-13 12:12-0500\n"
+"Last-Translator: \n"
+"Language-Team: ljapps.com\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x;esc_html__;esc_html_e;esc_html_x;number_format_i18n;date_i18n\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-wp-tripadvisor-review-slider-admin.php:321
+msgid "Enter the TripAdvisor URL for your business and click Save Settings. Example:"
+msgstr ""
+
+#: admin/class-wp-tripadvisor-review-slider-admin.php:323
+msgid "https://www.tripadvisor.com/Restaurant_Review-g30620-d10262422-Reviews-Yellowhammer_Brewing-Huntsville_Alabama.html"
+msgstr ""
+
+#: admin/class-wp-tripadvisor-review-slider-admin.php:325
+msgid "Note: If you run in to problems then click on the title of your first review on TripAdvisor to go to your reviews page. Then enter that URL in the field above."
+msgstr ""
+
+#: admin/class-wp-tripadvisor-review-slider-admin.php:656
+msgid "Use as Reviewer Avatar"
+msgstr ""
+
+#: admin/class-wp-tripadvisor-review-slider-admin.php:914
+#: admin/class-wp-tripadvisor-review-slider-admin.php:1147
+msgid "Error finding reviews. Please contact plugin support."
+msgstr ""
+
+#: admin/class-wp-tripadvisor-review-slider-admin.php:942
+msgid "Error 102a: Unable to read Vacation Rental TripAdvisor page. Please contact support."
+msgstr ""
+
+#: admin/class-wp-tripadvisor-review-slider-admin.php:986
+msgid "Error 103a: Unable to read TripAdvisor page. Please contact support."
+msgstr ""
+
+#: admin/partials/get_pro.php:28 admin/partials/get_pro.php:88
+#: admin/partials/get_pro_new.php:74
+msgid "Get Pro Version Here!"
+msgstr ""
+
+#: admin/partials/get_tripadvisor.php:24
+msgid "Settings Saved"
+msgstr ""
+
+#: admin/partials/review_list.php:32
+msgid "Remove All Reviews"
+msgstr ""
+
+#: admin/partials/review_list.php:35
+msgid "Search reviews, hide certain reviews, manually add reviews, save a CSV file of your reviews to your computer, and more features available in the <a href=\"?page=wp_tripadvisor-get_pro\">Pro Version</a> of this plugin!"
+msgstr ""
+
+#: admin/partials/review_list.php:40
+msgid "Note: The free version of the plugin can sometimes have trouble with pulling avatar images from Hotel reviews. This is working in the Pro version of the plugin."
+msgstr ""
+
+#: admin/partials/review_list.php:114
+msgid "Hide"
+msgstr ""
+
+#: admin/partials/review_list.php:115
+msgid "Pic"
+msgstr ""
+
+#: admin/partials/review_list.php:116
+msgid "Name"
+msgstr ""
+
+#: admin/partials/review_list.php:117
+msgid "Rating"
+msgstr ""
+
+#: admin/partials/review_list.php:118
+msgid "Review Text"
+msgstr ""
+
+#: admin/partials/review_list.php:119
+msgid "Date"
+msgstr ""
+
+#: admin/partials/review_list.php:120
+msgid "Length"
+msgstr ""
+
+#: admin/partials/review_list.php:121 admin/partials/templates_posts.php:255
+msgid "Type"
+msgstr ""
+
+#: admin/partials/review_list.php:173
+msgid "No reviews found. Please visit the <a href=\"?page=wp_tripadvisor-get_tripadvisor\">Get TripAdvisor Reviews</a> page to retrieve reviews."
+msgstr ""
+
+#: admin/partials/tabmenu.php:11
+msgid "Welcome"
+msgstr ""
+
+#: admin/partials/tabmenu.php:12
+msgid "Get TripAdvisor Reviews"
+msgstr ""
+
+#: admin/partials/tabmenu.php:13
+msgid "Reviews List"
+msgstr ""
+
+#: admin/partials/tabmenu.php:14
+msgid "Templates"
+msgstr ""
+
+#: admin/partials/tabmenu.php:15
+msgid "Get Pro Version"
+msgstr ""
+
+#: admin/partials/templates_posts.php:205
+msgid "<p><strong>Template Updated!</strong></p><button type=\"button\" class=\"notice-dismiss\"><span class=\"screen-reader-text\">Dismiss this notice.</span></button>"
+msgstr ""
+
+#: admin/partials/templates_posts.php:223
+msgid "<p><strong>No reviews found. Please visit the <a href=\"?page=wp_tripadvisor-get_tripadvisor\">Get TripAdvisor Reviews</a> page to retrieve reviews from TripAdvisor.</strong></p><button type=\"button\" class=\"notice-dismiss\"><span class=\"screen-reader-text\">Dismiss this notice.</span></button>"
+msgstr ""
+
+#: admin/partials/templates_posts.php:243
+msgid "Add New Reviews Template"
+msgstr ""
+
+#: admin/partials/templates_posts.php:253
+msgid "ID"
+msgstr ""
+
+#: admin/partials/templates_posts.php:254
+msgid "Title"
+msgstr ""
+
+#: admin/partials/templates_posts.php:256
+msgid "Date Created"
+msgstr ""
+
+#: admin/partials/templates_posts.php:257
+msgid "Action"
+msgstr ""
+
+#: admin/partials/templates_posts.php:284
+msgid "Edit"
+msgstr ""
+
+#: admin/partials/templates_posts.php:284
+msgid "Delete"
+msgstr ""
+
+#: admin/partials/templates_posts.php:284
+msgid "Shortcode"
+msgstr ""
+
+#: admin/partials/templates_posts.php:297
+msgid "Template Title:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:302
+msgid "Enter a title or name for this template."
+msgstr ""
+
+#: admin/partials/templates_posts.php:307
+msgid "Choose Template Type:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:312
+msgid "Post or Page"
+msgstr ""
+
+#: admin/partials/templates_posts.php:315
+msgid "Widget Area"
+msgstr ""
+
+#: admin/partials/templates_posts.php:318
+msgid "Are you going to use this on a Page/Post or in a Widget area like your sidebar?"
+msgstr ""
+
+#: admin/partials/templates_posts.php:326
+msgid "Template Style Settings:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:333
+msgid "Template Style:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:336
+msgid "Show Stars:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:339
+msgid "Show Date:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:342
+msgid "Border Radius:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:345
+msgid "Background Color 1:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:348
+msgid "Background Color 2:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:351
+msgid "Text Color 1:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:354
+msgid "Text Color 2:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:357
+msgid "Text Color 3:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:363
+msgid "Style 1"
+msgstr ""
+
+#: admin/partials/templates_posts.php:413
+msgid "Reset Colors"
+msgstr ""
+
+#: admin/partials/templates_posts.php:421
+msgid "More styles available in <a href=\"?page=wp_tripadvisor-get_pro\">Pro Version</a> of plugin!"
+msgstr ""
+
+#: admin/partials/templates_posts.php:426
+msgid "Custom CSS:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:431
+msgid ""
+"Enter custom CSS code to change the look of the template when being displayed. ex: </br>.wptripadvisor_t1_outer_div {\n"
+"\t\t\t\t\t\tbackground: #e4e4e4;\n"
+"\t\t\t\t\t}"
+msgstr ""
+
+#: admin/partials/templates_posts.php:439
+msgid "Number of Reviews:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:442
+msgid "How many per a row?"
+msgstr ""
+
+#: admin/partials/templates_posts.php:450
+msgid "How many total rows?"
+msgstr ""
+
+#: admin/partials/templates_posts.php:455
+msgid "How many reviews to display on the page at a time. Widget style templates can only display 1 per row."
+msgstr ""
+
+#: admin/partials/templates_posts.php:461
+msgid "Display Order:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:465
+msgid "Random"
+msgstr ""
+
+#: admin/partials/templates_posts.php:466
+msgid "Newest"
+msgstr ""
+
+#: admin/partials/templates_posts.php:469
+msgid "The order in which the reviews are displayed."
+msgstr ""
+
+#: admin/partials/templates_posts.php:474
+msgid "Hide Reviews Without Text:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:478
+#: admin/partials/templates_posts.php:495
+msgid "Yes"
+msgstr ""
+
+#: admin/partials/templates_posts.php:479
+#: admin/partials/templates_posts.php:494
+msgid "No"
+msgstr ""
+
+#: admin/partials/templates_posts.php:482
+msgid "Set to Yes and only display reviews that have text included."
+msgstr ""
+
+#: admin/partials/templates_posts.php:488
+msgid "Create Slider:"
+msgstr ""
+
+#: admin/partials/templates_posts.php:492
+msgid "Display reviews in slider?"
+msgstr ""
+
+#: admin/partials/templates_posts.php:498
+msgid "How many total slides?"
+msgstr ""
+
+#: admin/partials/templates_posts.php:513
+msgid "Allows you to create a slide show with your reviews."
+msgstr ""
+
+#: admin/partials/templates_posts.php:519
+msgid "Upgrade to the Pro Version of this plugin to access more super cool settings! <a href=\"#TB_inline?tempnum=1&inlineId=mythickboxid&height=650&width=1030\" class=\"thickbox\">(Screenshot)</a> Get the Pro Version <a href=\"?page=wp_tripadvisor-get_pro\">here</a>!"
+msgstr ""
+
+#: admin/partials/templates_posts.php:531
+msgid "Save Template"
+msgstr ""
+
+#: admin/partials/templates_posts.php:532
+msgid "Cancel"
+msgstr ""
+
+#: public/partials/template_style_1.php:92
+msgid "... read more"
+msgstr ""

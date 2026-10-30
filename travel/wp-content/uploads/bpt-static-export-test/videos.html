@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos - Buddy Private Tour</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/tour-detail.css">
+    <link rel="stylesheet" href="assets/css/tour.css">
+    <link rel="stylesheet" href="assets/css/cart.css">
+    <link rel="stylesheet" href="assets/css/checkout.css">
+    <link rel="stylesheet" href="assets/css/other-services.css">
+    <link rel="stylesheet" href="assets/css/pages.css">
+    <link rel="stylesheet" href="assets/css/feedback.css">
+    <link rel="stylesheet" href="assets/css/wptripadvisor_all.css">
+    <script src="assets/js/translations.js"></script>
+    <script src="assets/js/app-localstorage.js"></script>
+    <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+
+<!-- Top Announcement Ticker Bar -->
+<div class="header-top-ticker">
+    <div class="container">
+        <span><span data-i18n="ticker_welcome">✨ Welcome to BUDDY PRIVATE TOUR – 24/7 Hotline / WhatsApp Support:</span> <a href="tel:+84567599998">+84 567 599 998</a></span>
+    </div>
+</div>
+
+<!-- Main Sticky Glassmorphism Header -->
+<header class="site-header">
+    <div class="header-main-wrap">
+        <div class="header-top-row desktop-header-row">
+            <a href="index.html" class="brand-logo" title="BUDDY PRIVATE TOUR">
+                <img src="assets/images/logo.png" alt="BUDDY PRIVATE TOUR" class="site-logo-img">
+            </a>
+
+            <div class="header-nav-column">
+                <nav class="main-navigation">
+                    <ul class="nav-menu">
+                        <li class=""><a href="index.html"><i class="fa-solid fa-house" style="font-size: 0.8rem;"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                        <li class=""><a href="about-us.html"><span data-i18n="nav_about">ABOUT US</span></a></li>
+                        <li class="menu-item-has-children ">
+                            <a href="tour.html"><span data-i18n="nav_tour">TOURS</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="tour.html?category=northern-vietnam-tours"><i class="fa-solid fa-mountain-sun" style="color: #0284c7;"></i> <span data-i18n="nav_north">HANOI & NORTH VIETNAM</span></a></li>
+                                <li><a href="tour.html?category=central-vietnam-tours"><i class="fa-solid fa-umbrella-beach" style="color: #0ea5e9;"></i> <span data-i18n="nav_central">DA NANG & CENTRAL VIETNAM</span></a></li>
+                                <li><a href="tour.html?category=southern-vietnam-tours"><i class="fa-solid fa-city" style="color: #f97316;"></i> <span data-i18n="nav_south">HO CHI MINH CITY & SOUTH</span></a></li>
+                            </ul>
+                        </li>
+                        <li class=""><a href="other-services.html"><span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
+                        <li class="active"><a href="videos.html"><span data-i18n="nav_videos">VIDEOS</span></a></li>
+                        <li class=""><a href="feedback.html"><span data-i18n="nav_feedback">FEEDBACK</span></a></li>
+                        <li class=""><a href="contact.html"><span data-i18n="nav_contact">CONTACT</span></a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-right-actions">
+                    <a href="cart.html" class="nav-cart-btn" title="Your Cart" data-i18n-title="nav_cart">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-badge">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Header Layout -->
+        <div class="mobile-header-wrapper">
+            <div class="mobile-header-bar">
+                <a href="index.html" class="mobile-brand-logo">
+                    <img src="assets/images/logo.png" alt="BUDDY PRIVATE TOUR" class="mobile-site-logo">
+                </a>
+
+                <div class="mobile-header-right">
+                    <a href="cart.html" class="nav-cart-btn" title="Cart" style="width: 38px; height: 38px; font-size: 1rem;">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-badge">0</span>
+                    </a>
+                    
+                    <button type="button" class="mobile-menu-toggle-btn" id="mobileMenuToggleBtn" aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+                <ul class="mobile-menu-list">
+                    <li class=""><a href="index.html"><i class="fa-solid fa-house"></i> <span data-i18n="nav_home">HOME</span></a></li>
+                    <li class=""><a href="about-us.html"><i class="fa-solid fa-circle-info"></i> <span data-i18n="nav_about">ABOUT US</span></a></li>
+                    <li class="mobile-menu-has-sub ">
+                        <div class="mobile-sub-head">
+                            <a href="tour.html"><i class="fa-solid fa-compass"></i> <span data-i18n="nav_tour">TOURS</span></a>
+                            <span class="mobile-sub-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="mobile-sub-list">
+                            <li><a href="tour.html?category=northern-vietnam-tours" data-i18n="nav_north">Hanoi & North Vietnam</a></li>
+                            <li><a href="tour.html?category=central-vietnam-tours" data-i18n="nav_central">Da Nang & Central Vietnam</a></li>
+                            <li><a href="tour.html?category=southern-vietnam-tours" data-i18n="nav_south">Ho Chi Minh City & South</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a href="other-services.html"><i class="fa-solid fa-car"></i> <span data-i18n="nav_other_services">CAR RENTAL & HOTELS</span></a></li>
+                    <li class="active"><a href="videos.html"><i class="fa-solid fa-video"></i> <span data-i18n="nav_videos">VIDEOS</span></a></li>
+                    <li class=""><a href="feedback.html"><i class="fa-solid fa-star"></i> <span data-i18n="nav_feedback">FEEDBACK</span></a></li>
+                    <li class=""><a href="contact.html"><i class="fa-solid fa-headset"></i> <span data-i18n="nav_contact">CONTACT</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="section-padding" style="background: #f8fafc; min-height: 80vh; padding: 2rem 0 5rem 0;">
+    <div class="container">
+        <div class="site-breadcrumb-wrap" style="padding-top: 0; margin-bottom: 1.75rem;">
+            <nav class="site-breadcrumb-box">
+                <a href="index.html" class="crumb-link">
+                    <i class="fa-solid fa-house"></i> <span data-i18n="crumb_home">Home</span>
+                </a>
+                <span class="crumb-separator">/</span>
+                <span class="crumb-current" data-i18n="nav_videos">Videos</span>
+            </nav>
+        </div>
+
+        <div class="home-videos-section">
+            <div class="home-videos-grid">
+                <div class="home-video-card">
+                    <div class="home-video-wrapper">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AAeb7JPwJfw?si=w0Z43dropCnsjNTq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="home-video-card">
+                    <div class="home-video-wrapper">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/STt213h-_hM?si=FOz-tYlcH1LChGxP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+<!-- Luxury Dark Footer Section (#0f172a) -->
+<footer id="contact" class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <!-- Col 1: Brand & License Information -->
+            <div class="footer-col">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <img src="assets/images/logo.png" alt="BUDDY PRIVATE TOUR" style="height: 48px; width: auto; filter: brightness(0) invert(1);">
+                </div>
+                <p class="footer-brand-desc" data-i18n="footer_brand_desc">
+                    Specialist in organizing premium, personalized private travel experiences in Vietnam. Accompanied by knowledgeable local guides and modern private vehicles.
+                </p>
+                <div style="font-size: 0.85rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1rem;">
+                    <strong><span data-i18n="footer_license_lbl">Tour Operator License:</span></strong> 48-0284/2024/TCDL-GP LHQT<br>
+                    <strong><span data-i18n="footer_tax_lbl">Enterprise Reg Code:</span></strong> 0402198998
+                </div>
+                <img src="assets/images/dathongbao.png" class="footer-mit-badge" alt="Đã Thông Báo Bộ Công Thương">
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div class="footer-col">
+                <h4 data-i18n="footer_col_nav">QUICK LINKS</h4>
+                <ul class="footer-links-list">
+                    <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_home">Home</span></a></li>
+                    <li><a href="about-us.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_about">About Us</span></a></li>
+                    <li><a href="tour.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_tour">Tours</span></a></li>
+                    <li><a href="other-services.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_other_services">Car Rental & Hotels</span></a></li>
+                    <li><a href="videos.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_videos">Journey Videos</span></a></li>
+                    <li><a href="feedback.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_feedback">Feedback</span></a></li>
+                    <li><a href="contact.html"><i class="fa-solid fa-angle-right"></i> <span data-i18n="nav_contact">Contact Us</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Popular Destinations -->
+            <div class="footer-col">
+                <h4 data-i18n="footer_col_dest">POPULAR DESTINATIONS</h4>
+                <ul class="footer-links-list">
+                    <li><a href="tour.html?category=northern-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_hanoi">Hanoi & Old Quarter</span></a></li>
+                    <li><a href="tour.html?category=northern-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_halong">Halong Bay & Ninh Binh</span></a></li>
+                    <li><a href="tour.html?category=central-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_danang">Da Nang & Ba Na Hills</span></a></li>
+                    <li><a href="tour.html?category=central-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_hoian">Hoi An Ancient Town & Hue</span></a></li>
+                    <li><a href="tour.html?category=southern-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_saigon">Ho Chi Minh City & Cu Chi</span></a></li>
+                    <li><a href="tour.html?category=southern-vietnam-tours"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> <span data-i18n="footer_dest_phuquoc">Phu Quoc Island</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Support & Contact -->
+            <div class="footer-col">
+                <h4 data-i18n="footer_col_support">CUSTOMER SUPPORT</h4>
+                <div class="footer-contact-info">
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span data-i18n="footer_address">No. 24, Hoa Minh 15 Street, Hoa Minh Ward, Lien Chieu District, Da Nang City, Vietnam</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-phone-volume"></i>
+                        <span>Hotline / WhatsApp: <a href="tel:+84567599998" style="color: #f97316; font-weight: 800;">+84 567 599 998</a></span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span><a href="mailto:booking@buddyprivatetour.com" style="color: inherit; text-decoration: none;">booking@buddyprivatetour.com</a></span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span data-i18n="footer_247_support">24/7 Online Customer Support</span>
+                    </div>
+                </div>
+
+                <div class="footer-social-links">
+                    <a href="https://zalo.me/84567599998" target="_blank" class="footer-social-btn" title="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
+                    <a href="mailto:booking@buddyprivatetour.com" class="footer-social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="#" class="footer-social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="footer-social-btn" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="footer-social-btn" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="footer-social-btn" title="TripAdvisor"><i class="fa-solid fa-plane"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom-bar">
+        <div class="container footer-bottom-flex">
+            <div>
+                © 2026 <strong>BUDDY PRIVATE TOUR</strong>. <span data-i18n="footer_copyright">All Rights Reserved. Crafted with Passion for Travel Excellence.</span>
+            </div>
+            <div class="footer-payment-icons">
+                <span class="footer-payment-tag"><i class="fa-solid fa-qrcode" style="color: #0284c7;"></i> VietQR</span>
+                <span class="footer-payment-tag"><i class="fa-brands fa-cc-visa"></i> Visa</span>
+                <span class="footer-payment-tag"><i class="fa-brands fa-cc-mastercard"></i> Mastercard</span>
+                <span class="footer-payment-tag"><i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> SSL Secure</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating Actions in Bottom-Left Corner -->
+<div class="floating-left-actions">
+    <a href="tel:+84567599998" class="bpt-hotline-pill" title="Gọi Hotline: +84567599998">
+        <div class="bpt-hotline-circle">
+            <div class="bpt-hotline-red">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+        </div>
+        <span class="bpt-hotline-number">+84 567 599 998</span>
+    </a>
+    <a href="https://zalo.me/84567599998" target="_blank" rel="noopener noreferrer" class="bpt-zalo-bubble" title="Chat Zalo: +84567599998">
+        <div class="bpt-zalo-inner">
+            <span class="bpt-zalo-text">Zalo</span>
+        </div>
+    </a>
+</div>
+
+<!-- Floating Back to Top Button -->
+<a href="#" class="floating-back-to-top" title="Lên đầu trang" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+    <i class="fa-solid fa-arrow-up"></i>
+</a>
+
+</body>
+</html>

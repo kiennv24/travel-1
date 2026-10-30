@@ -18,7 +18,6 @@ get_header();
             </nav>
         </div>
 
-        <h1 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 2.5rem; text-transform: uppercase;" data-i18n="nav_videos">JOURNEY VIDEOS</h1>
         <div class="home-videos-section">
             <div class="home-videos-grid">
                 <!-- Video 1 -->

@@ -1,0 +1,622 @@
+/**
+ * Buddy Private Tour - Feedback Page Stylesheet
+ * Responsive TripAdvisor Reviews Summary & Breakdown Styling
+ */
+
+.feedback-page-wrapper {
+  background: #f8fafc;
+  min-height: 80vh;
+  padding: 1.5rem 0 5rem 0;
+}
+
+.feedback-breadcrumb-wrap {
+  padding-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* TripAdvisor Reviews Top Header & Breakdown */
+.feedback-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.feedback-heading-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #052018;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.feedback-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.feedback-text-link {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #052018;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.feedback-text-link:hover {
+  color: #00aa6c;
+}
+
+.write-review-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #004f32;
+  color: #ffffff !important;
+  padding: 0.65rem 1.4rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.write-review-btn:hover {
+  background: #003622;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 79, 50, 0.25);
+}
+
+/* 5-Star Rating Breakdown Card */
+.rating-summary-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #eef2f6;
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.rating-score-box {
+  background: #f7f9fa;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  min-width: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-score-value {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #052018;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.rating-score-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #052018;
+  margin: 0.5rem 0 0.6rem 0;
+}
+
+.ta-bubbles-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.ta-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: #00aa6c;
+  border-radius: 50%;
+}
+
+.rating-total-count {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569;
+  margin-left: 0.2rem;
+}
+
+/* Breakdown progress bars */
+.rating-breakdown-list {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating-label {
+  width: 75px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.rating-bar-track {
+  flex: 1;
+  height: 11px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.rating-bar-fill {
+  height: 100%;
+  background: #00aa6c;
+  border-radius: 20px;
+}
+
+.rating-bar-fill.fill-100 {
+  width: 100%;
+}
+
+.rating-bar-fill.fill-0 {
+  width: 0%;
+}
+
+.rating-count {
+  width: 35px;
+  text-align: right;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .rating-summary-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .rating-score-box {
+    width: 100%;
+  }
+
+  .feedback-top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Widget Container & TripAdvisor Item Styling */
+.feedback-content-card {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* WP TripAdvisor Review Slider & Grid Plugin Styling */
+.wprev_outer_wb {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Badge (Huy hiệu) Container: Nằm gọn gàng phía trên, khoảng cách vừa phải với bình luận */
+.wprev_badge_div.badgeleft,
+.wprev_badge_div.badgeright,
+.wprev_badge_div {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 1.25rem 0 !important;
+  padding: 0 !important;
+  float: none !important;
+  height: auto !important;
+  min-height: 0 !important;
+  flex: none !important;
+}
+
+.wprev-tripadvisor-place {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  padding: 1.25rem 1.5rem !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 1.25rem !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.wprev-tripadvisor-leftboth {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+  flex-wrap: wrap !important;
+}
+
+.wprev-tripadvisor-left {
+  padding: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+img.sprev-tripadvisor-left-src {
+  width: 64px !important;
+  height: 64px !important;
+  min-width: 64px !important;
+  min-height: 64px !important;
+  border-radius: 50% !important;
+  display: block !important;
+}
+
+.wprev-tripadvisor-name {
+  margin-bottom: 3px !important;
+}
+
+.wprev-businessname {
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #052018 !important;
+}
+
+.wprevstardiv {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 3px !important;
+}
+
+.wprev-tripadvisor-rating {
+  font-size: 1.1rem !important;
+  font-weight: 800 !important;
+  color: #052018 !important;
+}
+
+img.wprev-tripadvisor-badge-stars {
+  height: 18px !important;
+  width: auto !important;
+}
+
+.wprev-tripadvisor-basedon {
+  font-size: 0.88rem !important;
+  color: #64748b !important;
+}
+
+.wprev-tripadvisor-right:last-child {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 8px !important;
+}
+
+.wprev-tripadvisor-wr-a {
+  background: #00aa6c !important; /* Authentic TripAdvisor Green */
+  color: #ffffff !important;
+  border-radius: 9999px !important;
+  padding: 9px 20px !important;
+  font-weight: 700 !important;
+  font-size: 0.92rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  box-shadow: 0 2px 8px rgba(0, 170, 108, 0.25) !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.wprev-tripadvisor-wr-a:hover {
+  background: #008f5a !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 170, 108, 0.35) !important;
+}
+
+/* Reviews List & Cards Container */
+.wprev-no-slider,
+.wprev-slider {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+  flex: none !important;
+}
+
+.wprevpro_t6_outer_div {
+  padding: 0 !important;
+  margin: 0 0 1.25rem 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  float: none !important;
+}
+
+.wprevpro_t6_outer_div:last-child {
+  margin-bottom: 0 !important;
+}
+
+.wprevpro_t6_DIV_1 {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  float: none !important;
+}
+
+.wpproslider_t6_DIV_1a {
+  margin: 0 !important;
+}
+
+.wpproslider_t6_DIV_2 {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  padding: 1.5rem !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.wpproslider_t6_DIV_2:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+.wpproslider_t6_DIV_2_top {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  margin: 0 0 1rem 0 !important;
+  position: relative !important;
+  padding-right: 44px !important; /* Tránh đè lên logo TripAdvisor góc phải */
+}
+
+.wpproslider_t6_DIV_3L {
+  float: none !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.wpproslider_t6_IMG_2 {
+  width: 54px !important;
+  height: 54px !important;
+  border-radius: 50% !important;
+  border: 2px solid #e2e8f0 !important;
+  display: block !important;
+  object-fit: cover !important;
+}
+
+.wpproslider_t6_DIV_3 {
+  margin: 0 !important;
+  min-height: auto !important;
+}
+
+.t6displayname {
+  font-family: inherit !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin: 0 0 3px 0 !important;
+  padding: 0 !important;
+}
+
+.wpproslider_t6_star_DIV {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 0 0 3px 0 !important;
+}
+
+.wpproslider_t6_star_DIV img.wptripadvisor_t6_star_img_file {
+  height: 17px !important;
+  width: auto !important;
+}
+
+.wpproslider_t6_SPAN_6 {
+  font-size: 0.85rem !important;
+  color: #64748b !important;
+}
+
+.wpproslider_t6_DIV_4 {
+  margin: 0 !important;
+}
+
+.indrevtxt {
+  font-size: 0.95rem !important;
+  line-height: 1.65 !important;
+  color: #334155 !important;
+  margin: 0 !important;
+}
+
+.wprs_rd_more {
+  color: #0284c7 !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  cursor: pointer !important;
+}
+
+.wpproslider_t6_DIV_3_logo {
+  position: absolute !important;
+  top: 1.25rem !important;
+  right: 1.25rem !important;
+  margin: 0 !important;
+}
+
+img.wprevpro_t6_site_logo {
+  height: 26px !important;
+  width: auto !important;
+  display: block !important;
+}
+
+/* Ảnh đính kèm trong bình luận (Review Media Images - Tăng kích thước rõ nét) */
+.wprev_media_div {
+  margin: 1.15rem 0 0.25rem 0 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+.wprev_media_img_a {
+  display: inline-block !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.wprev_media_img_a:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14) !important;
+}
+
+img.wprev_media_img {
+  width: auto !important;
+  min-width: 150px !important;
+  max-width: 260px !important;
+  height: 150px !important;
+  max-height: 220px !important;
+  object-fit: cover !important;
+  border-radius: 10px !important;
+  display: block !important;
+}
+
+/* Slider Controls (nếu bật chế độ slider) */
+nav.wprs_unslider-nav ol li {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  border: 2px solid #0284c7 !important;
+  background: transparent !important;
+  margin: 0 4px !important;
+  transition: background 0.2s ease !important;
+}
+
+nav.wprs_unslider-nav ol li.wprs_unslider-active {
+  background: #0284c7 !important;
+}
+
+/* Tối ưu toàn diện cho màn hình di động (Mobile Responsive Fixes) */
+@media (max-width: 768px) {
+  .feedback-page-wrapper {
+    padding: 1rem 0 6rem 0 !important; /* Chừa khoảng trống tránh bị nút hotline/zalo đè */
+    overflow-x: hidden !important;
+  }
+
+  .feedback-content-card {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+
+  .wprev_badge_div.badgeleft,
+  .wprev_badge_div.badgeright,
+  .wprev_badge_div {
+    margin: 0 0 1rem 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Huy hiệu trên mobile */
+  .wprev-tripadvisor-place {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 1.25rem 1rem !important;
+    gap: 1rem !important;
+  }
+
+  .wprev-tripadvisor-leftboth {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+  }
+
+  .wprevstardiv {
+    justify-content: center !important;
+  }
+
+  .wprev-tripadvisor-right:last-child {
+    align-items: center !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+
+  .wprev-tripadvisor-wr {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .wprev-tripadvisor-wr-a {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 10px 16px !important;
+    font-size: 0.88rem !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  /* Thẻ bình luận trên mobile */
+  .wpproslider_t6_DIV_2 {
+    padding: 1.15rem 1rem !important;
+    border-radius: 14px !important;
+  }
+
+  .wpproslider_t6_DIV_2_top {
+    padding-right: 36px !important;
+  }
+
+  .wpproslider_t6_DIV_3_logo {
+    top: 1.15rem !important;
+    right: 1rem !important;
+  }
+
+  img.wprevpro_t6_site_logo {
+    height: 24px !important;
+  }
+
+  /* Ảnh đính kèm trên mobile */
+  .wprev_media_div {
+    justify-content: flex-start !important;
+  }
+
+  img.wprev_media_img {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 120px !important;
+    height: 160px !important;
+  }
+}
+
