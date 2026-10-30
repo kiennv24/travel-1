@@ -49,38 +49,60 @@ document.addEventListener('DOMContentLoaded', function () {
         const search = window.location.search.toLowerCase();
 
         let activeKey = 'home';
-        if (search.includes('pagename=feedback') || path.includes('feedback')) {
+        if (search.includes('pagename=feedback') || path.endsWith('/feedback.html') || path.endsWith('/feedback')) {
             activeKey = 'feedback';
-        } else if (search.includes('pagename=about-us') || path.includes('about-us')) {
+        } else if (search.includes('pagename=about-us') || path.endsWith('/about-us.html') || path.endsWith('/about-us')) {
             activeKey = 'about-us';
-        } else if (search.includes('pagename=tour') || path.includes('tour') || path.includes('/products/')) {
+        } else if (search.includes('pagename=tour') || path.endsWith('/tour.html') || path.endsWith('/tour') || path.includes('/products/') || path.includes('/product/')) {
             activeKey = 'tour';
-        } else if (search.includes('pagename=other-services') || path.includes('other-services')) {
+        } else if (search.includes('pagename=other-services') || path.endsWith('/other-services.html') || path.endsWith('/other-services')) {
             activeKey = 'other-services';
-        } else if (search.includes('pagename=videos') || path.includes('videos')) {
+        } else if (search.includes('pagename=videos') || path.endsWith('/videos.html') || path.endsWith('/videos')) {
             activeKey = 'videos';
-        } else if (search.includes('pagename=contact') || path.includes('contact')) {
+        } else if (search.includes('pagename=contact') || path.endsWith('/contact.html') || path.endsWith('/contact')) {
             activeKey = 'contact';
-        } else if (search.includes('pagename=cart') || path.includes('cart')) {
+        } else if (search.includes('pagename=cart') || path.endsWith('/cart.html') || path.endsWith('/cart')) {
             activeKey = 'cart';
-        } else if (search.includes('pagename=checkout') || path.includes('checkout')) {
+        } else if (search.includes('pagename=checkout') || path.endsWith('/checkout.html') || path.endsWith('/checkout')) {
             activeKey = 'checkout';
-        } else if (path.endsWith('/') || path.endsWith('/travel/') || path.endsWith('/index.html') || path.endsWith('/index.php') || search === '') {
+        } else {
             activeKey = 'home';
+        }
+
+        function checkActiveMatch(li, key) {
+            const link = li.querySelector('a');
+            if (!link) return false;
+            const i18n = (link.querySelector('[data-i18n]')?.getAttribute('data-i18n') || link.getAttribute('data-i18n') || '').toLowerCase();
+            const href = (link.getAttribute('href') || '').toLowerCase();
+
+            if (key === 'home') {
+                return i18n === 'nav_home' || href === '/' || href.endsWith('/index.html') || href.endsWith('/index.php') || href.endsWith('localhost/') || (href.endsWith('/travel/') && !href.includes('?'));
+            }
+            if (key === 'tour') {
+                return i18n === 'nav_tour' || href.includes('pagename=tour') || href.endsWith('tour.html') || href.endsWith('/tour');
+            }
+            if (key === 'about-us') {
+                return i18n === 'nav_about' || href.includes('about-us');
+            }
+            if (key === 'feedback') {
+                return i18n === 'nav_feedback' || href.includes('feedback');
+            }
+            if (key === 'contact') {
+                return i18n === 'nav_contact' || href.includes('contact');
+            }
+            if (key === 'other-services') {
+                return i18n.includes('other') || i18n.includes('services') || href.includes('other-services');
+            }
+            if (key === 'videos') {
+                return i18n === 'nav_videos' || href.includes('videos');
+            }
+            return false;
         }
 
         // Desktop nav sync
         document.querySelectorAll('.nav-menu > li').forEach(function (li) {
             li.classList.remove('active', 'menu-item-home');
-            const link = li.querySelector('a');
-            if (!link) return;
-            const href = (link.getAttribute('href') || '').toLowerCase();
-
-            if (activeKey === 'home') {
-                if (href === '/' || href.includes('index.html') || href.endsWith('/travel/') || href.endsWith('localhost/')) {
-                    li.classList.add('active');
-                }
-            } else if (href.includes(activeKey)) {
+            if (checkActiveMatch(li, activeKey)) {
                 li.classList.add('active');
             }
         });
@@ -88,32 +110,172 @@ document.addEventListener('DOMContentLoaded', function () {
         // Mobile drawer nav sync
         document.querySelectorAll('.mobile-menu-list > li').forEach(function (li) {
             li.classList.remove('active');
-            const link = li.querySelector('a');
-            if (!link) return;
-            const href = (link.getAttribute('href') || '').toLowerCase();
-
-            if (activeKey === 'home') {
-                if (href === '/' || href.includes('index.html') || href.endsWith('/travel/') || href.endsWith('localhost/')) {
-                    li.classList.add('active');
-                }
-            } else if (href.includes(activeKey)) {
+            if (checkActiveMatch(li, activeKey)) {
                 li.classList.add('active');
             }
         });
     }
     syncActiveNav();
 
-    // 2. Mosaic Gallery Click-to-Switch Main Image
+    // 2. Mosaic Gallery & Full Mobile Carousel Engine
+    window.bptGalleryPhotos = window.bptGalleryPhotos || [];
+    window.currentGalleryIdx = 0;
+
+    window.initBptTourGallery = function (photos) {
+        if (Array.isArray(photos) && photos.length > 0) {
+            window.bptGalleryPhotos = photos;
+        } else {
+            const list = [];
+            document.querySelectorAll('#bpt-mobile-gallery-strip .mobile-gallery-thumb img, .mosaic-item img').forEach(function (img) {
+                const s = img.getAttribute('src');
+                if (s && !list.includes(s)) list.push(s);
+            });
+            window.bptGalleryPhotos = list;
+        }
+        window.currentGalleryIdx = 0;
+        setupGallerySwipe();
+    };
+
     window.switchBptMosaicImage = function (imgUrl, element) {
         const mainImg = document.getElementById('bpt-main-img');
         if (mainImg) {
             mainImg.src = imgUrl;
         }
-        document.querySelectorAll('.mosaic-item, .bpt-thumb-item').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.mosaic-item, .bpt-thumb-item, .mobile-gallery-thumb').forEach(function (el) {
+            el.classList.remove('active');
+        });
         if (element) {
             element.classList.add('active');
         }
+
+        // Sync index & mobile thumb
+        const idx = window.bptGalleryPhotos.indexOf(imgUrl);
+        if (idx !== -1) {
+            window.currentGalleryIdx = idx;
+            const counter = document.getElementById('gallery-current-num');
+            if (counter) counter.textContent = idx + 1;
+            const thumb = document.querySelector('.mobile-gallery-thumb[data-idx="' + idx + '"]');
+            if (thumb) {
+                thumb.classList.add('active');
+                thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
     };
+
+    window.selectBptGalleryIndex = function (idx) {
+        if (!window.bptGalleryPhotos || !window.bptGalleryPhotos[idx]) return;
+        const url = window.bptGalleryPhotos[idx];
+        window.currentGalleryIdx = idx;
+        const mainImg = document.getElementById('bpt-main-img');
+        if (mainImg) {
+            mainImg.src = url;
+            mainImg.dataset.idx = idx;
+        }
+        const counter = document.getElementById('gallery-current-num');
+        if (counter) counter.textContent = idx + 1;
+
+        document.querySelectorAll('.mobile-gallery-thumb').forEach(function (el) {
+            el.classList.remove('active');
+        });
+        const thumb = document.querySelector('.mobile-gallery-thumb[data-idx="' + idx + '"]');
+        if (thumb) {
+            thumb.classList.add('active');
+            thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+    };
+
+    window.navigateBptGallery = function (delta) {
+        const total = window.bptGalleryPhotos.length;
+        if (total <= 1) return;
+        let newIdx = (window.currentGalleryIdx + delta) % total;
+        if (newIdx < 0) newIdx = total - 1;
+        selectBptGalleryIndex(newIdx);
+    };
+
+    function setupGallerySwipe() {
+        const frame = document.getElementById('bpt-gallery-main-frame');
+        if (!frame || frame._swipeSetup) return;
+        frame._swipeSetup = true;
+
+        let startX = 0;
+        let startY = 0;
+        frame.addEventListener('touchstart', function (e) {
+            if (e.touches.length === 1) {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        frame.addEventListener('touchend', function (e) {
+            if (e.changedTouches.length === 1) {
+                const diffX = e.changedTouches[0].clientX - startX;
+                const diffY = e.changedTouches[0].clientY - startY;
+                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                    if (diffX < 0) {
+                        navigateBptGallery(1); // Swipe left -> Next
+                    } else {
+                        navigateBptGallery(-1); // Swipe right -> Prev
+                    }
+                }
+            }
+        }, { passive: true });
+    }
+
+    // Lightbox / Fullscreen Image Viewer Modal
+    window.openBptGalleryModal = function (startIdx) {
+        let modal = document.getElementById('bpt-lightbox-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'bpt-lightbox-modal';
+            modal.className = 'bpt-lightbox-overlay';
+            modal.innerHTML = '<div class="bpt-lightbox-backdrop" onclick="closeBptGalleryModal()"></div>' +
+                '<div class="bpt-lightbox-container">' +
+                '<button type="button" class="bpt-lightbox-btn close" onclick="closeBptGalleryModal()">&times;</button>' +
+                '<button type="button" class="bpt-lightbox-btn prev" onclick="navigateBptLightbox(-1)"><i class="fa-solid fa-chevron-left"></i></button>' +
+                '<div class="bpt-lightbox-content">' +
+                '<img id="bpt-lightbox-img" src="" alt="Full view">' +
+                '<div class="bpt-lightbox-counter"><span id="lightbox-idx">1</span> / <span id="lightbox-total">1</span></div>' +
+                '</div>' +
+                '<button type="button" class="bpt-lightbox-btn next" onclick="navigateBptLightbox(1)"><i class="fa-solid fa-chevron-right"></i></button>' +
+                '</div>';
+            document.body.appendChild(modal);
+
+            document.addEventListener('keydown', function (e) {
+                if (!modal.classList.contains('open')) return;
+                if (e.key === 'Escape') closeBptGalleryModal();
+                if (e.key === 'ArrowLeft') navigateBptLightbox(-1);
+                if (e.key === 'ArrowRight') navigateBptLightbox(1);
+            });
+        }
+        window.lightboxIdx = typeof startIdx === 'number' ? startIdx : window.currentGalleryIdx;
+        updateLightboxView();
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeBptGalleryModal = function () {
+        const modal = document.getElementById('bpt-lightbox-modal');
+        if (modal) modal.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+
+    window.navigateBptLightbox = function (delta) {
+        const total = window.bptGalleryPhotos.length;
+        if (total <= 1) return;
+        window.lightboxIdx = (window.lightboxIdx + delta + total) % total;
+        updateLightboxView();
+    };
+
+    function updateLightboxView() {
+        const img = document.getElementById('bpt-lightbox-img');
+        const counter = document.getElementById('lightbox-idx');
+        const totalEl = document.getElementById('lightbox-total');
+        if (img && window.bptGalleryPhotos[window.lightboxIdx]) {
+            img.src = window.bptGalleryPhotos[window.lightboxIdx];
+        }
+        if (counter) counter.textContent = window.lightboxIdx + 1;
+        if (totalEl) totalEl.textContent = window.bptGalleryPhotos.length;
+    }
 
     // ==========================================================================
     // 3. MODERN TOUR BOOKING ENGINE: PARTICIPANTS COUNTER & INTERACTIVE CALENDAR
@@ -142,10 +304,14 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     window.initBptTourBooking = function (unitPrice) {
-        if (!unitPrice && window.tourPrice) {
+        const cardEl = document.getElementById('tour-booking-card');
+        const domPrice = cardEl && cardEl.dataset.unitPrice ? parseFloat(cardEl.dataset.unitPrice) : 0;
+        if (!unitPrice && domPrice) {
+            unitPrice = domPrice;
+        } else if (!unitPrice && window.tourPrice) {
             unitPrice = window.tourPrice;
         }
-        window.bptBookingState.unitPrice = parseFloat(unitPrice) || parseFloat(window.tourPrice) || 0;
+        window.bptBookingState.unitPrice = parseFloat(unitPrice) || domPrice || parseFloat(window.tourPrice) || 0;
 
         // Initialize default departure date (Today - current date)
         const today = new Date();
@@ -237,7 +403,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.recalculateTourTotal = function () {
         const state = window.bptBookingState;
-        const unitPrice = parseFloat(state.unitPrice) || parseFloat(window.tourPrice) || 0;
+        const cardEl = document.getElementById('tour-booking-card');
+        const domPrice = cardEl && cardEl.dataset.unitPrice ? parseFloat(cardEl.dataset.unitPrice) : 0;
+        const unitPrice = parseFloat(state.unitPrice) || domPrice || parseFloat(window.tourPrice) || 0;
+        if (!state.unitPrice && unitPrice > 0) {
+            state.unitPrice = unitPrice;
+        }
         const { adults, youths, children, infants, rates } = state;
         const totalGuests = adults + youths + children + infants;
 
@@ -659,6 +830,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 10. Auto-initialize tour booking engine if calendar is present
     if (document.getElementById('bpt-calendar')) {
-        initBptTourBooking(window.tourPrice || 0);
+        const cardEl = document.getElementById('tour-booking-card');
+        const initialPrice = (cardEl && cardEl.dataset.unitPrice) ? parseFloat(cardEl.dataset.unitPrice) : (window.tourPrice || 0);
+        initBptTourBooking(initialPrice);
     }
 });

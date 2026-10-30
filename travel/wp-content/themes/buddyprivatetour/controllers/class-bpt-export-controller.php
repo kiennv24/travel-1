@@ -407,8 +407,8 @@ class BPT_ExportController {
     <link rel="stylesheet" href="{$assetPrefix}assets/css/checkout.css">
     <link rel="stylesheet" href="{$assetPrefix}assets/css/other-services.css">
     <link rel="stylesheet" href="{$assetPrefix}assets/css/pages.css">
-    <link rel="stylesheet" href="{$assetPrefix}assets/css/feedback.css">
     <link rel="stylesheet" href="{$assetPrefix}assets/css/wptripadvisor_all.css">
+    <link rel="stylesheet" href="{$assetPrefix}assets/css/feedback.css">
     <script src="{$assetPrefix}assets/js/translations.js"></script>
     <script src="{$assetPrefix}assets/js/app-localstorage.js"></script>
     <script src="{$assetPrefix}assets/js/main.js" defer></script>
@@ -1275,6 +1275,93 @@ HTML;
 
         <!-- Reviews Widget Section -->
         <div class="feedback-content-card">
+            <style>
+            /* Bulletproof TripAdvisor layout: Stack badge vertically above 100% full-width review cards */
+            html body .feedback-content-card .wprev_outer_wb,
+            html body .wprev_outer_wb.wprev_badge_style6_side,
+            html body .wprev_outer_wb,
+            .wprev_outer_wb {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                gap: 1.5rem !important;
+            }
+            html body .feedback-content-card .wprev_badge_div,
+            html body .wprev_outer_wb .wprev_badge_div.badgeleft,
+            html body .wprev_outer_wb .wprev_badge_div.badgeright,
+            html body .wprev_badge_div,
+            .wprev_badge_div.badgeleft,
+            .wprev_badge_div.badgeright,
+            .wprev_badge_div {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 0 1.5rem 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                flex: none !important;
+                display: block !important;
+            }
+            html body .feedback-content-card .wprev-tripadvisor-place,
+            html body .wprev_outer_wb .wprev-tripadvisor-place,
+            .wprev-tripadvisor-place {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                flex-wrap: wrap !important;
+            }
+            html body .feedback-content-card .wprev-no-slider,
+            html body .feedback-content-card .wprev-slider,
+            html body .wprev_outer_wb .wprev-no-slider,
+            html body .wprev_outer_wb .wprev-slider,
+            html body .wprev_outer_wb .wprs_unslider,
+            .wprev-no-slider,
+            .wprev-slider {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                flex: 1 1 100% !important;
+                display: block !important;
+            }
+            html body .feedback-content-card .wprevpro_t6_outer_div,
+            html body .wprev_outer_wb .wprevpro_t6_outer_div,
+            .wprevpro_t6_outer_div {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                margin: 0 0 1.25rem 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                display: block !important;
+            }
+            html body .feedback-content-card .wprevpro_t6_DIV_1,
+            html body .wprev_outer_wb .wprevpro_t6_DIV_1,
+            .wprevpro_t6_DIV_1 {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                float: none !important;
+                display: block !important;
+            }
+            html body .feedback-content-card .wpproslider_t6_DIV_2,
+            html body .wprev_outer_wb .wpproslider_t6_DIV_2 {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            </style>
             {$reviewsWidget}
         </div>
     </div>
@@ -1806,23 +1893,44 @@ HTML;
             ];
         }
 
-        $all_gallery = array_values(array_unique(array_filter(array_merge([$product['image']], $gallery_images))));
-        while (count($all_gallery) < 5) {
-            $all_gallery[] = $product['image'];
+        $raw_gallery = array_values(array_unique(array_filter(array_merge([$product['image']], $gallery_images))));
+        if (empty($raw_gallery)) {
+            $raw_gallery = [$product['image']];
+        }
+        $unique_gallery = array_values(array_map('bpt_resolve_image_url', $raw_gallery));
+
+        $mosaic_gallery = $unique_gallery;
+        while (count($mosaic_gallery) < 5) {
+            $mosaic_gallery[] = bpt_resolve_image_url($product['image']);
         }
 
         $pSummary = htmlspecialchars($product['summary'] ?? '', ENT_QUOTES, 'UTF-8');
         $pDesc = wpautop(wp_kses_post($product['description'] ?? ''));
-        $pCategory = htmlspecialchars($product['category_name'] ?? '', ENT_QUOTES, 'UTF-8');
+        $pCategory = htmlspecialchars(html_entity_decode($product['category_name'] ?? '', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
         $pCategorySlug = htmlspecialchars($product['category_slug'] ?? 'tour', ENT_QUOTES, 'UTF-8');
         $pPrice = floatval($product['price']);
         $pId = intval($product['id']);
+        $pTitle = htmlspecialchars(html_entity_decode($product['title'] ?? '', ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8');
         $duration = !empty($product['duration']) ? htmlspecialchars($product['duration']) : 'Full Day';
 
         $mosaicHtml = '';
         for ($i = 1; $i <= 4; $i++) {
-            $img = htmlspecialchars($all_gallery[$i] ?? $all_gallery[0], ENT_QUOTES, 'UTF-8');
+            $img = htmlspecialchars($mosaic_gallery[$i] ?? $mosaic_gallery[0], ENT_QUOTES, 'UTF-8');
             $mosaicHtml .= '<div class="mosaic-item" onclick="switchBptMosaicImage(\'' . $img . '\', this)"><img src="' . $img . '" alt="Gallery ' . $i . '"></div>';
+        }
+
+        $galleryCount = count($unique_gallery);
+        $galleryJson = json_encode($unique_gallery, JSON_UNESCAPED_SLASHES);
+
+        $mobileThumbsHtml = '';
+        if ($galleryCount > 1) {
+            $mobileThumbsHtml .= '<div class="mobile-gallery-strip-wrap"><div class="mobile-gallery-strip" id="bpt-mobile-gallery-strip">';
+            foreach ($unique_gallery as $gIdx => $gUrl) {
+                $activeClass = $gIdx === 0 ? ' active' : '';
+                $gUrlEsc = htmlspecialchars($gUrl, ENT_QUOTES, 'UTF-8');
+                $mobileThumbsHtml .= '<div class="mobile-gallery-thumb' . $activeClass . '" data-idx="' . $gIdx . '" onclick="selectBptGalleryIndex(' . $gIdx . ')"><img src="' . $gUrlEsc . '" alt="Thumbnail ' . ($gIdx + 1) . '" loading="lazy"></div>';
+            }
+            $mobileThumbsHtml .= '</div></div>';
         }
 
         $highlightsHtml = '';
@@ -1897,7 +2005,7 @@ HTML;
         }
 
         $currentDate = date('Y-m-d');
-        $galleryCount = count($all_gallery);
+        // galleryCount already calculated above
 
         return <<<HTML
 {$header}
@@ -1924,15 +2032,30 @@ HTML;
             </div>
         </div>
 
-        <!-- 1. MOSAIC IMAGE GALLERY -->
-        <div class="tour-mosaic-gallery">
-            <div class="mosaic-item mosaic-main" onclick="switchBptMosaicImage('{$all_gallery[0]}', this)">
-                <img id="bpt-main-img" src="{$all_gallery[0]}" alt="{$pTitle}">
+        <!-- 1. RESPONSIVE TOUR IMAGE GALLERY -->
+        <div class="tour-gallery-component">
+            <div class="tour-mosaic-gallery" id="bpt-gallery-main-frame">
+                <div class="mosaic-item mosaic-main" onclick="openBptGalleryModal(window.currentGalleryIdx || 0)">
+                    <img id="bpt-main-img" src="{$unique_gallery[0]}" alt="{$pTitle}" data-idx="0">
+                    <button type="button" class="mobile-gallery-expand-btn" onclick="event.stopPropagation(); openBptGalleryModal(window.currentGalleryIdx || 0)" aria-label="Fullscreen view">
+                        <i class="fa-solid fa-expand"></i>
+                    </button>
+                    <button type="button" class="mobile-gallery-arrow prev" onclick="event.stopPropagation(); navigateBptGallery(-1)" aria-label="Previous photo">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="mobile-gallery-arrow next" onclick="event.stopPropagation(); navigateBptGallery(1)" aria-label="Next photo">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <div class="mobile-gallery-counter-pill">
+                        <i class="fa-solid fa-camera"></i> <span id="gallery-current-num">1</span> / <span id="gallery-total-num">{$galleryCount}</span>
+                    </div>
+                </div>
+                {$mosaicHtml}
+                <button type="button" class="mosaic-view-all-btn" onclick="openBptGalleryModal(0)">
+                    <i class="fa-solid fa-grip-vertical"></i> <span data-i18n="gallery_btn_view_all">View all photos</span> ({$galleryCount})
+                </button>
             </div>
-            {$mosaicHtml}
-            <button type="button" class="mosaic-view-all-btn" onclick="alert('Viewing all gallery photos!')">
-                <i class="fa-solid fa-grip-vertical"></i> <span data-i18n="gallery_btn_view_all">View all photos</span> ({$galleryCount})
-            </button>
+            {$mobileThumbsHtml}
         </div>
 
         <!-- 2. MAIN 2-COLUMN LAYOUT -->
@@ -2022,7 +2145,7 @@ HTML;
 
             <!-- RIGHT STICKY BOOKING CARD -->
             <div class="tour-sidebar-col">
-                <div class="sticky-booking-card" id="tour-booking-card">
+                <div class="sticky-booking-card" id="tour-booking-card" data-unit-price="{$pPrice}">
                     <div class="booking-card-header">
                         <div class="booking-price-wrap">
                             <span class="booking-price-label" data-i18n="booking_price_lbl">Special private tour price</span>
@@ -2212,10 +2335,15 @@ const seedCategories = {$seedCategoriesJson};
 const seedCart = {$seedCartJson};
 const seedOrders = {$seedOrdersJson};
 const tourPrice = {$pPrice};
+window.tourPrice = {$pPrice};
+window.bptGalleryPhotos = {$galleryJson};
 
 document.addEventListener('DOMContentLoaded', function() {
     BPT_Storage.init(seedProducts, seedCategories, seedCart, seedOrders);
     document.getElementById('static-price-val').textContent = BPT_Storage.formatCurrency(tourPrice);
+    if (typeof window.initBptTourGallery === 'function') {
+        window.initBptTourGallery(window.bptGalleryPhotos);
+    }
     initBptTourBooking(tourPrice);
 });
 </script>

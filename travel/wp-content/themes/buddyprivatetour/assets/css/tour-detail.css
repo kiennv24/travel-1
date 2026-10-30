@@ -160,6 +160,136 @@
   background: #ffffff;
   transform: scale(1.03);
 }
+/* Mobile Gallery Nav & Thumbnails Default (Hidden on Desktop) */
+.mobile-gallery-arrow,
+.mobile-gallery-counter-pill,
+.mobile-gallery-expand-btn,
+.mobile-gallery-strip-wrap {
+  display: none;
+}
+
+/* Lightbox Modal Styles */
+.bpt-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.bpt-lightbox-overlay.open {
+  display: flex !important;
+}
+
+.bpt-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+}
+
+.bpt-lightbox-container {
+  position: relative;
+  z-index: 2;
+  max-width: 92vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bpt-lightbox-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#bpt-lightbox-img {
+  max-width: 86vw;
+  max-height: 76vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+.bpt-lightbox-counter {
+  margin-top: 14px;
+  color: #f1f5f9;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 14px;
+  border-radius: 9999px;
+}
+
+.bpt-lightbox-btn {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.bpt-lightbox-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.08);
+}
+
+.bpt-lightbox-btn.close {
+  top: -55px;
+  right: 0;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.bpt-lightbox-btn.prev {
+  left: -70px;
+}
+
+.bpt-lightbox-btn.next {
+  right: -70px;
+}
+
+@media (max-width: 768px) {
+  .bpt-lightbox-btn.prev {
+    left: 8px;
+    bottom: 24px;
+    top: auto;
+    width: 42px;
+    height: 42px;
+  }
+  .bpt-lightbox-btn.next {
+    right: 8px;
+    bottom: 24px;
+    top: auto;
+    width: 42px;
+    height: 42px;
+  }
+  .bpt-lightbox-btn.close {
+    top: -48px;
+    right: 8px;
+    width: 38px;
+    height: 38px;
+  }
+  #bpt-lightbox-img {
+    max-width: 95vw;
+    max-height: 70vh;
+  }
+}
+
 
 /* ==========================================================================
    2-COLUMN MAIN LAYOUT (65% Content / 35% Sticky Booking Box)
@@ -1047,12 +1177,153 @@
    ========================================================================== */
 @media (max-width: 991px) {
   .tour-mosaic-gallery {
-    grid-template-columns: 1fr;
-    grid-template-rows: 320px;
+    display: block !important;
+    position: relative !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    margin-bottom: 0.65rem !important;
   }
   
   .mosaic-item:not(.mosaic-main) {
-    display: none;
+    display: none !important;
+  }
+
+  .mosaic-main {
+    width: 100% !important;
+    height: 320px !important;
+    border-radius: 16px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .mosaic-main img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+  }
+
+  .mosaic-view-all-btn {
+    display: none !important;
+  }
+
+  .mobile-gallery-expand-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 6;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .mobile-gallery-expand-btn:active {
+    transform: scale(0.92);
+    background: rgba(15, 23, 42, 0.85);
+  }
+
+  .mobile-gallery-arrow {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    color: #0f172a;
+    font-size: 0.88rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+    z-index: 6;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .mobile-gallery-arrow:active {
+    transform: translateY(-50%) scale(0.92);
+    background: #ffffff;
+  }
+  .mobile-gallery-arrow.prev {
+    left: 10px;
+  }
+  .mobile-gallery-arrow.next {
+    right: 10px;
+  }
+
+  .mobile-gallery-counter-pill {
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    padding: 4px 11px;
+    border-radius: 9999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    z-index: 6;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .mobile-gallery-strip-wrap {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .mobile-gallery-strip {
+    display: flex !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    padding: 4px 2px 8px 2px !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .mobile-gallery-strip::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .mobile-gallery-thumb {
+    flex: 0 0 76px !important;
+    height: 56px !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    border: 2.5px solid transparent !important;
+    cursor: pointer !important;
+    background: #f1f5f9 !important;
+    transition: all 0.2s ease !important;
+    box-sizing: border-box !important;
+  }
+  .mobile-gallery-thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+  .mobile-gallery-thumb.active {
+    border-color: #0284c7 !important;
+    box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.35) !important;
+    transform: scale(1.04) !important;
   }
 
   .bpt-tour-detail-grid {
@@ -1074,9 +1345,14 @@
     font-size: 1.5rem;
   }
 
-  .tour-mosaic-gallery {
-    grid-template-rows: 240px;
-    border-radius: 12px;
+  .mosaic-main {
+    height: 270px !important;
+    border-radius: 14px !important;
+  }
+
+  .mobile-gallery-thumb {
+    flex: 0 0 70px !important;
+    height: 52px !important;
   }
 
   .tour-quick-info-bar {

@@ -216,14 +216,25 @@
 }
 
 /* WP TripAdvisor Review Slider & Grid Plugin Styling */
+html body .feedback-content-card .wprev_outer_wb,
+html body .wprev_outer_wb.wprev_badge_style6_side,
+html body .wprev_outer_wb,
 .wprev_outer_wb {
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
   width: 100% !important;
+  max-width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
+  float: none !important;
+  gap: 1.5rem !important;
 }
 
-/* Badge (Huy hiệu) Container: Nằm gọn gàng phía trên, khoảng cách vừa phải với bình luận */
+/* Badge (Huy hiệu) Container: Nằm gọn gàng phía trên, chiếm 100% chiều rộng */
+html body .feedback-content-card .wprev_badge_div,
+html body .wprev_outer_wb .wprev_badge_div.badgeleft,
+html body .wprev_outer_wb .wprev_badge_div.badgeright,
+html body .wprev_badge_div,
 .wprev_badge_div.badgeleft,
 .wprev_badge_div.badgeright,
 .wprev_badge_div {
@@ -339,20 +350,29 @@ img.wprev-tripadvisor-badge-stars {
   box-shadow: 0 4px 12px rgba(0, 170, 108, 0.35) !important;
 }
 
-/* Reviews List & Cards Container */
+/* Reviews List & Cards Container: Chiếm 100% chiều ngang ngay dưới huy hiệu */
+html body .feedback-content-card .wprev-no-slider,
+html body .feedback-content-card .wprev-slider,
+html body .wprev_outer_wb .wprev-no-slider,
+html body .wprev_outer_wb .wprev-slider,
+html body .wprev_outer_wb .wprs_unslider,
 .wprev-no-slider,
 .wprev-slider {
   width: 100% !important;
+  max-width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
   float: none !important;
-  flex: none !important;
+  flex: 1 1 100% !important;
 }
 
+html body .feedback-content-card .wprevpro_t6_outer_div,
+html body .wprev_outer_wb .wprevpro_t6_outer_div,
 .wprevpro_t6_outer_div {
   padding: 0 !important;
   margin: 0 0 1.25rem 0 !important;
   width: 100% !important;
+  max-width: 100% !important;
   box-sizing: border-box !important;
   float: none !important;
 }

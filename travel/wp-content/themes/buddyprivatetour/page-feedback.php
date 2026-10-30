@@ -86,14 +86,100 @@ get_header();
 
         <!-- Reviews Widget Section -->
         <div class="feedback-content-card">
+            <style>
+            /* Bulletproof TripAdvisor layout: Stack badge vertically above 100% full-width review cards */
+            html body .feedback-content-card .wprev_outer_wb,
+            html body .wprev_outer_wb.wprev_badge_style6_side,
+            html body .wprev_outer_wb,
+            .wprev_outer_wb {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: stretch !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                gap: 1.5rem !important;
+            }
+            html body .feedback-content-card .wprev_badge_div,
+            html body .wprev_outer_wb .wprev_badge_div.badgeleft,
+            html body .wprev_outer_wb .wprev_badge_div.badgeright,
+            html body .wprev_badge_div,
+            .wprev_badge_div.badgeleft,
+            .wprev_badge_div.badgeright,
+            .wprev_badge_div {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 0 1.5rem 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                flex: none !important;
+                display: block !important;
+            }
+            html body .feedback-content-card .wprev-tripadvisor-place,
+            html body .wprev_outer_wb .wprev-tripadvisor-place,
+            .wprev-tripadvisor-place {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                flex-wrap: wrap !important;
+            }
+            html body .feedback-content-card .wprev-no-slider,
+            html body .feedback-content-card .wprev-slider,
+            html body .wprev_outer_wb .wprev-no-slider,
+            html body .wprev_outer_wb .wprev-slider,
+            html body .wprev_outer_wb .wprs_unslider,
+            .wprev-no-slider,
+            .wprev-slider {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                flex: 1 1 100% !important;
+                display: block !important;
+            }
+            html body .feedback-content-card .wprevpro_t6_outer_div,
+            html body .wprev_outer_wb .wprevpro_t6_outer_div,
+            .wprevpro_t6_outer_div {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                margin: 0 0 1.25rem 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                display: block !important;
+            }
+            html body .feedback-content-card .wprevpro_t6_DIV_1,
+            html body .wprev_outer_wb .wprevpro_t6_DIV_1,
+            .wprevpro_t6_DIV_1 {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                float: none !important;
+                display: block !important;
+            }
+            html body .feedback-content-card .wpproslider_t6_DIV_2,
+            html body .wprev_outer_wb .wpproslider_t6_DIV_2 {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            </style>
             <?php
             // Execute TripAdvisor Review Slider Plugin Action
-            ob_start();
             ob_start();
             do_action( 'wprev_tripadvisor_plugin_action', 1 );
             $widget_output = ob_get_clean();
 
-            // Strip conflicting inline <style> tags output by the plugin so feedback.css has 100% clean control
+            // Strip conflicting inline <style> tags output by the plugin so our styles have 100% clean control
             $widget_output = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $widget_output);
 
             echo $widget_output;

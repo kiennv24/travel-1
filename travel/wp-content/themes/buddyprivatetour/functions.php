@@ -35,7 +35,11 @@ function bpt_enqueue_scripts() {
     wp_enqueue_style('bpt-checkout', $theme_uri . '/assets/css/checkout.css', array('bpt-style'), $checkout_ver);
     wp_enqueue_style('bpt-other-services', $theme_uri . '/assets/css/other-services.css', array('bpt-style'), $os_ver);
     wp_enqueue_style('bpt-pages', $theme_uri . '/assets/css/pages.css', array('bpt-style'), $pages_ver);
-    wp_enqueue_style('bpt-feedback', $theme_uri . '/assets/css/feedback.css', array('bpt-style'), $fb_ver);
+    $fb_deps = array('bpt-style');
+    if (wp_style_is('wptripadvisor_allcss', 'registered') || wp_style_is('wptripadvisor_allcss', 'enqueued')) {
+        $fb_deps[] = 'wptripadvisor_allcss';
+    }
+    wp_enqueue_style('bpt-feedback', $theme_uri . '/assets/css/feedback.css', $fb_deps, time());
 
     // Theme JS (Translations first, then Main Theme JS)
     $trans_ver = file_exists($theme_dir . '/assets/js/translations.js') ? filemtime($theme_dir . '/assets/js/translations.js') : '2.0.0';

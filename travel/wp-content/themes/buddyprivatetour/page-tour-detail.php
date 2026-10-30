@@ -56,10 +56,17 @@ if (empty($highlights)) {
     ];
 }
 
-// Ensure at least 5 images for mosaic grid
-$all_gallery = array_values(array_unique(array_filter(array_merge([$product['image']], $gallery_images))));
-while (count($all_gallery) < 5) {
-    $all_gallery[] = $product['image'];
+// Ensure we capture all unique images for full gallery
+$raw_gallery = array_values(array_unique(array_filter(array_merge([$product['image']], $gallery_images))));
+if (empty($raw_gallery)) {
+    $raw_gallery = [$product['image']];
+}
+$unique_gallery = array_values(array_map('bpt_resolve_image_url', $raw_gallery));
+
+// Desktop mosaic grid requires at least 5 images to fill the 1 large + 4 small slots
+$mosaic_gallery = $unique_gallery;
+while (count($mosaic_gallery) < 5) {
+    $mosaic_gallery[] = bpt_resolve_image_url($product['image']);
 }
 
 $duration = !empty($product['duration']) ? $product['duration'] : 'Full Day (8 Hours)';
@@ -99,25 +106,58 @@ $unitPrice = floatval($product['price']);
             </div>
         </div>
 
-        <!-- 1. MOSAIC IMAGE GALLERY (Airbnb Style 1 Large + 4 Small) -->
-        <div class="tour-mosaic-gallery">
-            <!-- Main Large Image (Left 60%) -->
-            <div class="mosaic-item mosaic-main" onclick="switchBptMosaicImage('<?php echo esc_js(bpt_resolve_image_url($all_gallery[0])); ?>', this)">
-                <img id="bpt-main-img" src="<?php echo esc_url(bpt_resolve_image_url($all_gallery[0])); ?>" alt="<?php echo esc_attr($product['title']); ?>">
+        <!-- 1. RESPONSIVE TOUR IMAGE GALLERY -->
+        <div class="tour-gallery-component">
+            <div class="tour-mosaic-gallery" id="bpt-gallery-main-frame">
+                <!-- Main Large Image (Left 60% on desktop, 100% on mobile) -->
+                <div class="mosaic-item mosaic-main" onclick="openBptGalleryModal(window.currentGalleryIdx || 0)">
+                    <img id="bpt-main-img" src="<?php echo esc_url($unique_gallery[0]); ?>" alt="<?php echo esc_attr($product['title']); ?>" data-idx="0">
+                    
+                    <!-- Mobile Expand Icon -->
+                    <button type="button" class="mobile-gallery-expand-btn" onclick="event.stopPropagation(); openBptGalleryModal(window.currentGalleryIdx || 0)" aria-label="Fullscreen view">
+                        <i class="fa-solid fa-expand"></i>
+                    </button>
+
+                    <!-- Mobile Prev / Next Navigation Arrows -->
+                    <button type="button" class="mobile-gallery-arrow prev" onclick="event.stopPropagation(); navigateBptGallery(-1)" aria-label="Previous photo">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="mobile-gallery-arrow next" onclick="event.stopPropagation(); navigateBptGallery(1)" aria-label="Next photo">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    
+                    <!-- Photo Counter Badge (e.g. 1 / 8) -->
+                    <div class="mobile-gallery-counter-pill">
+                        <i class="fa-solid fa-camera"></i> <span id="gallery-current-num">1</span> / <span id="gallery-total-num"><?php echo count($unique_gallery); ?></span>
+                    </div>
+                </div>
+
+                <!-- 4 Thumbnail Images (Right 40% in 2x2 Grid) -->
+                <?php for ($i = 1; $i <= 4; $i++) : 
+                    $thumb_url = $mosaic_gallery[$i] ?? $mosaic_gallery[0];
+                ?>
+                    <div class="mosaic-item" onclick="switchBptMosaicImage('<?php echo esc_js($thumb_url); ?>', this)">
+                        <img src="<?php echo esc_url($thumb_url); ?>" alt="Gallery <?php echo $i; ?>">
+                    </div>
+                <?php endfor; ?>
+
+                <button type="button" class="mosaic-view-all-btn" onclick="openBptGalleryModal(0)">
+                    <i class="fa-solid fa-grip-vertical"></i> <span data-i18n="gallery_btn_view_all">View all photos</span> (<?php echo count($unique_gallery); ?>)
+                </button>
             </div>
 
-            <!-- 4 Thumbnail Images (Right 40% in 2x2 Grid) -->
-            <?php for ($i = 1; $i <= 4; $i++) : 
-                $img_url = bpt_resolve_image_url($all_gallery[$i] ?? $all_gallery[0]);
-            ?>
-                <div class="mosaic-item" onclick="switchBptMosaicImage('<?php echo esc_js($img_url); ?>', this)">
-                    <img src="<?php echo esc_url($img_url); ?>" alt="Gallery <?php echo $i; ?>">
+            <!-- Horizontal Scrollable Thumbnail Strip for Mobile & Quick Access -->
+            <?php if (count($unique_gallery) > 1) : ?>
+                <div class="mobile-gallery-strip-wrap">
+                    <div class="mobile-gallery-strip" id="bpt-mobile-gallery-strip">
+                        <?php foreach ($unique_gallery as $gIdx => $gUrl) : ?>
+                            <div class="mobile-gallery-thumb <?php echo $gIdx === 0 ? 'active' : ''; ?>" data-idx="<?php echo $gIdx; ?>" onclick="selectBptGalleryIndex(<?php echo $gIdx; ?>)">
+                                <img src="<?php echo esc_url($gUrl); ?>" alt="<?php echo esc_attr($product['title']); ?> photo <?php echo $gIdx + 1; ?>" loading="lazy">
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            <?php endfor; ?>
-
-            <button type="button" class="mosaic-view-all-btn" onclick="alert('Viewing full photo collection!')">
-                <i class="fa-solid fa-grip-vertical"></i> <span data-i18n="gallery_btn_view_all">View all photos</span> (<?php echo count($all_gallery); ?>)
-            </button>
+            <?php endif; ?>
         </div>
 
         <!-- 2. MAIN 2-COLUMN LAYOUT (65% Content / 35% Sticky Booking Box) -->
@@ -225,7 +265,7 @@ $unitPrice = floatval($product['price']);
 
             <!-- RIGHT COLUMN: STICKY BOOKING BOX (35%) -->
             <div class="tour-sidebar-col">
-                <div class="sticky-booking-card" id="tour-booking-card">
+                <div class="sticky-booking-card" id="tour-booking-card" data-unit-price="<?php echo floatval($unitPrice); ?>">
                     <!-- Price Header -->
                     <div class="booking-card-header">
                         <div class="booking-price-wrap">
@@ -486,7 +526,11 @@ $unitPrice = floatval($product['price']);
 <script>
 window.tourPrice = <?php echo floatval($unitPrice); ?>;
 window.BPT_BASE_URL = '<?php echo esc_url(site_url('/')); ?>';
+window.bptGalleryPhotos = <?php echo json_encode($unique_gallery); ?>;
 function tryInitBptBooking() {
+    if (typeof window.initBptTourGallery === 'function') {
+        window.initBptTourGallery(window.bptGalleryPhotos);
+    }
     if (typeof window.initBptTourBooking === 'function') {
         window.initBptTourBooking(<?php echo floatval($unitPrice); ?>);
     }

@@ -287,7 +287,9 @@ span.svgicons.svg-wprsp-verified {
 /* Badge + Style 6 (ported from Google free template parity) */
 .wprev_outer_wb {
     display: flex !important;
-    margin-bottom: 7px;
+    flex-direction: column !important;
+    width: 100% !important;
+    margin-bottom: 1.5rem !important;
 }
 .wprev_badge_div.badgeleft {
     margin: 10px 5px 10px 10px !important;
@@ -296,7 +298,10 @@ span.svgicons.svg-wprsp-verified {
     margin: 10px 10px 10px 5px !important;
 }
 .wprev_outer_wb.wprev_badge_style6_side {
-    align-items: flex-start !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
 }
 .wprev_outer_wb.wprev_badge_style6_side .wprev_badge_div.badgeleft,
 .wprev_outer_wb.wprev_badge_style6_side .wprev_badge_div.badgeright {

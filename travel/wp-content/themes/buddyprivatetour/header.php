@@ -23,7 +23,9 @@
 
 <?php
 $current_page = 'home';
-if (isset($_GET['pagename'])) {
+if (is_front_page() || (isset($_GET['pagename']) && $_GET['pagename'] === 'home')) {
+    $current_page = 'home';
+} elseif (isset($_GET['pagename'])) {
     $current_page = sanitize_key($_GET['pagename']);
 } elseif (is_page()) {
     $current_page = get_post_field('post_name', get_post());
