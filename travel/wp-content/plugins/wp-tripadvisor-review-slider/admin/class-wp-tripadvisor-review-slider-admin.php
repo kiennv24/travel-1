@@ -1833,8 +1833,8 @@ class WP_TripAdvisor_Review_Admin {
 		$source_avg      = '';
 		$source_total    = '';
 		$crawl_debug_log = array();
-		$min_reviews     = 10;
-		$max_loops       = 6;
+		$min_reviews     = 40;
+		$max_loops       = 15;
 		$reviewscrawl    = null;
 
 		for ( $loop = 1; $loop <= $max_loops; $loop++ ) {
@@ -1884,7 +1884,7 @@ class WP_TripAdvisor_Review_Admin {
 			break;
 		}
 
-		// Free version: keep at most 10 reviews.
+		// Allow up to 40 reviews.
 		if ( count( $all_reviews ) > $min_reviews ) {
 			$all_reviews = array_slice( $all_reviews, 0, $min_reviews );
 		}
@@ -2156,13 +2156,16 @@ class WP_TripAdvisor_Review_Admin {
 				$listedurl = preg_replace('/#REVIEWS$/i', '', $listedurl);
 				
 				
-				if(isset($_SERVER['SERVER_ADDR']) && $_SERVER['SERVER_ADDR']!=''){
+				$current_site_url = get_site_url();
+				if ( strpos( $current_site_url, 'localhost' ) !== false || strpos( $current_site_url, '127.0.0.1' ) !== false ) {
+					$current_site_url = 'https://buddyprivatetour.com';
+					$ip_server = '104.21.55.2';
+				} else if ( isset( $_SERVER['SERVER_ADDR'] ) && $_SERVER['SERVER_ADDR'] != '' ) {
 					$ip_server = $_SERVER['SERVER_ADDR'];
 				} else {
-					//get url of site.
-					$ip_server = urlencode(get_site_url());
+					$ip_server = urlencode( $current_site_url );
 				}
-				$siteurl = urlencode(get_site_url());
+				$siteurl = urlencode( $current_site_url );
 				
 				//scrapeurl — encode nextpageurl so ShowUserReviews links survive the query string
 				$tempurlval = 'https://crawl.ljapps.com/crawlrevs?rip='.$ip_server.'&surl='.$siteurl.'&scrapeurl='.urlencode($listedurl).'&stype=tripadvisor&nhful='.$nhful.'&locationtype=&scrapequery=&tempbusinessname=&pagenum='.$pagenum.'&nextpageurl='.urlencode($nextpageurl).'&iscron='.$iscron.'&sfp=free&nobot=1';
